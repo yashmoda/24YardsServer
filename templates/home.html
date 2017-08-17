@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col s2 m2 l2">
+            <center>Sort</center><br>
+            <!--<div class="row">-->
+            <input type="radio" name="group1" id="b1">
+            <label for="b1">Price low to high</label><br>
+            <input type="radio" name="group1" id="b2">
+            <label for="b2">Price high to low</label><br>
+            <input type="radio" name="group1" id="b3">
+            <label for="b3">Newest First</label><br>
+            <input type="radio" name="group1" id="b4">
+            <label for="b4">Oldest first</label><br>
+            <center>
+                Filter
+            </center><br>
+            Property Type<br>
+            <input type="radio" id="b5" name="property_type">
+            <label for="b5">Buy</label><br>
+            <input type="radio" id="b6" name="property_type">
+            <label for="b6">Rent</label><br>
+            <input type="radio" name="property_type" id="b7">
+            <label for="b7">Projects</label><br>
+            BHK<br>
+            <input type="checkbox" id="b8">
+            <label for="b8">1</label><br>
+            <input type="checkbox" id="b9">
+            <label for="b9">2</label><br>
+            <input type="checkbox" id="b10">
+            <label for="b10">3+</label><br>
+            Usage
+            <br>
+            <input type="radio" id="b11" name="usage">
+            <label for="b11">Residential</label><br>
+            <input type="radio" id="b12" name="usage">
+            Location<br>
+            <input type="text" id="text1" name="location">
+            <center>
+                <button type="submit" value="Search">
+                    <strong>Search</strong><br>
+                </button>
+            </center>
+            Price<br>
+            <input type="range" id="r1" max="500" min="0"/>
+        </div>
+        <div class="col s6 m6 l6 push-s2 m2 l2">
+            {% for obj in data %}
+                <div class="card medium horizontal">
+                    <div class="card-image">
+                        <img src="https://lorempixel.com/100/190/nature/6">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>
+                                Name:{{obj.title}}<br>
+                                Location:{{obj.location}}<br>
+                                BHK:{{obj.bhk}}<br>
+                                Price:{{obj.price}}<br>
+                                Description:{{obj.description}}<br>
+                                Usage:{{obj.usage}}<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,7 +1,9 @@
+from random import random
+
 from django.http.response import JsonResponse
 
 from django.shortcuts import render
-
+from OTP.models import OTP
 # Create your views here.
 import jwt
 from SMS.views import send_sms
@@ -43,30 +45,30 @@ def send_otp(request):
 
 
 def verify_otp(request):
-    json_response = {}
-    try:
-        contact = str(request.POST.get('contact'))
-        otp = str(request.POST.get('otp'))
-        user = UserData.objects.get(phone=str(contact))
-        otpobj = OTP.objects.get(phone=user)
-        if otpobj.otp == otp:
-            access_token = jwt.encode({'mobile': str(contact)}, '810810', algorithm='HS256')
-            otpobj.save()
-            json_response['access_token'] = str(access_token)
-            print('Access Token Created')
-            #json = jwt.decode(str(access_token), '810910', algorithms='HS256')
-            user = OTP.objects.filter(mobile=str(contact))
-            if user.exists():
-                for u in user:
-                    u.delete()
-            json_response[constants.success] = constants.true
-            json_response[constants.msg] = "Successful"
-        else:
+    json_response = {constants.success:[], constants.msg:[]}
+    if request.method == 'POST':
+        try:
+            contact = request.POST.get('contact')
+            otp = request.POST.get('otp')
+            otpobj = OTP.objects.get(phone=str(contact))
+            if otpobj.otp == otp:
+                access_token = jwt.encode({'mobile': str(contact)}, '810810', algorithm='HS256')
+                otpobj.save()
+                json_response['access_token'] = str(access_token)
+                print('Access Token Created')
+                #json = jwt.decode(str(access_token), '810910', algorithms='HS256')
+                user = OTP.objects.filter(mobile=str(contact))
+                if user.exists():
+                    for u in user:
+                        u.delete()
+                json_response[constants.success] = constants.true
+                json_response[constants.msg] = "Successful"
+            else:
+                json_response[constants.success] = constants.false
+                json_response[constants.msg] = "Invalid OTP"
+        except Exception as e:
+            print e
             json_response[constants.success] = constants.false
-            json_response[constants.msg] = "Invalid OTP"
-    except Exception as e:
-        print e
-        json_response[constants.success] = constants.false
-        json_response[constants.msg] = "Invalid Mobile Number"
-    print 23456
-    return JsonResponse(json_response)
+            json_response[constants.msg] = "Invalid Mobile Number"
+        print 23456
+        return JsonResponse(json_response)

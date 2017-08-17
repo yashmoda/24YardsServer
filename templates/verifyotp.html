@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Verification</title>
+</head>
+<body>
+    <form method="post" action="verify_otp/"
+          {%csrf_token%}>
+        <center>
+            <label for="phone">Mobile Number</label>
+            <input type="text" id="phone" name="contact" minlength="10" maxlength="10">
+        </center>
+        <br>
+        <center>
+            <label for="otp">OTP</label>
+            <input type="password" id="otp" name="otp" maxlength="6" minlength="6">
+        </center>
+        <br>
+        <center>
+            <button type="submit" value="Verify OTP">
+                <strong>
+                    Verify OTP
+                </strong>
+            </button>
+        </center>
+    </form>
+    <a href="/home/"></a>
+</body>
+</html>
