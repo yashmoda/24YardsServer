@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Send OTP</title>
-</head>
-<body>
-    <form method="post" action="send_otp/"
-        {%csrf_token%}>
-        <center>
-            <label for="phone">Mobile Number</label>
-            <input type="text" id="phone" name="phone" maxlength="10" minlength="10">
-        </center>
-        <br>
-        <center>
-            <button type="submit" value="Send OTP">
-                <strong>Send OTP</strong>
-            </button>
-        </center>
-    </form>
-    <a href="/verify_otp/"></a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Send OTP</title>
+    </head>
+    <body>
+        <form method="post" action="/send_otp/" {%csrf_token%}>
+            <center>
+                <label for="phone">Mobile Number</label>
+                <input type="text" id="phone" name="contact" maxlength="10" minlength="10">
+            </center>
+            <br>
+            <center>
+                <button type="submit" value="Send OTP" onclick="sendotp">
+                    <strong>Send OTP</strong>
+                </button>
+            </center>
+        </form>
+        <script>
+        function sendotp()
+        {
+            $.ajax({
+                type: "POST",
+                data: ({}),
+                dataType: 'json',
+                url: "/send_otp/",
+                success: function(data){
+                    alert("OTP sent successfully");
+                }
+            });
+        )
+        </script>
+    </body>
 </html>
+

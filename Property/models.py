@@ -8,7 +8,7 @@ from HomeScreen.models import PropertyType
 
 class PropertyTable(models.Model):
     property_type = models.ForeignKey(PropertyType, db_column='PropertyType.id')
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=20, primary_key=True)
     location = models.TextField()
     bhk = models.IntegerField()
     description = models.TextField()
@@ -18,7 +18,12 @@ class PropertyTable(models.Model):
     date_added = models.DateField()
     #image = models.ForeignKey(PropertyImage, db_column='PropertyImage.id')
 
+    def __str__(self):
+        return self.title
 
 class PropertyImage(models.Model):
     property = models.ForeignKey(PropertyTable, db_column='PropertyTable.id')
     image = models.ImageField(upload_to='images/')
+
+    def __str__(self):
+        return str(self.property)

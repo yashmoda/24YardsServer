@@ -1,4 +1,5 @@
-from random import random
+from django.views.decorators.csrf import csrf_exempt
+from random import random, randint
 
 from django.http.response import JsonResponse
 
@@ -12,16 +13,17 @@ import sys
 # Create your views here.
 
 
+@csrf_exempt
 def send_otp(request):
     if request.method == 'POST':
         json_response = {}
         try:
             contact = request.POST.get('contact')
             print contact
-            otp = random.randint(100000, 999999)
+            otp = randint(100000, 999999)
             try:
                 msg = "Your one time password is " + str(otp)
-                send_sms(msg, str(contact))
+                #send_sms(msg, str(contact))
                 print msg
             except Exception as e:
                 print e
@@ -42,8 +44,10 @@ def send_otp(request):
         print (str(json_response))
         return JsonResponse(json_response)
     print 123
+    return render(request, 'sendotp.html')
 
 
+@csrf_exempt
 def verify_otp(request):
     json_response = {constants.success:[], constants.msg:[]}
     if request.method == 'POST':
@@ -57,7 +61,7 @@ def verify_otp(request):
                 json_response['access_token'] = str(access_token)
                 print('Access Token Created')
                 #json = jwt.decode(str(access_token), '810910', algorithms='HS256')
-                user = OTP.objects.filter(mobile=str(contact))
+                user = OTP.objects.filter(phone=str(contact))
                 if user.exists():
                     for u in user:
                         u.delete()
@@ -72,3 +76,5 @@ def verify_otp(request):
             json_response[constants.msg] = "Invalid Mobile Number"
         print 23456
         return JsonResponse(json_response)
+    print 23
+    return render(request, 'verifyotp.html')

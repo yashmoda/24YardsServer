@@ -18,13 +18,14 @@ def choose_property(request):
             property_type = request.POST.get('property_type')
             print property_type
             try:
-                property_table = PropertyType.objects.get(property_type=str(property_type))
+                property_table = PropertyType.objects.filter(property_type=property_type)
                 print str(property_table)
             except Exception as e:
                 print e
             try:
-                property = PropertyTable.objects.get(property_type=property_table)
-                property_data = PropertyImage.objects.get(property=property)
+                property = PropertyTable.objects.filter(property_type=str(property_table))
+                print 123456
+                property_data = PropertyImage.objects.get(property=str(property))
                 for obj in property:
                     print obj.title
                     temp_json = {"title":str(obj.title), "location":str(obj.location),
