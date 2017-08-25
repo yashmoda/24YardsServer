@@ -22,9 +22,9 @@ def sorting(request):
             print str(property_table)
             if sort_order == '1':
                 try:
-                    print 65
-                    property = PropertyTable.objects.filter(property_type=property_table).order_by('-price')
-                    print 1234567
+                    property = PropertyTable.objects.filter(property_type=property_table).\
+                        order_by('-price')
+                    print "Price high to low"
                     for obj in property:
                         print obj.title
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
@@ -36,7 +36,8 @@ def sorting(request):
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
                         for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
+                                                             request.get_host() + \
                                                              "/images/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
@@ -49,8 +50,9 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '2':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).order_by('price')
-                    print 1234567
+                    property = PropertyTable.objects.filter(property_type=property_table).\
+                        order_by('price')
+                    print "Price low to high"
                     for obj in property:
                         print obj.title
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
@@ -62,7 +64,8 @@ def sorting(request):
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
                         for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
+                                                             request.get_host() + \
                                                              "/images/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
@@ -75,8 +78,9 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '3':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).order_by('-date_added')
-                    print 876543
+                    property = PropertyTable.objects.filter(property_type=property_table).\
+                        order_by('-date_added')
+                    print "Newest first"
                     for obj in property:
                         print obj.title
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
@@ -88,7 +92,8 @@ def sorting(request):
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
                         for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
+                                                             request.get_host() + \
                                                              "/images/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
@@ -104,8 +109,9 @@ def sorting(request):
 
             if sort_order == '4':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).order_by('date_added')
-                    print 876543
+                    property = PropertyTable.objects.filter(property_type=property_table).\
+                        order_by('date_added')
+                    print "Oldest First"
                     for obj in property:
                         print obj.title
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
@@ -117,7 +123,8 @@ def sorting(request):
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
                         for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
+                                                             request.get_host() + \
                                                              "/images/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images

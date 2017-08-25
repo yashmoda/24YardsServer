@@ -21,7 +21,7 @@ def home(request):
                 print 876543
                 temp_json={}
                 temp_json[keysdata.PROPERTY_TYPE] = str(obj.property_type)
-                temp_json[keysdata.MESSAGE] = str(obj.message)
+                #temp_json[keysdata.MESSAGE] = str(obj.message)
                 print 98765432
                 temp_json[keysdata.IMAGE_URL] = request.scheme + '://' + request.get_host() + \
                                          '/home/' + str(obj.image)

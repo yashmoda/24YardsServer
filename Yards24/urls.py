@@ -22,13 +22,17 @@ from Search.views import search
 from Sort.views import sorting
 from OTP.views import send_otp
 from OTP.views import verify_otp
+from OTP.views import view_send_otp, view_verify_otp
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^home/$', home, name='home'),
-    url(r'^choose_property/$', choose_property, name='choose_property'),
-    url(r'^search/$', search, name='search'),
-    url(r'^sort/$', sorting, name='sort'),
-    url(r'^send_otp/$', send_otp, name='send_otp'),
-    url(r'^verify_otp/$', verify_otp, name='verify_otp'),
+    url(r'^home', home, name='home'),
+    url(r'^choose_property', choose_property, name='choose_property'),
+    url(r'^search', search, name='search'),
+    url(r'^sort', sorting, name='sort'),
+    url(r'^send_otp', send_otp, name='send_otp'),
+    url(r'^verify_otp', verify_otp, name='verify_otp'),
+    url(r'^view_send_otp', view_send_otp, name='view_send_otp'),
+    url(r'^view_verify_otp', view_verify_otp, name='view_verify_otp'),
+
 ]
