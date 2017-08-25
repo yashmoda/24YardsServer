@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8831821-5ea9-4c79-9290-a44e5c45d46d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/home/qywert.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/home/qywert_hEPnDMz.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/home/qywert_qW5brNv.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/images1_d3K6ife.jpeg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HomeScreen/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/HomeScreen/migrations/0001_initial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HomeScreen/models.py" afterPath="$PROJECT_DIR$/HomeScreen/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HomeScreen/views.py" afterPath="$PROJECT_DIR$/HomeScreen/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OTP/views.py" afterPath="$PROJECT_DIR$/OTP/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/models.py" afterPath="$PROJECT_DIR$/Property/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/views.py" afterPath="$PROJECT_DIR$/Property/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Search/views.py" afterPath="$PROJECT_DIR$/Search/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sort/views.py" afterPath="$PROJECT_DIR$/Sort/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Yards24/settings.py" afterPath="$PROJECT_DIR$/Yards24/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Yards24/urls.py" afterPath="$PROJECT_DIR$/Yards24/urls.py" />
-    </list>
+    <list default="true" id="b8831821-5ea9-4c79-9290-a44e5c45d46d" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
