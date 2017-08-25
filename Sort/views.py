@@ -6,159 +6,137 @@ from django.shortcuts import render
 # Create your views here.
 from Property.models import *
 from HomeScreen.models import *
-import constants
+import constants, keysdata
 # Create your views here.
 
 @csrf_exempt
-def price_high_to_low(request):
+def sorting(request):
     if request.method == 'POST':
-        json_response = {'get_property':[]}
-        property_type = request.POST.get('property_type')
-
+        json_response = {keysdata.GET_PROPERTY: []}
+        property_type = request.POST.get(keysdata.PROPERTY_TYPE)
+        sort_order = request.POST.get(keysdata.SORT_ORDER)
+        print property_type
+        print sort_order
         try:
-            property_table = PropertyType.objects.get(property_type=str(property_type))
-            print 1235
-            property = PropertyTable.objects.get(property_type=property_table).order_by('-price')
-            property_data = PropertyImage.objects.get(property=property)
-            print 23
-            for obj in property:
-                print obj.title
-                temp_json = {"title": str(obj.title), "location": str(obj.location),
-                             "bhk": int(obj.bhk), "description": str(obj.description),
-                             "price": int(obj.price), "contact": str(obj.contact),
-                             "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                images = []
-                temp_json1 = {}
-                for img in property_data:
-                    temp_json1['image'] = request.scheme + "://" + request.get_host() + \
-                                          "/images/" + str(img.image)
-                    images.append(temp_json1['image'])
-                temp_json['images'] = images
-                json_response['get_property'].append(temp_json)
-            json_response[constants.success] = constants.true
-            json_response[constants.msg] = constants.successmsg
-        except Exception as e:
-            print e
-            json_response[constants.success] = constants.false
-            json_response[constants.msg] = constants.failmsg
+            property_table = PropertyType.objects.get(property_type=property_type)
+            print str(property_table)
+            if sort_order == '1':
+                try:
+                    print 65
+                    property = PropertyTable.objects.filter(property_type=property_table).order_by('-price')
+                    print 1234567
+                    for obj in property:
+                        print obj.title
+                        temp_json = {"title": str(obj.title), "location": str(obj.location),
+                                    "bhk": int(obj.bhk), "description": str(obj.description),
+                                    "price": int(obj.price), "contact": str(obj.contact),
+                                    "usage": str(obj.usage), "date_added": str(obj.date_added)}
+                        images = []
+                        temp_json1 = {}
+                        property_data = PropertyImage.objects.filter(property=property)
+                        print 12345674
+                        for img in property_data:
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                                                             "/images/" + str(img.image)
+                            images.append(temp_json1[keysdata.IMAGE_URL])
+                        temp_json['images'] = images
+                        json_response[keysdata.GET_PROPERTY].append(temp_json)
+                    json_response[constants.SUCCESS] = constants.TRUE
+                    json_response[constants.MSG] = constants.SUCCESSMSG
+                except Exception as e:
+                    print e
+                    json_response[constants.SUCCESS] = constants.FALSE
+                    json_response[constants.MSG] = constants.FAILMSG
+            if sort_order == '2':
+                try:
+                    property = PropertyTable.objects.filter(property_type=property_table).order_by('price')
+                    print 1234567
+                    for obj in property:
+                        print obj.title
+                        temp_json = {"title": str(obj.title), "location": str(obj.location),
+                                     "bhk": int(obj.bhk), "description": str(obj.description),
+                                     "price": int(obj.price), "contact": str(obj.contact),
+                                     "usage": str(obj.usage), "date_added": str(obj.date_added)}
+                        images = []
+                        temp_json1 = {}
+                        property_data = PropertyImage.objects.filter(property=property)
+                        print 12345674
+                        for img in property_data:
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                                                             "/images/" + str(img.image)
+                            images.append(temp_json1[keysdata.IMAGE_URL])
+                        temp_json['images'] = images
+                        json_response[keysdata.GET_PROPERTY].append(temp_json)
+                    json_response[constants.SUCCESS] = constants.TRUE
+                    json_response[constants.MSG] = constants.SUCCESSMSG
+                except Exception as e:
+                    print e
+                    json_response[constants.SUCCESS] = constants.FALSE
+                    json_response[constants.MSG] = constants.FAILMSG
+            if sort_order == '3':
+                try:
+                    property = PropertyTable.objects.filter(property_type=property_table).order_by('-date_added')
+                    print 876543
+                    for obj in property:
+                        print obj.title
+                        temp_json = {"title": str(obj.title), "location": str(obj.location),
+                                     "bhk": int(obj.bhk), "description": str(obj.description),
+                                     "price": int(obj.price), "contact": str(obj.contact),
+                                     "usage": str(obj.usage), "date_added": str(obj.date_added)}
+                        images = []
+                        temp_json1 = {}
+                        property_data = PropertyImage.objects.filter(property=property)
+                        print 12345674
+                        for img in property_data:
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                                                             "/images/" + str(img.image)
+                            images.append(temp_json1[keysdata.IMAGE_URL])
+                        temp_json['images'] = images
+                        json_response[keysdata.GET_PROPERTY].append(temp_json)
+                    json_response[constants.SUCCESS] = constants.TRUE
+                    json_response[constants.MSG] = constants.SUCCESSMSG
+
+                except Exception as e:
+                    print e
+                    json_response[constants.SUCCESS] = constants.FALSE
+                    json_response[constants.MSG] = constants.FAILMSG
+
+
+            if sort_order == '4':
+                try:
+                    property = PropertyTable.objects.filter(property_type=property_table).order_by('date_added')
+                    print 876543
+                    for obj in property:
+                        print obj.title
+                        temp_json = {"title": str(obj.title), "location": str(obj.location),
+                                     "bhk": int(obj.bhk), "description": str(obj.description),
+                                     "price": int(obj.price), "contact": str(obj.contact),
+                                     "usage": str(obj.usage), "date_added": str(obj.date_added)}
+                        images = []
+                        temp_json1 = {}
+                        property_data = PropertyImage.objects.filter(property=property)
+                        print 12345674
+                        for img in property_data:
+                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
+                                                             "/images/" + str(img.image)
+                            images.append(temp_json1[keysdata.IMAGE_URL])
+                        temp_json['images'] = images
+                        json_response[keysdata.GET_PROPERTY].append(temp_json)
+                    json_response[constants.SUCCESS] = constants.TRUE
+                    json_response[constants.MSG] = constants.SUCCESSMSG
+
+                except Exception as e:
+                    print e
+                json_response[constants.SUCCESS] = constants.FALSE
+                json_response[constants.MSG] = constants.FAILMSG
+            print 76578765
         except Exception as e:
             print e
             print "Invalid Property Type"
+            json_response[constants.SUCCESS] = constants.FALSE
+            json_response[constants.MSG] = constants.INVALID
         print str(json_response)
         return JsonResponse(json_response)
-
-@csrf_exempt
-def price_low_to_high(request):
-    if request.method == 'POST':
-        json_response = {'get_property': []}
-        property_type = request.POST.get('property_type')
-        try:
-            property_table = PropertyType.objects.get(property_type=str(property_type))
-            print 12356
-            property = PropertyTable.objects.get(property_type=property_table).order_by('price')
-            property_data = PropertyImage.objects.get(property=property)
-            print 1234567
-            for obj in property:
-                print obj.title
-                temp_json = {"title": str(obj.title), "location": str(obj.location),
-                             "bhk": int(obj.bhk), "description": str(obj.description),
-                             "price": int(obj.price), "contact": str(obj.contact),
-                             "usage": str(obj.usage),"date_added": str(obj.date_added)}
-                images = []
-                temp_json1 = {}
-                for img in property_data:
-                    temp_json1['image'] = request.scheme + "://" + request.get_host() + \
-                                          "/images/" + str(img.image)
-                    images.append(temp_json1['image'])
-                temp_json['images'] = images
-                json_response['get_property'].append(temp_json)
-            json_response[constants.success] = constants.true
-            json_response[constants.msg] = constants.successmsg
-        except Exception as e:
-            print e
-            json_response[constants.success] = constants.false
-            json_response[constants.msg] = constants.failmsg
-        except Exception as e:
-            print e
-            print "Invalid Property Type"
-        print str(json_response)
-        return JsonResponse(json_response)
-    print 12345678
-
-@csrf_exempt
-def newest_first(request):
-    if request.method == 'POST':
-        json_response = {'get_property': []}
-        property_type = request.POST.get('property_type')
-        try:
-            property_table = PropertyType.objects.get(property_type=str(property_type))
-            print 12356
-            property = PropertyTable.objects.get(property_type=property_table).order_by('-date_added')
-            property_data = PropertyImage.objects.get(property=property)
-            print 1234567
-            for obj in property:
-                print obj.title
-                temp_json = {"title": str(obj.title), "location": str(obj.location),
-                             "bhk": int(obj.bhk), "description": str(obj.description),
-                             "price": int(obj.price), "contact": str(obj.contact),
-                             "usage": str(obj.usage),"date_added": str(obj.date_added)}
-                images = []
-                temp_json1 = {}
-                for img in property_data:
-                    temp_json1['image'] = request.scheme + "://" + request.get_host() + \
-                                          "/images/" + str(img.image)
-                    images.append(temp_json1['image'])
-                temp_json['images'] = images
-                json_response['get_property'].append(temp_json)
-            json_response[constants.success] = constants.true
-            json_response[constants.msg] = constants.successmsg
-        except Exception as e:
-            print e
-            json_response[constants.success] = constants.false
-            json_response[constants.msg] = constants.failmsg
-        except Exception as e:
-            print e
-            print "Invalid Property Type"
-        print str(json_response)
-        return JsonResponse(json_response)
-    print 12345678
-
-@csrf_exempt
-def oldest_first(request):
-    if request.method == 'POST':
-        json_response = {'get_property': []}
-        property_type = request.POST.get('property_type')
-        try:
-            property_table = PropertyType.objects.get(property_type=str(property_type))
-            print 12356
-            property = PropertyTable.objects.get(property_type=property_table).order_by('date_added')
-            property_data = PropertyImage.objects.get(property=property)
-            print 1234567
-            for obj in property:
-                print obj.title
-                temp_json = {"title": str(obj.title), "location": str(obj.location),
-                             "bhk": int(obj.bhk), "description": str(obj.description),
-                             "price": int(obj.price), "contact": str(obj.contact),
-                             "usage": str(obj.usage),"date_added": str(obj.date_added)}
-                images = []
-                temp_json1 = {}
-                for img in property_data:
-                    temp_json1['image'] = request.scheme + "://" + request.get_host() + \
-                                          "/images/" + str(img.image)
-                    images.append(temp_json1['image'])
-                temp_json['images'] = images
-                json_response['get_property'].append(temp_json)
-            json_response[constants.success] = constants.true
-            json_response[constants.msg] = constants.successmsg
-        except Exception as e:
-            print e
-            json_response[constants.success] = constants.false
-            json_response[constants.msg] = constants.failmsg
-        except Exception as e:
-            print e
-            print "Invalid Property Type"
-        print str(json_response)
-        return JsonResponse(json_response)
-    print 12345678
+    print 2345678987654
 
 

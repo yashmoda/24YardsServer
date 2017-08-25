@@ -8,31 +8,31 @@ import requests
 from HomeScreen.models import PropertyType
 import constants
 # Create your views here.
-
+import keysdata
 
 def home(request):
     if request.method == 'GET':
-        json_response={'data':[]}
+        json_response={keysdata.DATA:[]}
         try:
-            json_response[constants.success] = constants.true
-            json_response[constants.msg] = "Data Found"
+            json_response[constants.SUCCESS] = constants.TRUE
+            json_response[constants.MSG] = "Data Found"
             print 12345678
             for obj in PropertyType.objects.all():
                 print 876543
                 temp_json={}
-                temp_json["property_type"] = str(obj.property_type)
-                temp_json["message"] = str(obj.message)
+                temp_json[keysdata.PROPERTY_TYPE] = str(obj.property_type)
+                temp_json[keysdata.MESSAGE] = str(obj.message)
                 print 98765432
-                temp_json["image_url"] = request.scheme + '://' + request.get_host() + \
+                temp_json[keysdata.IMAGE_URL] = request.scheme + '://' + request.get_host() + \
                                          '/home/' + str(obj.image)
                 print temp_json
                 print 7654345678765
-                json_response["data"].append(temp_json)
+                json_response[keysdata.DATA].append(temp_json)
                 print 1234
         except Exception as e:
             print e
-            json_response[constants.success] = constants.false
-            json_response[constants.msg] = "Data Not Found"
+            json_response[constants.SUCCESS] = constants.FALSE
+            json_response[constants.MSG] = "Data Not Found"
         print str(json_response)
         #return HttpResponse(str(json_response))
         return JsonResponse(json_response)

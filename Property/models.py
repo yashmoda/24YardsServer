@@ -8,9 +8,9 @@ from HomeScreen.models import PropertyType
 
 class PropertyTable(models.Model):
     property_type = models.ForeignKey(PropertyType, db_column='PropertyType.id')
-    title = models.CharField(max_length=20, primary_key=True)
+    title = models.CharField(max_length=20)
     location = models.TextField()
-    bhk = models.IntegerField()
+    bhk = models.CharField(max_length=10)
     description = models.TextField()
     price = models.IntegerField()
     contact = models.CharField(max_length=10)
