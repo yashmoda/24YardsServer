@@ -38,7 +38,7 @@ def choose_property(request):
                     temp_json1 = {}
                     for img in property_data:
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() +\
-                                              "/images/" + str(img.image)
+                                              "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
                     print 567876545678
                     temp_json['images'] = images
