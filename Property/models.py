@@ -23,7 +23,7 @@ class PropertyTable(models.Model):
 
 class PropertyImage(models.Model):
     property = models.ForeignKey(PropertyTable, db_column='PropertyTable.id')
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='static/')
 
     def __str__(self):
         return str(self.property)

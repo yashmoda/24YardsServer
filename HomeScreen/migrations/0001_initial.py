@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('property_type', models.CharField(max_length=20)),
                 ('message', models.TextField()),
-                ('image', models.ImageField(upload_to='home/')),
+                ('image', models.ImageField(upload_to='static/')),
             ],
         ),
     ]

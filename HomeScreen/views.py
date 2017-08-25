@@ -24,7 +24,7 @@ def home(request):
                 #temp_json[keysdata.MESSAGE] = str(obj.message)
                 print 98765432
                 temp_json[keysdata.IMAGE_URL] = request.scheme + '://' + request.get_host() + \
-                                         '/home/' + str(obj.image)
+                                                '/' + str(obj.image)
                 print temp_json
                 print 7654345678765
                 json_response[keysdata.DATA].append(temp_json)

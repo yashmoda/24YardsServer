@@ -38,7 +38,7 @@ def sorting(request):
                         for img in property_data:
                             temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
                                                              request.get_host() + \
-                                                             "/images/" + str(img.image)
+                                                             "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
@@ -66,7 +66,7 @@ def sorting(request):
                         for img in property_data:
                             temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
                                                              request.get_host() + \
-                                                             "/images/" + str(img.image)
+                                                             "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
@@ -94,7 +94,7 @@ def sorting(request):
                         for img in property_data:
                             temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
                                                              request.get_host() + \
-                                                             "/images/" + str(img.image)
+                                                             "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
@@ -125,7 +125,7 @@ def sorting(request):
                         for img in property_data:
                             temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
                                                              request.get_host() + \
-                                                             "/images/" + str(img.image)
+                                                             "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
                         temp_json['images'] = images
                         json_response[keysdata.GET_PROPERTY].append(temp_json)

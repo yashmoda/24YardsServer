@@ -23,6 +23,8 @@ from Sort.views import sorting
 from OTP.views import send_otp
 from OTP.views import verify_otp
 from OTP.views import view_send_otp, view_verify_otp
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -35,4 +37,4 @@ urlpatterns = [
     url(r'^view_send_otp', view_send_otp, name='view_send_otp'),
     url(r'^view_verify_otp', view_verify_otp, name='view_verify_otp'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
