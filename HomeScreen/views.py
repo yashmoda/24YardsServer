@@ -1,3 +1,5 @@
+from django.views.decorators.csrf import csrf_exempt
+
 from django.http.response import JsonResponse
 
 from django.shortcuts import render
@@ -10,6 +12,7 @@ import constants
 # Create your views here.
 import keysdata
 
+@csrf_exempt
 def home(request):
     if request.method == 'GET':
         json_response={keysdata.DATA:[]}
@@ -34,6 +37,14 @@ def home(request):
             json_response[constants.SUCCESS] = constants.FALSE
             json_response[constants.MSG] = "Data Not Found"
         print str(json_response)
+        #send_json[keysdata.DATA].append(json_response[keysdata.DATA])
+        #send_json[constants.SUCCESS].append(json_response[constants.SUCCESS])
+        #send_json[constants.MSG].append(json_response[constants.MSG])
+
         #return HttpResponse(str(json_response))
         return JsonResponse(json_response)
     print 12345
+
+
+def view_home(request):
+    return render(request, 'home.html')

@@ -1,19 +1,19 @@
 from django.views.decorators.csrf import csrf_exempt
 
 from django.http.response import JsonResponse
-
-from django.shortcuts import render
-
 # Create your views here.
 from Property.models import PropertyTable
 from HomeScreen.models import PropertyType
 from Property.models import PropertyImage
 # Create your views here.
-import constants, keysdata
+import constants
+import keysdata
+
+
 @csrf_exempt
 def choose_property(request):
     if request.method == 'POST':
-        json_response = {keysdata.GET_PROPERTY:[]}
+        json_response = {keysdata.GET_PROPERTY: []}
         try:
             property_type = request.POST.get(keysdata.PROPERTY_TYPE)
             print property_type
@@ -28,9 +28,9 @@ def choose_property(request):
                 print property
                 for obj in property:
                     print obj.title
-                    temp_json = {"title":str(obj.title), "location":str(obj.location),
-                                 "bhk":int(obj.bhk), "description":str(obj.description),
-                                 "price":int(obj.price), "contact":str(obj.contact),
+                    temp_json = {"title": str(obj.title), "location": str(obj.location),
+                                 "bhk": int(obj.bhk), "description": str(obj.description),
+                                 "price": int(obj.price), "contact": str(obj.contact),
                                  "usage": str(obj.usage), "date_added": str(obj.date_added)}
                     images = []
                     property_data = PropertyImage.objects.filter(property=obj)

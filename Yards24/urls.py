@@ -22,9 +22,10 @@ from Search.views import search
 from Sort.views import sorting
 from OTP.views import send_otp
 from OTP.views import verify_otp
-from OTP.views import view_send_otp, view_verify_otp
+from OTP.views import view_send_otp
 from django.conf import settings
 from django.conf.urls.static import static
+from HomeScreen.views import view_home
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -35,6 +36,6 @@ urlpatterns = [
     url(r'^send_otp', send_otp, name='send_otp'),
     url(r'^verify_otp', verify_otp, name='verify_otp'),
     url(r'^view_send_otp', view_send_otp, name='view_send_otp'),
-    url(r'^view_verify_otp', view_verify_otp, name='view_verify_otp'),
+    url(r'view_home', view_home, name='view_home'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,78 +4,138 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 <body>
-    <div class="row">
-        <div class="col s2 m2 l2">
-            <center>Sort</center><br>
-            <!--<div class="row">-->
-            <input type="radio" name="group1" id="b1" value="1">
-            <label for="b1">Price low to high</label><br>
-            <input type="radio" name="group1" id="b2" value="2">
-            <label for="b2">Price high to low</label><br>
-            <input type="radio" name="group1" value="3" id="b3">
-            <label for="b3">Newest First</label><br>
-            <input type="radio" name="group1" value="4" id="b4">
-            <label for="b4">Oldest first</label><br>
-            <center>
-                Filter
-            </center><br>
-            Property Type<br>
-            <input type="radio" id="b5" name="property_type">
-            <label for="b5">Buy</label><br>
-            <input type="radio" id="b6" name="property_type">
-            <label for="b6">Rent</label><br>
-            <input type="radio" name="property_type" id="b7">
-            <label for="b7">Projects</label><br>
-            BHK<br>
-            <input type="checkbox" id="b8">
-            <label for="b8">1</label><br>
-            <input type="checkbox" id="b9">
-            <label for="b9">2</label><br>
-            <input type="checkbox" id="b10">
-            <label for="b10">3+</label><br>
-            Usage
-            <br>
-            <input type="radio" id="b11" name="usage">
-            <label for="b11">Residential</label><br>
-            <input type="radio" id="b12" name="usage">
-            <label for="b12">Commercial</label><br>
-            Location<br>
-            <input type="text" id="text1" name="location">
-            <center>
-                <button type="submit" value="Search">
-                    <strong>Search</strong><br>
-                </button>
-            </center>
-            Price<br>
-            <input type="range" id="r1" max="500" min="0"/>
-        </div>
-        <div class="col s6 m6 l6 push-s2 m2 l2">
-            {% for obj in data %}
-                <div class="card medium horizontal">
-                    <div class="card-image">
-                        <img src="https://lorempixel.com/100/190/nature/6">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>
-                                Name:{{obj.title}}<br>
-                                Location:{{obj.location}}<br>
-                                BHK:{{obj.bhk}}<br>
-                                Price:{{obj.price}}<br>
-                                Description:{{obj.description}}<br>
-                                Usage:{{obj.usage}}<br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+        $(document).ready(function(){
+            var temp;
+            $("#filter").hide();
+            $.ajax({
+                type: "GET",
+                url: "/home",
+                dataType: 'json',
+                success: function(data){
+                    for(i in data.data)
+                    {
+
+                        temp += '<div class="card medium horizontal">';
+                        temp += '<div class="card-image">';
+                        temp += '<img src="'+ data.data[i]['image_url'] +'">';
+                        temp += '</div>';
+                        temp += '<div class="card-stacked">';
+                        temp += '<div class="card-content" id="d1">';
+                        temp += 'Property Type:"'+data.data[i]['property_type']+'"<br>';
+                        temp += '</div>';
+                        temp += '</div>';
+                        temp += '</div>';
+                    }
+                    $("#div2").html(temp);
+                },
+                error: function(){
+                    alert("Please try again later");
+                },
+            });
+        });
+        function sort(value)
+        {
+            $.ajax({
+               type: "POST",
+               data: {"sort_order": value},
+                dataType: 'json',
+                url: "/sort",
+               error: function() {
+                    alert("Please try again later.");
+               },
+            });
+        }
+        function search()
+        {
+            var bhk = [];
+            $('.bhk:checked').each(function(i, e) {
+                bhk.push($(this).val());
+                });
+            $.ajax({
+               type: "POST",
+               data: {"property_type": $('input[name="property_type"]:checked').val(), "usage": $('input[name="usage"]:checked').val(), "location": $("#location").val(), "bhk": bhk.join(), "min_price": "0", "max_price": $("#r1").val()},
+                dataType: 'json',
+                traditional : true,
+                url: "/search",
+               error: function() {
+                    alert("Please try again later.");
+               },
+            });
+        }
+        function view_search()
+        {
+            $("#filter").show();
+        }
+
+</script>
+<div class="row">
+    <!--<div class="col s2 m2 l2" id="sort">
+        <center>Sort</center>
+        <br>
+        <!--<div class="row">
+        <input type="radio" name="group1" id="b1" value="1" onclick="sort(1)">
+        <label for="b1">Price low to high</label><br>
+        <input type="radio" name="group1" id="b2" value="2" onclick="sort(2)">
+        <label for="b2">Price high to low</label><br>
+        <input type="radio" name="group1" value="3" id="b3" onclick="sort(3)">
+        <label for="b3">Newest First</label><br>
+        <input type="radio" name="group1" value="4" id="b4" onclick="sort(4)">
+        <label for="b4">Oldest first</label><br>
+    </div>-->
+    <div class="col s2 m2 l2" id="filter">
+        <center>
+            Filter
+        </center>
+        <br>
+        Property Type<br>
+        <input type="radio" id="b5" name="property_type" value="Buy">
+        <label for="b5">Buy</label><br>
+        <input type="radio" id="b6" name="property_type" value="Rent">
+        <label for="b6">Rent</label><br>
+        <input type="radio" name="property_type" id="b7" value="Projects">
+        <label for="b7">Projects</label><br>
+        BHK<br>
+        <input type="checkbox" id="c1" class="bhk" value="1">
+        <label for="c1">1</label><br>
+        <input type="checkbox" id="c2" class="bhk" value="2">
+        <label for="c2">2</label><br>
+        <input type="checkbox" id="c3" class="bhk" value="3">
+        <label for="c3">3</label><br>
+        <input type="checkbox" id="c4" class="bhk" value="4">
+        <label for="c4">4</label><br>
+        <input type="checkbox" id="c5" class="bhk" value="5">
+        <label for="c5">5</label><br>
+        Usage
+        <br>
+        <input type="radio" id="b11" name="usage" value="Residential">
+        <label for="b11">Residential</label><br>
+        <input type="radio" id="b12" name="usage" value="Commercial">
+        <label for="b12">Commercial</label><br>
+        Location<br>
+        <input type="text" id="text1" name="location">
+        Price<br>
+        <input type="range" id="r1" max="50000" min="0"/>
+        <center>
+            <button type="submit" value="Search" onclick="search()">
+                <strong>Search</strong><br>
+            </button>
+        </center>
     </div>
+    <div class="col s6 m6 l6 push-s2 m2 l2" id="div1">
+        <img src="https://maxcdn.icons8.com/Share/icon/p1em/Very_Basic//search1600.png" alt="Search" style="width:40px;height:40px" onclick="view_search()">
+        <div id="div2">
+
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

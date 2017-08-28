@@ -1,15 +1,14 @@
 from django.views.decorators.csrf import csrf_exempt
-from random import random, randint
+from random import randint
 
 from django.http.response import JsonResponse
 
 from django.shortcuts import render
 from OTP.models import OTP
-# Create your views here.
 import jwt
 from SMS.views import send_sms
-import constants, keysdata
-import sys
+import constants
+import keysdata
 # Create your views here.
 
 
@@ -24,9 +23,9 @@ def send_otp(request):
             temp_json['contact'] = str(contact)
             otp = randint(100000, 999999)
             try:
-                MSG = "Your one time password is " + str(otp)
-                #send_sms(MSG, str(contact))
-                print MSG
+                msg = "Your one time password is " + str(otp)
+                send_sms(msg, str(contact))
+                print msg
             except Exception as e:
                 print e
             try:
@@ -35,7 +34,7 @@ def send_otp(request):
                 otp_obj.save()
             except Exception as e:
                 print e
-                OTP.objects.create(phone = str(contact), otp = str(otp))
+                OTP.objects.create(phone=str(contact), otp=str(otp))
             json_response[constants.SUCCESS] = constants.TRUE
             json_response[constants.MSG] = "OTP SENT"
             print 34
@@ -48,7 +47,6 @@ def send_otp(request):
         print (str(json_response))
         return JsonResponse(json_response)
     print 123
-    #return render(request, 'sendotp.html')
 
 
 @csrf_exempt
@@ -57,12 +55,8 @@ def view_send_otp(request):
 
 
 @csrf_exempt
-def view_verify_otp(request):
-    return render(request, 'verifyotp.html')
-
-@csrf_exempt
 def verify_otp(request):
-    json_response = {constants.SUCCESS:[], constants.MSG:[]}
+    json_response = {constants.SUCCESS: [], constants.MSG: []}
     if request.method == 'POST':
         try:
             contact = request.POST.get(keysdata.CONTACT)
@@ -76,11 +70,6 @@ def verify_otp(request):
                 otpobj.save()
                 json_response['access_token'] = str(access_token)
                 print('Access Token Created')
-                #json = jwt.decode(str(access_token), '810910', algorithms='HS256')
-                #user = OTP.objects.filter(phone=str(contact))
-                #if user.exists():
-                 #   for u in user:
-                  #      u.delete()
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = "Successful"
             else:
@@ -93,4 +82,3 @@ def verify_otp(request):
         print 23456
         return JsonResponse(json_response)
     print 23
-    #return render(request, 'verifyotp.html')
