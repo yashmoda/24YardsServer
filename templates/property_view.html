@@ -50,9 +50,11 @@
     function sort(value)
         {
             var temp;
+            var property = localStorage.getItem("property_type");
+
             $.ajax({
                 type: "POST",
-                data: {"sort_order": value},
+                data: {"sort_order": value, "property_type":property},
                 dataType: 'json',
                 url: "/sort",
                 success: function(data){
@@ -87,16 +89,13 @@
             $('.bhk:checked').each(function(i, e) {
                 bhk.push($(this).val());
                 });
-            $.ajax({
-               type: "POST",
-               data: {"property_type": $('input[name="property_type"]:checked').val(), "usage": $('input[name="usage"]:checked').val(), "location": $("#location").val(), "bhk": bhk.join(), "min_price": "0", "max_price": $("#r1").val()},
-                dataType: 'json',
-                traditional : true,
-                url: "/search",
-               error: function() {
-                    alert("Please try again later.");
-               },
-            });
+            localStorage.setItem("bhk",bhk);
+            localStorage.setItem("property_type",$('input[name="property_type"]:checked').val());
+            localStorage.setItem("usage",$('input[name="usage"]:checked').val());
+            localStorage.setItem("location",$("#location").val());
+            localStorage.setItem("min_price","0");
+            localStorage.setItem("max_price", $("#r1").val());
+            $(location).attr('href','/view_search');
         }
         function view_search()
         {

@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from django.http.response import JsonResponse
@@ -8,7 +9,8 @@ from HomeScreen.models import *
 import constants, keysdata
 # Create your views here.
 
-#NONE = 'None'
+def view_search(request):
+    return render(request, 'view_search.html')
 @csrf_exempt
 def search(request):
     if request.method == 'POST':
@@ -19,6 +21,12 @@ def search(request):
         max_price = request.POST.get(keysdata.MAX_PRICE,'')
         bhk = list(request.POST.get(keysdata.BHK,''))
         usage = request.POST.get(keysdata.USAGE,'')
+        if location == 'undefined':
+            location=''
+        if property_type == 'undefined':
+            property_type=''
+        if usage == 'undefined':
+            usage=''
         print property_type
         print location
         print min_price

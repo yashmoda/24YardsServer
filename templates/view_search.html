@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var property = localStorage.getItem("property_type");
+        var usage = localStorage.getItem("usage");
+        var location = localStorage.getItem("location");
+        var bhk = localStorage.getItem("bhk");
+        var min_price = localStorage.getItem("min_price");
+        var max_price = localStorage.getItem("max_price");
+        var temp;
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data:{"property_type":property, "usage":usage, "location":location, "bhk":bhk, "min_price":min_price, "max_price":max_price},
+            url: '/search',
+            success: function(data){
+                for(i in data.get_property)
+                {
+                    temp += '<div class="card medium horizontal">';
+                    temp += '<div class="card-image">';
+                    temp += '<img src="'+ data.get_property[i].images[0] +'">';
+                    temp += '</div>';
+                    temp += '<div class="card-stacked">';
+                    temp += '<div class="card-content" id="d1">';
+                    temp += 'Title:"'+data.get_property[i]['title']+'"<br>';
+                    temp += 'Location:"'+data.get_property[i]['location']+'"<br>';
+                    temp += 'BHK:"'+data.get_property[i]['bhk']+'"<br>';
+                    temp += 'Price:"'+data.get_property[i]['price']+'"<br>';
+                    temp += 'Description:"'+data.get_property[i]['description']+'"<br>';
+                    temp += '</div>';
+                    temp += '</div>';
+                    temp += '</div>';
+                }
+                $("#div2").html(temp);
+            },
+            error: function(){
+                alert("Please try again later.");
+            },
+        });
+    });
+    function view_search()
+    {
+        $("#sort").hide();
+        $("#filter").show();
+    }
+    function view_sort()
+    {
+        $("#filter").hide();
+        $("#sort").show();
+    }
+</script>
+<div class="row">
+    <div class="col s6 m6 l6 push-s2 m2 l2" id="div1">
+        <img src="https://maxcdn.icons8.com/Share/icon/p1em/Very_Basic//search1600.png" alt="Search"
+             style="width:40px;height:40px" onclick="view_search()">
+        <img src="https://image.freepik.com/free-icon/sort-up-or-sort-down-couple-of-arrows_318-48313.jpg"
+             alt="Sort" style="width:40px;height:40px" onclick="view_sort()">
+        <div id="div2">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

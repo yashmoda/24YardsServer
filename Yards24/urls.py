@@ -27,6 +27,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from HomeScreen.views import view_home
 from Property.views import view_property_view
+from Search.views import view_search
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -38,6 +39,7 @@ urlpatterns = [
     url(r'^verify_otp', verify_otp),
     url(r'^view_send_otp', view_send_otp),
     url(r'view_home', view_home),
-    url(r'view_property', view_property_view)
+    url(r'view_property', view_property_view),
+    url(r'^view_search', view_search),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

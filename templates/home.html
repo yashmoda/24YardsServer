@@ -40,53 +40,24 @@
                 },
             });
         });
-        function view_ptype(value)
-        {
-            localStorage.setItem("property_type",value);
-            $(location).attr('href','/view_property');
-        }
         function search()
         {
             var bhk = [];
             $('.bhk:checked').each(function(i, e) {
                 bhk.push($(this).val());
                 });
-            $.ajax({
-               type: "POST",
-               data: {"property_type": $('input[name="property_type"]:checked').val(), "usage": $('input[name="usage"]:checked').val(), "location": $("#location").val(), "bhk": bhk.join(), "min_price": "0", "max_price": $("#r1").val()},
-                dataType: 'json',
-                traditional : true,
-                url: "/search",
-                success: function(data){
-                    alert("Data found");
-                    for(i in data.get_property)
-                    {
-                        alert("FGH");
-                        temp += '<div class="card medium horizontal">';
-                        temp += '<div class="card-image">';
-                        temp += '<img src="'+ data.get_property[i].images[0] +'">';
-                        temp += '</div>';
-                        temp += '<div class="card-stacked">';
-                        temp += '<div class="card-content" id="d1">';
-                        temp += 'Title:"'+data.get_property[i]['title']+'"<br>';
-                        temp += 'Location:"'+data.get_property[i]['location']+'"<br>';
-                        temp += 'BHK:"'+data.get_property[i]['bhk']+'"<br>';
-                        temp += 'Price:"'+data.get_property[i]['price']+'"<br>';
-                        temp += 'Description:"'+data.get_property[i]['description']+'"<br>';
-                        temp += '</div>';
-                        temp += '</div>';
-                        temp += '</div>';
-                        alert(temp);
-                    }
-                    alert("JGGHDFJ");
-                    $("#show_property").html(temp);
-                    $("#show_property").show();
-                    $("#choose_property_type").hide();
-                },
-               error: function() {
-                    alert("Please try again later.");
-               },
-            });
+            localStorage.setItem("bhk",bhk);
+            localStorage.setItem("property_type",$('input[name="property_type"]:checked').val());
+            localStorage.setItem("usage",$('input[name="usage"]:checked').val());
+            localStorage.setItem("location",$("#location").val());
+            localStorage.setItem("min_price","0");
+            localStorage.setItem("max_price", $("#r1").val());
+            $(location).attr('href','/view_search');
+        }
+        function view_ptype(value)
+        {
+            localStorage.setItem("property_type",value);
+            $(location).attr('href','/view_property');
         }
         function view_search()
         {
@@ -96,7 +67,7 @@
 <div class="row">
     <div class="col s2 m2 l2" id="filter">
         <center>
-            Filter
+            Search
         </center>
         <br>
         Property Type<br>

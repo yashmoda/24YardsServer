@@ -13,17 +13,17 @@ import constants, keysdata
 def sorting(request):
     if request.method == 'POST':
         json_response = {keysdata.GET_PROPERTY: []}
-        #property_type = request.POST.get(keysdata.PROPERTY_TYPE)
+        property_type = request.POST.get(keysdata.PROPERTY_TYPE)
         sort_order = request.POST.get(keysdata.SORT_ORDER)
-        #print property_type
+        print property_type
         print sort_order
         try:
-            #property_table = PropertyType.objects.get(property_type=property_type)
-            #print str(property_table)
+            property_table = PropertyType.objects.get(property_type=property_type)
+            print str(property_table)
             print 4565
             if sort_order == '1':
                 try:
-                    property = PropertyTable.objects.all().order_by('-price')
+                    property = PropertyTable.objects.all().filter(property_type=property_table).order_by('-price')
                     print "Price high to low"
                     for obj in property:
                         print obj.title
@@ -50,7 +50,7 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '2':
                 try:
-                    property = PropertyTable.objects.\
+                    property = PropertyTable.objects.filter(property_type=property_table).\
                         order_by('price')
                     print "Price low to high"
                     for obj in property:
@@ -78,7 +78,7 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '3':
                 try:
-                    property = PropertyTable.objects.\
+                    property = PropertyTable.objects.filter(property_type=property_table).\
                         order_by('-date_added')
                     print "Newest first"
                     for obj in property:
@@ -109,7 +109,7 @@ def sorting(request):
 
             if sort_order == '4':
                 try:
-                    property = PropertyTable.objects.\
+                    property = PropertyTable.objects.filter(property_type=property_table).\
                         order_by('date_added')
                     print "Oldest First"
                     for obj in property:
