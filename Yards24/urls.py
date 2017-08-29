@@ -26,16 +26,18 @@ from OTP.views import view_send_otp
 from django.conf import settings
 from django.conf.urls.static import static
 from HomeScreen.views import view_home
+from Property.views import view_property_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^home', home, name='home'),
-    url(r'^choose_property', choose_property, name='choose_property'),
-    url(r'^search', search, name='search'),
-    url(r'^sort', sorting, name='sort'),
-    url(r'^send_otp', send_otp, name='send_otp'),
-    url(r'^verify_otp', verify_otp, name='verify_otp'),
-    url(r'^view_send_otp', view_send_otp, name='view_send_otp'),
-    url(r'view_home', view_home, name='view_home'),
+    url(r'^home', home),
+    url(r'^choose_property', choose_property),
+    url(r'^search', search),
+    url(r'^sort', sorting),
+    url(r'^send_otp', send_otp),
+    url(r'^verify_otp', verify_otp),
+    url(r'^view_send_otp', view_send_otp),
+    url(r'view_home', view_home),
+    url(r'view_property', view_property_view)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

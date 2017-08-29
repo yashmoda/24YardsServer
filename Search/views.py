@@ -2,8 +2,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.http.response import JsonResponse
 
-from django.shortcuts import render
-
 # Create your views here.
 from Property.models import *
 from HomeScreen.models import *
@@ -27,7 +25,7 @@ def search(request):
         print max_price
         print bhk
         print usage
-        if property_type != '' and location == '' and min_price == '' and max_price == '' and bhk == '' and usage == '':
+        if property_type != '' and location == '' and min_price == '' and max_price == '' and len(bhk)==0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 654567
@@ -55,7 +53,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price == '' and max_price == '' and bhk == '' and usage == '':
+        if property_type == '' and location != '' and min_price == '' and max_price == '' and len(bhk) == 0 and usage == '':
             try:
                 property = PropertyTable.objects.filter(location=location)
                 print 5
@@ -82,7 +80,7 @@ def search(request):
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
         if property_type == '' and location == '' and min_price != '' and max_price != ''\
-                and bhk == '' and usage == '':
+                and len(bhk) == 0 and usage == '':
             try:
                 property = PropertyTable.objects.filter(price__lte = int(max_price),
                                                         price__gte = int(min_price))
@@ -140,7 +138,7 @@ def search(request):
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
         if property_type == '' and location == '' and min_price != '' and max_price != '' \
-                and bhk == '' and usage != '':
+                and len(bhk) == 0 and usage != '':
             try:
                 property = PropertyTable.objects.filter(usage=usage)
                 print 45
@@ -168,7 +166,7 @@ def search(request):
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
         if property_type != '' and location != '' and min_price == '' and max_price == '' \
-                and bhk == '' and usage == '':
+                and len(bhk) == 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 6567
@@ -198,8 +196,8 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price != '' and max_price != '' \
-                and bhk == '' and usage == '':
+        if property_type != '' and location == '' and min_price!= '' and max_price != '' \
+                and len(bhk) == 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 4567
@@ -233,7 +231,7 @@ def search(request):
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 3456
-                property = PropertyTable.objects.filter(bhk = bhk, property_type=property_table)
+                property = PropertyTable.objects.filter(bhk__in = bhk, property_type=property_table)
                 print 45
                 for obj in property:
                     print obj.title
@@ -257,7 +255,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price == '' and max_price == '' and bhk == '' and usage != '':
+        if property_type != '' and location == '' and min_price == '' and max_price == '' and len(bhk) == 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 345
@@ -285,7 +283,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price == '' and max_price == '' and bhk == '' and usage != '':
+        if property_type == '' and location != '' and min_price == '' and max_price == '' and len(bhk) == 0 and usage != '':
             try:
                 property = PropertyTable.objects.filter(usage = usage, location=location)
                 print 45
@@ -337,7 +335,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price != '' and max_price != '' and bhk == '' and usage == '':
+        if property_type == '' and location != '' and min_price != '' and max_price != '' and len(bhk) == 0 and usage == '':
             try:
                 property = PropertyTable.objects.filter(price__lte = int(max_price), price__gte = int(min_price), location=location)
                 print 45
@@ -365,7 +363,7 @@ def search(request):
                 json_response[constants.MSG] = constants.FAILMSG
         if property_type == '' and location == '' and min_price != '' and max_price != '' and bhk != '' and usage == '':
             try:
-                property = PropertyTable.objects.filter(price__lte = int(max_price), price__gte = int(min_price), bhk = bhk)
+                property = PropertyTable.objects.filter(price__lte = int(max_price), price__gte = int(min_price), bhk__in = bhk)
                 print 45
                 for obj in property:
                     print obj.title
@@ -389,7 +387,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price != '' and max_price != '' and bhk == '' and usage != '':
+        if property_type == '' and location == '' and min_price != '' and max_price != '' and len(bhk) == 0 and usage != '':
             try:
                 property = PropertyTable.objects.filter(usage = usage, price__lte = int(max_price), price__gte = int(min_price))
                 print 45
@@ -417,7 +415,7 @@ def search(request):
                 json_response[constants.MSG] = constants.FAILMSG
         if property_type == '' and location == '' and min_price == '' and max_price == '' and bhk != '' and usage != '':
             try:
-                property = PropertyTable.objects.filter(usage = usage, bhk = bhk)
+                property = PropertyTable.objects.filter(usage = usage, bhk__in = bhk)
                 print 45
                 for obj in property:
                     print obj.title
@@ -441,7 +439,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price != '' and max_price != '' and bhk == '' and usage == '':
+        if property_type != '' and location != '' and min_price != '' and max_price != '' and len(bhk) == 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 3467
@@ -498,7 +496,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price == '' and max_price == '' and bhk == '' and usage != '':
+        if property_type != '' and location != '' and min_price == '' and max_price == '' and len(bhk) == 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 456
@@ -531,7 +529,7 @@ def search(request):
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 3467
-                property = PropertyTable.objects.filter(bhk = bhk, price__lte=int(max_price),
+                property = PropertyTable.objects.filter(bhk__in = bhk, price__lte=int(max_price),
                                                         price__gte=int(min_price), property_type=property_table)
                 print 45
                 for obj in property:
@@ -556,7 +554,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price != '' and max_price != '' and bhk == '' and usage != '':
+        if property_type != '' and location == '' and min_price != '' and max_price != '' and len(bhk) == 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 3457
@@ -641,7 +639,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price != '' and max_price != '' and bhk == '' and usage != '':
+        if property_type == '' and location != '' and min_price != '' and max_price != '' and len(bhk) == 0 and usage != '':
             try:
                 property = PropertyTable.objects.filter(usage = usage, location=location,
                                                         price__lte=int(max_price), price__gte=int(min_price))
@@ -810,7 +808,7 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price != '' and max_price != '' and bhk == '' and usage != '':
+        if property_type != '' and location != '' and min_price != '' and max_price != '' and len(bhk) == 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 34567565

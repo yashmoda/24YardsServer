@@ -50,7 +50,7 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '2':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).\
+                    property = PropertyTable.objects.\
                         order_by('price')
                     print "Price low to high"
                     for obj in property:
@@ -78,7 +78,7 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '3':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).\
+                    property = PropertyTable.objects.\
                         order_by('-date_added')
                     print "Newest first"
                     for obj in property:
@@ -109,7 +109,7 @@ def sorting(request):
 
             if sort_order == '4':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).\
+                    property = PropertyTable.objects.\
                         order_by('date_added')
                     print "Oldest First"
                     for obj in property:
@@ -134,8 +134,8 @@ def sorting(request):
 
                 except Exception as e:
                     print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
+                    json_response[constants.SUCCESS] = constants.FALSE
+                    json_response[constants.MSG] = constants.FAILMSG
             print 76578765
         except Exception as e:
             print e

@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 from django.views.decorators.csrf import csrf_exempt
 
 from django.http.response import JsonResponse
@@ -12,10 +14,10 @@ import keysdata
 
 @csrf_exempt
 def choose_property(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         json_response = {keysdata.GET_PROPERTY: []}
         try:
-            property_type = request.POST.get(keysdata.PROPERTY_TYPE)
+            property_type = request.GET.get(keysdata.PROPERTY_TYPE)
             print property_type
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
@@ -56,3 +58,6 @@ def choose_property(request):
         print str(json_response)
         return JsonResponse(json_response)
     print 234567
+
+def view_property_view(request):
+    return render(request, 'property_view.html')

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Your choosen property type</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
@@ -12,56 +12,53 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-        $(document).ready(function(){
-            var temp;
-            $("#filter").hide();
-            $.ajax({
-                type: "GET",
-                url: "/home",
-                dataType: 'json',
-                success: function(data){
-                    for(i in data.data)
-                    {
-                        temp += '<div class="card medium horizontal">';
-                        temp += '<div class="card-image">';
-                        temp += '<img src="'+ data.data[i]['image_url'] +'" onclick="view_ptype(\''+data.data[i]['property_type']+'\')">';
-                        temp += '</div>';
-                        temp += '<div class="card-stacked">';
-                        temp += '<div class="card-content" id="d1">';
-                        temp += 'Property Type:'+data.data[i]['property_type']+'<br>';
-                        temp += '</div>';
-                        temp += '</div>';
-                        temp += '</div>';
-                    }
-                    $("#choose_property_type").html(temp);
-                },
-                error: function(){
-                    alert("Please try again later");
-                },
-            });
+    $(document).ready(function(){
+        $("#sort").hide();
+        $("#filter").hide();
+        var property = localStorage.getItem("property_type");
+        var temp;
+        $.ajax({
+            type: 'GET',
+            url: "/choose_property",
+            dataType: 'json',
+            data: {"property_type": property},
+            success: function(data){
+                for(i in data.get_property)
+                {
+                    temp += '<div class="card medium horizontal">';
+                    temp += '<div class="card-image">';
+                    temp += '<img src="'+ data.get_property[i].images[0] +'">';
+                    temp += '</div>';
+                    temp += '<div class="card-stacked">';
+                    temp += '<div class="card-content" id="d1">';
+                    temp += 'Title:"'+data.get_property[i]['title']+'"<br>';
+                    temp += 'Location:"'+data.get_property[i]['location']+'"<br>';
+                    temp += 'BHK:"'+data.get_property[i]['bhk']+'"<br>';
+                    temp += 'Price:"'+data.get_property[i]['price']+'"<br>';
+                    temp += 'Description:"'+data.get_property[i]['description']+'"<br>';
+                    temp += '</div>';
+                    temp += '</div>';
+                    temp += '</div>';
+                }
+                $("#div2").html(temp);
+            },
+            error: function(){
+                alert("Please try again later");
+            },
         });
-        function view_ptype(value)
+    });
+    function sort(value)
         {
-            localStorage.setItem("property_type",value);
-            $(location).attr('href','/view_property');
-        }
-        function search()
-        {
-            var bhk = [];
-            $('.bhk:checked').each(function(i, e) {
-                bhk.push($(this).val());
-                });
+            var temp;
             $.ajax({
-               type: "POST",
-               data: {"property_type": $('input[name="property_type"]:checked').val(), "usage": $('input[name="usage"]:checked').val(), "location": $("#location").val(), "bhk": bhk.join(), "min_price": "0", "max_price": $("#r1").val()},
+                type: "POST",
+                data: {"sort_order": value},
                 dataType: 'json',
-                traditional : true,
-                url: "/search",
+                url: "/sort",
                 success: function(data){
-                    alert("Data found");
+                    alert("Data Found");
                     for(i in data.get_property)
                     {
-                        alert("FGH");
                         temp += '<div class="card medium horizontal">';
                         temp += '<div class="card-image">';
                         temp += '<img src="'+ data.get_property[i].images[0] +'">';
@@ -76,13 +73,26 @@
                         temp += '</div>';
                         temp += '</div>';
                         temp += '</div>';
-                        alert(temp);
                     }
-                    alert("JGGHDFJ");
-                    $("#show_property").html(temp);
-                    $("#show_property").show();
-                    $("#choose_property_type").hide();
+                    $("#div2").html(temp);
                 },
+               error: function() {
+                    alert("Please try again later.");
+               },
+            });
+        }
+        function search()
+        {
+            var bhk = [];
+            $('.bhk:checked').each(function(i, e) {
+                bhk.push($(this).val());
+                });
+            $.ajax({
+               type: "POST",
+               data: {"property_type": $('input[name="property_type"]:checked').val(), "usage": $('input[name="usage"]:checked').val(), "location": $("#location").val(), "bhk": bhk.join(), "min_price": "0", "max_price": $("#r1").val()},
+                dataType: 'json',
+                traditional : true,
+                url: "/search",
                error: function() {
                     alert("Please try again later.");
                },
@@ -90,10 +100,30 @@
         }
         function view_search()
         {
+            $("#sort").hide();
             $("#filter").show();
+        }
+        function view_sort()
+        {
+            $("#filter").hide();
+            $("#sort").show();
         }
 </script>
 <div class="row">
+    <div class="col s2 m2 l2" id="sort">
+        <center>Sort</center>
+        <br>
+        <div class="row">
+            <input type="radio" name="group1" id="b1" value="1" onclick="sort(1)">
+            <label for="b1">Price high to low</label><br>
+            <input type="radio" name="group1" id="b2" value="2" onclick="sort(2)">
+            <label for="b2">Price low to high</label><br>
+            <input type="radio" name="group1" value="3" id="b3" onclick="sort(3)">
+            <label for="b3">Newest First</label><br>
+            <input type="radio" name="group1" value="4" id="b4" onclick="sort(4)">
+            <label for="b4">Oldest first</label><br>
+        </div>
+    </div>
     <div class="col s2 m2 l2" id="filter">
         <center>
             Filter
@@ -134,9 +164,11 @@
         </center>
     </div>
     <div class="col s6 m6 l6 push-s2 m2 l2" id="div1">
-        <img src="https://maxcdn.icons8.com/Share/icon/p1em/Very_Basic//search1600.png"
-             alt="Search" style="width:40px;height:40px" onclick="view_search()">
-        <div id="choose_property_type">
+        <img src="https://maxcdn.icons8.com/Share/icon/p1em/Very_Basic//search1600.png" alt="Search"
+             style="width:40px;height:40px" onclick="view_search()">
+        <img src="https://image.freepik.com/free-icon/sort-up-or-sort-down-couple-of-arrows_318-48313.jpg"
+             alt="Sort" style="width:40px;height:40px" onclick="view_sort()">
+        <div id="div2">
 
         </div>
     </div>
