@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Search',
     'SMS',
     'Sort',
+    'Enquiry',
 
 ]
 
