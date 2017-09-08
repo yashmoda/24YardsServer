@@ -8,32 +8,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
+    <style>
+.container {
+    position: relative;
+}
+
+img {
+    width: 250px;
+    height: 250px;
+    opacity: 0.8;
+}
+.noUi-horizontal{
+    height: 5px;
+}
+.imgsize{
+    width:30px;
+    height:30px;
+}
+.noUi-handle {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    box-shadow: none;
+    background-color: #26A69A;
+    z-index: 1;
+}
+</style>
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
+
+<script type="text/javascript">
         $(document).ready(function(){
-            var temp;
+            var slider = document.getElementById('test5');
+            noUiSlider.create(slider, {
+                start: [0, 80000],
+                connect: true,
+                tooltips: [ wNumb({ decimals: 0 }), wNumb({ decimals: 0 }) ],
+                   step: 5000,
+                   range: {
+                     'min': 0,
+                     'max': 1000000
+                   },
+                   format: wNumb({
+                     decimals: 0
+                   })
+                  });
+            var temp = "";
             $("#filter").hide();
+            document.getElementById("extra").style.padding = "20px";
+            document.getElementById("panel").style.padding = "15px";
             $.ajax({
                 type: "GET",
                 url: "/home",
                 dataType: 'json',
                 success: function(data){
-                    for(i in data.data)
-                    {
-                        temp += '<div class="card medium horizontal">';
-                        temp += '<div class="card-image">';
-                        temp += '<img src="'+ data.data[i]['image_url'] +'" onclick="view_ptype(\''+data.data[i]['property_type']+'\')">';
-                        temp += '</div>';
-                        temp += '<div class="card-stacked">';
-                        temp += '<div class="card-content" id="d1">';
-                        temp += 'Property Type:'+data.data[i]['property_type']+'<br>';
-                        temp += '</div>';
-                        temp += '</div>';
-                        temp += '</div>';
-                    }
-                    $("#choose_property_type").html(temp);
+                    var len2=data.data.length;
+                    for(i=0;i<len2;i++)
+                        {
+                            temp += '<div class = "col s4 m4 l4">';
+                            temp += '<div class="card">';
+                            temp += '<div class="card-image">';
+                            temp += '<img src="'+ data.data[i]['image_url'] +'" onclick="view_ptype(\''+data.data[i][
+                            'property_type']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
+                            temp += '<span class="card-title">';
+                            temp += ''+data.data[i]['property_type']+'<br>';
+                            temp += '</span>';
+                            temp += '</div>';
+                            temp += '</div>';
+                            temp += '</div>';
+                        }
+                        $("#choose_property_type").html(temp);
+
                 },
                 error: function(){
                     alert("Please try again later");
@@ -42,16 +90,17 @@
         });
         function search()
         {
+            var slider = document.getElementById('test5');
             var bhk = [];
             $('.bhk:checked').each(function(i, e) {
                 bhk.push($(this).val());
                 });
+            var price = slider.noUiSlider.get();
             localStorage.setItem("bhk",bhk);
             localStorage.setItem("property_type",$('input[name="property_type"]:checked').val());
             localStorage.setItem("usage",$('input[name="usage"]:checked').val());
             localStorage.setItem("location",$("#location").val());
-            localStorage.setItem("min_price","0");
-            localStorage.setItem("max_price", $("#r1").val());
+            localStorage.setItem("price", price);
             $(location).attr('href','/view_search');
         }
         function view_ptype(value)
@@ -64,53 +113,103 @@
             $("#filter").show();
         }
 </script>
-<div class="row">
-    <div class="col s2 m2 l2" id="filter">
-        <center>
-            Search
-        </center>
-        <br>
-        Property Type<br>
-        <input type="radio" id="b5" name="property_type" value="Buy">
-        <label for="b5">Buy</label><br>
-        <input type="radio" id="b6" name="property_type" value="Rent">
-        <label for="b6">Rent</label><br>
-        <input type="radio" name="property_type" id="b7" value="Projects">
-        <label for="b7">Projects</label><br>
-        BHK<br>
-        <input type="checkbox" id="c1" class="bhk" value="1">
-        <label for="c1">1</label><br>
-        <input type="checkbox" id="c2" class="bhk" value="2">
-        <label for="c2">2</label><br>
-        <input type="checkbox" id="c3" class="bhk" value="3">
-        <label for="c3">3</label><br>
-        <input type="checkbox" id="c4" class="bhk" value="4">
-        <label for="c4">4</label><br>
-        <input type="checkbox" id="c5" class="bhk" value="5">
-        <label for="c5">5</label><br>
-        Usage
-        <br>
-        <input type="radio" id="b11" name="usage" value="Residential">
-        <label for="b11">Residential</label><br>
-        <input type="radio" id="b12" name="usage" value="Commercial">
-        <label for="b12">Commercial</label><br>
-        Location<br>
-        <input type="text" id="text1" name="location">
-        Price<br>
-        <input type="range" id="r1" max="50000" min="0"/>
+<div class="card-panel amber lighten-2 black-text" style="height:60px" id="panel">
+    <H5>
+        24 Yards
+        <i class="material-icons" onclick="view_search()" onmouseover="this.style.cursor='pointer';">search</i>
+
+    </H5>
+</div><!--
+--><div class="row"><!--
+    --><div class="col s2 m2 l2" id="filter">
+        <ul class="collapsible" data-collapsible="expandable">
+            <li>
+                <div class="collapsible-header">Property Type</div><!--
+                --><div class="collapsible-body" style="padding:10px">
+                    <input type="radio" id="b5" name="property_type" value="Buy">
+                    <label for="b5">Buy</label><br>
+                    <input type="radio" id="b6" name="property_type" value="Rent">
+                    <label for="b6">Rent</label><br>
+                    <input type="radio" name="property_type" id="b7" value="Projects">
+                    <label for="b7">Projects</label><br>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">BHK</div><!--
+                --><div class="collapsible-body" style="padding:10px">
+                    <input type="checkbox" id="c1" class="bhk" value="1">
+                    <label for="c1">1</label><br>
+                    <input type="checkbox" id="c2" class="bhk" value="2">
+                    <label for="c2">2</label><br>
+                    <input type="checkbox" id="c3" class="bhk" value="3">
+                    <label for="c3">3</label><br>
+                    <input type="checkbox" id="c4" class="bhk" value="4">
+                    <label for="c4">4</label><br>
+                    <input type="checkbox" id="c5" class="bhk" value="5">
+                    <label for="c5">5</label><br>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Usage</div><!--
+                --><div class="collapsible-body" style="padding:10px">
+                    <input type="radio" id="b11" name="usage" value="Residential">
+                    <label for="b11">Residential</label><br>
+                    <input type="radio" id="b12" name="usage" value="Commercial">
+                    <label for="b12">Commercial</label><br>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Locality</div><!--
+                --><div class="collapsible-body" style="padding:10px">
+                    <input type="text" name="location" id="text1" placeholder="Enter the locality">
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Budget</div>
+                <div class="collapsible-body" style="padding:10px">
+                    <center>
+                        <div id="test5" class="noUiSlider"></div>
+                    </center>
+                </div>
+            </li>
+        </ul>
         <center>
             <button type="submit" value="Search" onclick="search()">
                 <strong>Search</strong><br>
             </button>
         </center>
-    </div>
-    <div class="col s6 m6 l6 push-s2 m2 l2" id="div1">
-        <img src="https://maxcdn.icons8.com/Share/icon/p1em/Very_Basic//search1600.png"
-             alt="Search" style="width:40px;height:40px" onclick="view_search()">
-        <div id="choose_property_type">
+    </div><!--
+    --><div id="div1" class="push-l1">
+        <div class="row" id="choose_property_type">
 
         </div>
     </div>
+</div><!--
+--><div class="row amber lighten-1 black-text" id="extra">
+    <div class="row col s3 m3 l3 push-s9 m9 l9">
+        <div><b>CONTACT US</b></div>
+        Mobile Number:<br>
+        Email id:<br>
+    </div>
+    <div class="row col s3 m3 l3 push-s9 m9 l9">
+        <div><b>CONNECT WITH US</b></div><br>
+        <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+            <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+        </a>
+        <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+            <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+        </a>
+        <a class="foot_socialLink tw" href="">
+            <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+        </a>
+    </div>
+    <div class="row col s3 m3 l3 push-s9 m9 l9">
+        <div><b>GET THE MOBILE APP</b></div>
+        <a class="android appLnk" title="24 Yards Android App" href="">
+            <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639" style="height:50px; width:200px">
+        </a>
+    </div>
+
 </div>
 </body>
 </html>

@@ -16,7 +16,7 @@ class PropertyTable(models.Model):
     contact = models.CharField(max_length=10)
     usage = models.CharField(max_length=20, default=None)
     date_added = models.DateField()
-    #image = models.ForeignKey(PropertyImage, db_column='PropertyImage.id')
+    image = models.ImageField(blank=True, null=True, upload_to='static/')
 
     def __str__(self):
         return self.title

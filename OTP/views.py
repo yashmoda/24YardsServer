@@ -24,7 +24,7 @@ def send_otp(request):
             otp = randint(100000, 999999)
             try:
                 msg = "Your one time password is " + str(otp)
-                send_sms(msg, str(contact))
+                #send_sms(msg, str(contact))
                 print msg
             except Exception as e:
                 print e
