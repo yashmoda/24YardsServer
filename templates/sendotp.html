@@ -9,6 +9,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <style>
+    .imgsize{
+    width:30px;
+    height:30px;
+}
+        ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #000000;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #000000;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #000000;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #000000;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #000000;
+}
+    </style>
 </head>
 <body>
 <script>
@@ -39,6 +62,23 @@
                 error: function(){
                     alert("Please try again later");
                 }
+            });
+        }
+        function enquiry()
+        {
+            $.ajax({
+                type:"POST",
+                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+                dataType:'json',
+                url:'/enquire',
+                success: function(data)
+                {
+                    alert("We will soon contact you");
+                },
+                error: function()
+                {
+                    alert("Sorry! Please try again");
+                },
             });
         }
         function verifyotp()
@@ -111,21 +151,39 @@
         </div>
     </div>
 </div>
-<div class="row amber lighten-2" id="extra">
-    <div class="row" onmouseover="this.style.cursor='pointer';" id="download">
-            Download App
+<div class="row blue lighten-5 black-text" id="extra">
+    <div class="row col s3 m3 l3 black-text">
+        <div><b>Enquiry Form</b></div>
+        <input type="text" name="name" id="text2" placeholder="Enter Your name">
+        <input type="tel" name="phone" id="text3" placeholder="Contact Number">
+        <center>
+            <button type="submit" value="Submit" onclick="enquiry()">
+                Submit
+            </button>
+        </center>
     </div>
-    <div class="row " onmouseover="this.style.cursor='pointer';" id="contact">
-            Contact Us
+    <div class="row col s3 m3 l3">
+        <div><b>GET THE MOBILE APP</b></div>
+        <a class="android appLnk" title="24 Yards Android App" href="">
+            <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639" style="height:50px; width:200px">
+        </a>
     </div>
-    <div class="row " onmouseover="this.style.cursor='pointer';" id="about">
-            About Us
+    <div class="row col s3 m3 l3">
+        <div><b>CONTACT US</b></div>
+        Mobile Number:<br>
+        Email id:<br>
     </div>
-    <div class="row " onmouseover="this.style.cursor='pointer';" id="privacy">
-            Privacy Policy
-    </div>
-    <div class="row" onmouseover="this.style.cursor='pointer';" id="tc">
-            Terms and Conditions
+    <div class="row col s3 m3 l3">
+        <div><b>CONNECT WITH US</b></div>
+        <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+            <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+        </a>
+        <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+            <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+        </a>
+        <a class="foot_socialLink tw" href="">
+            <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+        </a>
     </div>
 </div>
 </body>

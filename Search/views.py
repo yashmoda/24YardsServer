@@ -35,19 +35,24 @@ def search(request):
         print max_price
         print bhk
         print usage
-        if property_type != '' and location == '' and min_price == '0' and max_price == '' and len(bhk)==0 and usage == '':
+        if property_type != '' and location == '' and len(bhk)==0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 654567
-                property = PropertyTable.objects.filter(property_type=property_table)
+                property = PropertyTable.objects.filter(property_type=property_table,
+                                                        price__gte = int(min_price),
+                                                        price__lte = int(max_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -55,7 +60,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -63,17 +68,21 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price == '0' and max_price == '' and len(bhk) == 0 and usage == '':
+        if property_type == '' and location != '' and len(bhk) == 0 and usage == '':
             try:
-                property = PropertyTable.objects.filter(location=location)
+                property = PropertyTable.objects.filter(location=location, price__gte = int(min_price),
+                                                        price__lte = int(max_price))
                 print 5
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -81,7 +90,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -89,39 +98,10 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price != '0' and max_price != ''\
-                and len(bhk) == 0 and usage == '':
+        if property_type == '' and location == '' and len(bhk) != 0 and usage == '':
             try:
-                property = PropertyTable.objects.filter(price__lte = int(max_price),
+                property = PropertyTable.objects.filter(bhk__in=bhk, price__lte = int(max_price),
                                                         price__gte = int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                         request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price == '0' and max_price == '' \
-                and len(bhk) != 0 and usage == '':
-            try:
-                property = PropertyTable.objects.filter(bhk__in=bhk)
                 print 'dsfsc'
                 print 45
                 for obj in property:
@@ -129,8 +109,11 @@ def search(request):
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -139,7 +122,7 @@ def search(request):
                                                          request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -147,18 +130,21 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price != '0' and max_price != '' \
-                and len(bhk) == 0 and usage != '':
+        if property_type == '' and location == '' and len(bhk) == 0 and usage != '':
             try:
-                property = PropertyTable.objects.filter(usage=usage)
+                property = PropertyTable.objects.filter(usage=usage, price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -167,7 +153,7 @@ def search(request):
                                                          request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -175,21 +161,24 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price == '0' and max_price == '' \
-                and len(bhk) == 0 and usage == '':
+        if property_type != '' and location != '' and len(bhk) == 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 6567
                 property = PropertyTable.objects.filter(property_type=property_table,
-                                                        location=location)
+                                                        location=location, price__gte = int(min_price),
+                                                        price__lte = int(max_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -198,7 +187,7 @@ def search(request):
                                                          request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -206,50 +195,24 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price!= '' and max_price != '' \
-                and len(bhk) == 0 and usage == '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 4567
-                property = PropertyTable.objects.filter(price__lte = int(max_price),
-                                                        price__gte = int(min_price),
-                                                        property_type = property_table)
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price == '0' and max_price == '' and len(bhk) != 0 and usage == '':
+        if property_type != '' and location == '' and len(bhk) != 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 3456
-                property = PropertyTable.objects.filter(bhk__in = bhk, property_type=property_table)
+                property = PropertyTable.objects.filter(bhk__in = bhk, property_type=property_table,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -257,7 +220,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -265,19 +228,24 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price == '0' and max_price == '' and len(bhk) == 0 and usage != '':
+        if property_type != '' and location == '' and len(bhk) == 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 345
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table)
+                property = PropertyTable.objects.filter(usage = usage, property_type=property_table,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -285,7 +253,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -293,17 +261,22 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price == '0' and max_price == '' and len(bhk) == 0 and usage != '':
+        if property_type == '' and location != '' and len(bhk) == 0 and usage != '':
             try:
-                property = PropertyTable.objects.filter(usage = usage, location=location)
+                property = PropertyTable.objects.filter(usage = usage, location=location,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -311,7 +284,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -319,17 +292,22 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price == '0' and max_price == '' and len(bhk) != 0 and usage == '':
+        if property_type == '' and location != '' and len(bhk) != 0 and usage == '':
             try:
-                property = PropertyTable.objects.filter(bhk__in=bhk, location=location)
+                property = PropertyTable.objects.filter(bhk__in=bhk, location=location,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -337,7 +315,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -345,17 +323,22 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price != '0' and max_price != '' and len(bhk) == 0 and usage == '':
+        if property_type == '' and location == '' and len(bhk) != 0 and usage != '':
             try:
-                property = PropertyTable.objects.filter(price__lte = int(max_price), price__gte = int(min_price), location=location)
+                property = PropertyTable.objects.filter(usage = usage, bhk__in = bhk,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -363,7 +346,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -371,126 +354,25 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price != '0' and max_price != '' and len(bhk) != 0 and usage == '':
-            try:
-                property = PropertyTable.objects.filter(price__lte = int(max_price), price__gte = int(min_price), bhk__in = bhk)
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price != '0' and max_price != '' and len(bhk) == 0 and usage != '':
-            try:
-                property = PropertyTable.objects.filter(usage = usage, price__lte = int(max_price), price__gte = int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price == '0' and max_price == '' and len(bhk) != 0 and usage != '':
-            try:
-                property = PropertyTable.objects.filter(usage = usage, bhk__in = bhk)
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price != '0' and max_price != '' and len(bhk) == 0 and usage == '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 3467
-                property = PropertyTable.objects.filter(location=location, property_type=property_table,
-                                                        price__lte = int(max_price), price__gte = int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price == '0' and max_price == '' and len(bhk) != 0 and usage == '':
+        if property_type != '' and location != '' and len(bhk) != 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 67
-                property = PropertyTable.objects.filter(property_type=property_table, location=location, bhk__in=bhk)
+                property = PropertyTable.objects.filter(property_type=property_table,
+                                                        location=location, bhk__in=bhk,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -498,7 +380,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -506,19 +388,25 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price == '0' and max_price == '' and len(bhk) == 0 and usage != '':
+        if property_type != '' and location != '' and len(bhk) == 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 456
-                property = PropertyTable.objects.filter(usage = usage, location = location, property_type=property_table)
+                property = PropertyTable.objects.filter(usage = usage, location = location,
+                                                        property_type=property_table,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -526,7 +414,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -534,78 +422,24 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price != '0' and \
-                        max_price != '' and len(bhk) != 0 and usage == '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 3467
-                property = PropertyTable.objects.filter(bhk__in = bhk, price__lte=int(max_price),
-                                                        price__gte=int(min_price), property_type=property_table)
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price != '0' and max_price != '' and len(bhk) == 0 and usage != '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 3457
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table,
-                                                        price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price == '0' and max_price == '' and len(bhk) != 0 and usage != '':
+        if property_type != '' and location == '' and len(bhk) != 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 3567
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table, bhk__in=bhk)
+                property = PropertyTable.objects.filter(usage = usage, property_type=property_table,
+                                                        bhk__in=bhk, price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -613,7 +447,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -621,19 +455,22 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price != '0' and max_price != '' \
-                and len(bhk) != 0 and usage == '':
+        if property_type == '' and location != '' and len(bhk) != 0 and usage != '':
             try:
-                property = PropertyTable.objects.filter(location=location, price__lte=int(max_price),
-                                                        price__gte=int(min_price), bhk__in=bhk)
+                property = PropertyTable.objects.filter(usage = usage, location=location, bhk__in=bhk,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -641,7 +478,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -649,160 +486,25 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price != '0' and max_price != '' and len(bhk) == 0 and usage != '':
-            try:
-                property = PropertyTable.objects.filter(usage = usage, location=location,
-                                                        price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price == '0' and max_price == '' and len(bhk) != 0 and usage != '':
-            try:
-                property = PropertyTable.objects.filter(usage = usage, location=location, bhk__in=bhk)
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location == '' and min_price != '0' and max_price != '' and len(bhk) != 0 and usage != '':
-            try:
-                property = PropertyTable.objects.filter(usage = usage, bhk__in=bhk,
-                                                        price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price != '0' and max_price != '' and len(bhk) != 0 and usage == '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 348
-                property = PropertyTable.objects.filter(bhk__in=bhk, property_type=property_table, location=location,
-                                                        price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location == '' and min_price != '0' and max_price != ''\
-                and len(bhk) != 0 and usage != '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 3456767
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table, bhk__in=bhk,
-                                                        price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price == '0' and max_price == '' \
-                and len(bhk) != 0 and usage != '':
+        if property_type != '' and location != '' and len(bhk) != 0 and usage != '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 34567098
                 property = PropertyTable.objects.filter(usage = usage, property_type=property_table,
-                                                        location=location, bhk__in=bhk)
+                                                        location=location, bhk__in=bhk,
+                                                        price__lte = int(max_price),
+                                                        price__gte = int(min_price))
                 print 45
                 for obj in property:
                     print obj.title
                     temp_json = {"title": str(obj.title), "location": str(obj.location),
                                  "bhk": int(obj.bhk), "description": str(obj.description),
                                  "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    """images = []
                     temp_json1 = {}
                     property_data = PropertyImage.objects.filter(property=obj)
                     print 123456
@@ -810,92 +512,7 @@ def search(request):
                         temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
                                                          "/" + str(img.image)
                         images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price != '0' and max_price != '' and len(bhk) == 0 and usage != '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 34567565
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table,
-                                                        location=location, price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type == '' and location != '' and min_price != '0' and max_price != '' and len(bhk) != 0 and usage != '':
-            try:
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table, bhk__in=bhk,
-                                                        price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
-                    json_response[keysdata.GET_PROPERTY].append(temp_json)
-                json_response[constants.SUCCESS] = constants.TRUE
-                json_response[constants.MSG] = constants.SUCCESSMSG
-            except Exception as e:
-                print e
-                json_response[constants.SUCCESS] = constants.FALSE
-                json_response[constants.MSG] = constants.FAILMSG
-        if property_type != '' and location != '' and min_price != '0' and max_price != '' and len(bhk) != 0 and usage != '':
-            try:
-                property_table = PropertyType.objects.get(property_type=property_type)
-                print 3456723
-                property = PropertyTable.objects.filter(usage = usage, property_type=property_table, location=location,
-                                                        bhk__in=bhk, price__lte=int(max_price), price__gte=int(min_price))
-                print 45
-                for obj in property:
-                    print obj.title
-                    temp_json = {"title": str(obj.title), "location": str(obj.location),
-                                 "bhk": int(obj.bhk), "description": str(obj.description),
-                                 "price": int(obj.price), "contact": str(obj.contact),
-                                 "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                    images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images
+                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG

@@ -12,9 +12,30 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
     <style>
+    .imgsize{
+    width:30px;
+    height:30px;
+}
         td{
             padding: 2px;
         }
+        ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #000000;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #000000;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #000000;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #000000;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #000000;
+}
     </style>
 </head>
 <body>
@@ -35,9 +56,10 @@
                      decimals: 0
                    })
                   });
+        $("#filter").hide();
         document.getElementById("extra").style.padding = "20px";
         document.getElementById("panel").style.padding = "15px";
-        var property = localStorage.getItem("property_type");
+        var property = localStorage.getItem("property_type1");
         var usage = localStorage.getItem("usage");
         var location = localStorage.getItem("location1");
         var bhk = localStorage.getItem("bhk");
@@ -58,7 +80,7 @@
                         temp += '<div class="col s4 m4 l4">'
                         temp += '<div class="card medium">';
                         temp += '<div class="card-image">';
-                        temp += '<img src="'+ data.get_property[i]['image_url'] +'" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
+                        temp += '<img src="'+ data.get_property[i]['image'] +'" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
                         temp += '</div>';
                         temp += '<div class="card-content" id="d1">';
                         temp += '<table>';
@@ -117,9 +139,40 @@
             },
         });
     });
+    function search()
+        {
+            var bhk = [];
+            $('.bhk:checked').each(function(i, e) {
+                bhk.push($(this).val());
+                });
+            localStorage.setItem("bhk",bhk);
+            localStorage.setItem("property_type1",$('input[name="property_type"]:checked').val());
+            localStorage.setItem("usage",$('input[name="usage"]:checked').val());
+            localStorage.setItem("location1",$("#location").val());
+            localStorage.setItem("min_price","0");
+            localStorage.setItem("max_price", $("#price-range").val());
+            $(location).attr('href','/view_search');
+        }
+    function enquiry()
+        {
+            $.ajax({
+                type:"POST",
+                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+                dataType:'json',
+                url:'/enquire',
+                success: function(data)
+                {
+                    alert("We will soon contact you");
+                },
+                error: function()
+                {
+                    alert("Sorry! Please try again");
+                },
+            });
+        }
     function sort(value)
     {
-            var temp;
+            var temp="";
             var property = localStorage.getItem("property_type");
             $.ajax({
                 type: "POST",
@@ -132,7 +185,7 @@
                     temp += '<div class="col s4 m4 l4">'
                     temp += '<div class="card medium">';
                     temp += '<div class="card-image">';
-                    temp += '<img src="'+ data.get_property[i]['image_url'] +'" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
+                    temp += '<img src="'+ data.get_property[i]['image'] +'" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
                     temp += '</div>';
                     temp += '<div class="card-content" id="d1">';
                     temp += '<table>';
@@ -199,7 +252,7 @@
 <div class="card-panel amber lighten-2 black-text" id="panel" style="height:60px">
     <H5>
         24 Yards
-        <i class="material-icons" onclick="view_search()" onmouseover="this.style.cursor='pointer';">search</i>
+        <i class="material-icons" style="float:right;" onclick="view_search()" onmouseover="this.style.cursor='pointer';">search</i>
     </H5>
 </div>
 <div class="row">
@@ -211,13 +264,13 @@
                     Sort By
                 </div>
                 <div class="collapsible-body" style="padding:10px">
-                    <input type="radio" id="b1" onclick="sort(1)">
+                    <input type="radio" name="sort" id="b1" onclick="sort(1)">
                     <label for ="b1">Price High to low</label>
-                    <input type="radio" id="b2" onclick="sort(2)">
+                    <input type="radio" id="b2" name="sort" onclick="sort(2)">
                     <label for="b2">Price low to high</label>
-                    <input type="radio" onclick="sort(3)" id="b3">
+                    <input type="radio" name="sort" onclick="sort(3)" id="b3">
                     <label for="b3">Newest First</label>
-                    <input type="radio" id="b4" onclick="sort(4)">
+                    <input type="radio" id="b4" name="sort" onclick="sort(4)">
                     <label for="b4">Oldest First</label>
                 </div>
             </li>
@@ -259,7 +312,7 @@
             <li>
                 <div class="collapsible-header">Locality</div>
                 <div class="collapsible-body" style="padding:10px">
-                    <input type="text" name="location" id="text1" placeholder="Enter the locality">
+                    <input type="text" name="location" id="location" placeholder="Enter the locality">
                 </div>
             </li>
             <li>
@@ -282,21 +335,39 @@
         </div>
     </div>
 </div>
-<div class="amber lighten-1 black-text" id="extra">
-    <div class="row" onmouseover="this.style.cursor='pointer';" id="download">
-            Download App
+<div class="row blue lighten-5 black-text" id="extra">
+    <div class="row col s3 m3 l3 black-text">
+        <div><b>Enquiry Form</b></div>
+        <input type="text" name="name" id="text2" placeholder="Enter Your name">
+        <input type="tel" name="phone" id="text3" placeholder="Contact Number">
+        <center>
+            <button type="submit" value="Submit" onclick="enquiry()">
+                Submit
+            </button>
+        </center>
     </div>
-    <div class="row " onmouseover="this.style.cursor='pointer';" id="contact">
-            Contact Us
+    <div class="row col s3 m3 l3">
+        <div><b>GET THE MOBILE APP</b></div>
+        <a class="android appLnk" title="24 Yards Android App" href="">
+            <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639" style="height:50px; width:200px">
+        </a>
     </div>
-    <div class="row " onmouseover="this.style.cursor='pointer';" id="about">
-            About Us
+    <div class="row col s3 m3 l3">
+        <div><b>CONTACT US</b></div>
+        Mobile Number:<br>
+        Email id:<br>
     </div>
-    <div class="row " onmouseover="this.style.cursor='pointer';" id="privacy">
-            Privacy Policy
-    </div>
-    <div class="row" onmouseover="this.style.cursor='pointer';" id="tc">
-            Terms and Conditions
+    <div class="row col s3 m3 l3">
+        <div><b>CONNECT WITH US</b></div>
+        <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+            <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+        </a>
+        <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+            <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+        </a>
+        <a class="foot_socialLink tw" href="">
+            <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+        </a>
     </div>
 </div>
 </body>

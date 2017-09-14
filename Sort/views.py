@@ -30,8 +30,11 @@ def sorting(request):
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
                                     "bhk": int(obj.bhk), "description": str(obj.description),
                                     "price": int(obj.price), "contact": str(obj.contact),
-                                    "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                        images = []
+                                    "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                     "image": request.scheme + "://" + request.get_host() +
+                                              "/" + str(obj.image)
+                                     }
+                        """images = []
                         temp_json1 = {}
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
@@ -40,7 +43,7 @@ def sorting(request):
                                                              request.get_host() + \
                                                              "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images
+                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
@@ -58,8 +61,11 @@ def sorting(request):
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
                                      "bhk": int(obj.bhk), "description": str(obj.description),
                                      "price": int(obj.price), "contact": str(obj.contact),
-                                     "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                        images = []
+                                     "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                     "image": request.scheme + "://" + request.get_host() +
+                                              "/" + str(obj.image)
+                                     }
+                        """images = []
                         temp_json1 = {}
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
@@ -68,7 +74,7 @@ def sorting(request):
                                                              request.get_host() + \
                                                              "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images
+                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
@@ -86,8 +92,11 @@ def sorting(request):
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
                                      "bhk": int(obj.bhk), "description": str(obj.description),
                                      "price": int(obj.price), "contact": str(obj.contact),
-                                     "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                        images = []
+                                     "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                     "image": request.scheme + "://" + request.get_host() +
+                                              "/" + str(obj.image)
+                                     }
+                        """images = []
                         temp_json1 = {}
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
@@ -96,7 +105,7 @@ def sorting(request):
                                                              request.get_host() + \
                                                              "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images
+                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
@@ -117,8 +126,11 @@ def sorting(request):
                         temp_json = {"title": str(obj.title), "location": str(obj.location),
                                      "bhk": int(obj.bhk), "description": str(obj.description),
                                      "price": int(obj.price), "contact": str(obj.contact),
-                                     "usage": str(obj.usage), "date_added": str(obj.date_added)}
-                        images = []
+                                     "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                     "image": request.scheme + "://" + request.get_host() +
+                                              "/" + str(obj.image)
+                                     }
+                        """images = []
                         temp_json1 = {}
                         property_data = PropertyImage.objects.filter(property=property)
                         print 12345674
@@ -127,7 +139,7 @@ def sorting(request):
                                                              request.get_host() + \
                                                              "/" + str(img.image)
                             images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images
+                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
