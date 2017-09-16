@@ -104,10 +104,9 @@
         }
 
 </script>
-<div class="card-panel amber lighten-2" id="panel" style="height:60px">
-    <H5>
-        24 Yards
-    </H5>
+<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
+        <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+        <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
 </div>
 <div style="background-image:url(https://st2.depositphotos.com/1006832/5969/i/950/depositphotos_59695353-stock-photo-futuristic-modern-office-building-interior.jpg)">
     <div class="row">
@@ -151,13 +150,13 @@
         </div>
     </div>
 </div>
-<div class="row blue lighten-5 black-text" id="extra">
+<div class="row blue lighten-5 black-text" id="extra" style="margin-bottom:0px;">
     <div class="row col s3 m3 l3 black-text">
         <div><b>Enquiry Form</b></div>
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number">
         <center>
-            <button type="submit" value="Submit" onclick="enquiry()">
+             <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
                 Submit
             </button>
         </center>

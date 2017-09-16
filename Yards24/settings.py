@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'SMS',
     'Sort',
     'Enquiry',
-
+    'Details',
 ]
 
 MIDDLEWARE_CLASSES = [

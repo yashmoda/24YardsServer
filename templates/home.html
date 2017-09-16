@@ -59,6 +59,32 @@ line-height:200px;
 ::-ms-input-placeholder { /* Microsoft Edge */
    color:    #000000;
 }
+#container {
+  height: 400px;
+  width: 400px;
+  position: relative;
+}
+#image {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#text {
+  z-index: 100;
+  position: relative;
+  color: white;
+  font-size: 16px;
+  left: 450px;
+  top: 150px;
+}
+#dd {
+  z-index: 100;
+  position: relative;
+  font-size: 16px;
+  left: 290px;
+  top: 45px;
+  width:150px
+}
 </style>
 </head>
 <body>
@@ -151,13 +177,32 @@ line-height:200px;
             $("#filter").show();
         }
 </script>
-<div class="blue lighten-2 black-text" style="height:60px; padding:15px;">
-    <H5>
-        24 Yards
-        <i class="material-icons" onclick="view_search()" style="float:right" onmouseover="this.style.cursor='pointer';">search</i>
-
-    </H5>
+<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
+        <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+        <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
 </div>
+<div id="container">
+    <img id="image" src="http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png" style="width:1300px; height:400px"/>
+    <input id="text" type="text" placeholder="Enter the locality" style="background-color:transparent;">
+    <button class="btn-flat waves-effect waves-light" type="submit" value="Submit"
+            style="top:95px; left:840px; background-color:#b2dfdb">
+        Search
+    </button>
+    <ul class="collapsible" data-collapsible="expandable" id="dd">
+            <li>
+                <div class="collapsible-header" style="background-color:#b2dfdb">Property Type</div><!--
+                --><div class="collapsible-body" style="padding:10px; background-color:white">
+                    <input type="radio" id="buy" name="property_type" value="Buy">
+                    <label for="buy">Buy</label><br>
+                    <input type="radio" id="rent" name="property_type" value="Rent">
+                    <label for="rent">Rent</label><br>
+                    <input type="radio" name="property_type" id="project" value="Projects">
+                    <label for="project">Projects</label><br>
+                </div>
+            </li>
+    </ul>
+</div>
+
 <div class="row" style="padding:25px;"><!--
     --><div class="col s2 m2 l2" id="filter">
         <ul class="collapsible" data-collapsible="expandable">
@@ -223,13 +268,13 @@ line-height:200px;
         </div>
     </div>
 </div>
-<div class="row blue lighten-5 black-text" id="extra">
+<div class="row blue lighten-5 black-text" id="extra" style="height:240px; margin-bottom:0px">
     <div class="row col s3 m3 l3 black-text">
         <div><b>Enquiry Form</b></div>
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number">
         <center>
-            <button type="submit" value="Submit" onclick="enquiry()">
+            <button class="btn-flat waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
                 Submit
             </button>
         </center>

@@ -58,7 +58,6 @@
                   });
         $("#filter").hide();
         document.getElementById("extra").style.padding = "20px";
-        document.getElementById("panel").style.padding = "15px";
         var property = localStorage.getItem("property_type1");
         var usage = localStorage.getItem("usage");
         var location = localStorage.getItem("location1");
@@ -249,11 +248,9 @@
         $("#filter").show();
     }
 </script>
-<div class="card-panel amber lighten-2 black-text" id="panel" style="height:60px">
-    <H5>
-        24 Yards
-        <i class="material-icons" style="float:right;" onclick="view_search()" onmouseover="this.style.cursor='pointer';">search</i>
-    </H5>
+<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
+        <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+        <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
 </div>
 <div class="row">
     <div class="col s2 m2 l2" id="filter">
@@ -335,13 +332,13 @@
         </div>
     </div>
 </div>
-<div class="row blue lighten-5 black-text" id="extra">
+<div class="row blue lighten-5 black-text" id="extra" style="margin-bottom:0px;">
     <div class="row col s3 m3 l3 black-text">
         <div><b>Enquiry Form</b></div>
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number">
         <center>
-            <button type="submit" value="Submit" onclick="enquiry()">
+             <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
                 Submit
             </button>
         </center>
