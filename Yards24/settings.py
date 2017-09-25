@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Sort',
     'Enquiry',
     'Details',
+    'Contact',
 ]
 
 MIDDLEWARE_CLASSES = [

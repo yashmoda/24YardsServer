@@ -23,8 +23,8 @@ def search(request):
         max_price = request.POST.get(keysdata.MAX_PRICE,'')
         bhk = list(request.POST.get(keysdata.BHK,''))
         usage = request.POST.get(keysdata.USAGE,'')
-        if location == 'undefined':
-            location=''
+        #if location == 'undefined':
+         #   location=''
         if property_type == 'undefined':
             property_type=''
         if usage == 'undefined':
