@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="/static/css/nouislider.min.css">
+    <link href="/static/css/nouislider.css">
+    <script src="/static/script/nouislider.js"></script>
+    <script src="/static/script/nouislider.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+</head>
+<style>
+    .imgsize{
+        width:30px;
+        height:30px;
+    }
+</style>
+<body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var title = localStorage.getItem("title");
+        $('.slider').slider({full_width: true});
+        var temp = "";
+        $.ajax({
+            type : "GET",
+            dataType : "json",
+            data : {"title" : title},
+            url : "/show_property",
+            success : function(data)
+            {
+                temp += '<div class="indigo darken-3 white-text" style="height:60px; padding:15px;">';
+                temp += '<h5>';
+                temp += data.get_property[0]['title'];
+                temp += '</h5>';
+                temp += '</div>';
+                temp += '<div class="slider col s5 m5 l5">';
+                temp += '<ul class="slides">';
+                for(i in data.get_property[0]['images'])
+                {
+                    temp += '<li>';
+                    temp += '<img src="'+ data.get_property[0]['images'][i] +'" style = "height:100px; width:150px;">';
+                    //alert(data.get_property[0]['images'][i]);
+                    temp += '</li>';
+                }
+                temp += '</ul>';
+                temp += '</div>';
+                temp += '<div style="background-colour:#e0f2f1;">';
+                temp += '<div class = "col s2 m2 l2">';
+                temp += '<h5>';
+                temp += 'Description';
+                temp += '</h5>';
+                temp += data.get_property[0]['description'];
+                temp += '<h5>';
+                temp += 'Location';
+                temp += '</h5>';
+                temp += data.get_property[0]['location'];
+                temp += '<h5>';
+                temp += 'Usage';
+                temp += '</h5>';
+                temp += data.get_property[0]['usage'];
+                temp += '</div>';
+                temp += '<div class = "col s2 m2 l2 push-s1 m1 l1">';
+                temp += '<h5>';
+                temp += 'Price';
+                temp += '</h5>';
+                temp += data.get_property[0]['price'];
+                temp += '<h5>';
+                temp += 'BHK';
+                temp += '</h5>';
+                temp += data.get_property[0]['bhk'];
+                temp += '<h5>';
+                temp += 'Date Added';
+                temp += '</h5>';
+                temp += data.get_property[0]['date_added'];
+                temp += '</div>';
+                temp += '</div>';
+                $('.slider').slider();
+                $("#div2").html(temp);
+            },
+            error : function()
+            {
+                alert("Please try again");
+            },
+        });
+    });
+    function enquiry()
+        {
+            $.ajax({
+                type:"POST",
+                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+                dataType:'json',
+                url:'/enquire',
+                success: function(data)
+                {
+                    alert("We will soon contact you");
+                },
+                error: function()
+                {
+                    alert("Sorry! Please try again");
+                },
+            });
+        }
+
+</script>
+<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
+        <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+</div>
+<div id="div1">
+    <div id="div2" class="row" style="margin:0px;"></div>
+</div>
+<div class="row blue lighten-5 black-text" id="extra" style="margin-bottom:0px;">
+    <div class="row col s3 m3 l3 black-text">
+        <div><center><b>Enquiry Form</b></center></div>
+        <input type="text" name="name" id="text2" placeholder="Enter Your name">
+        <input type="tel" name="phone" id="text3" placeholder="Contact Number"
+               maxlength="10" minlength="10">
+        <center>
+             <button class="btn waves-effect waves-light white-text"
+                     style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
+                Submit
+            </button>
+        </center>
+    </div>
+    <div class="row col s3 m3 l3">
+        <div><b>GET THE MOBILE APP</b></div>
+        <a class="android appLnk" title="24 Yards Android App" href="">
+            <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639" style="height:50px; width:200px">
+        </a>
+    </div>
+    <div class="row col s3 m3 l3">
+        <div><b>CONTACT US</b></div>
+        Mobile Number:<br>
+        Email id:<br>
+    </div>
+    <div class="row col s3 m3 l3">
+        <div><b>CONNECT WITH US</b></div>
+        <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+            <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+        </a>
+        <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+            <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+        </a>
+        <a class="foot_socialLink tw" href="">
+            <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+        </a>
+    </div>
+</div>
+</body>
+</html>

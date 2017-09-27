@@ -23,8 +23,8 @@ def search(request):
         max_price = request.POST.get(keysdata.MAX_PRICE,'')
         bhk = list(request.POST.get(keysdata.BHK,''))
         usage = request.POST.get(keysdata.USAGE,'')
-        #if location == 'undefined':
-         #   location=''
+        if location == 'undefined':
+            location=''
         if property_type == 'undefined':
             property_type=''
         if usage == 'undefined':
@@ -35,7 +35,28 @@ def search(request):
         print max_price
         print bhk
         print usage
-        if property_type != '' and location == '' and len(bhk)==0 and usage == '':
+        if property_type == '' and location == '' and len(bhk) == 0 and usage == '':
+            try:
+                property = PropertyTable.objects.filter(price__gte = int(min_price),
+                                                        price__lte = int(max_price))
+                print 2345
+                for obj in property:
+                    print obj.title
+                    temp_json = {"title": str(obj.title), "location": str(obj.location),
+                                 "bhk": str(obj.bhk), "description": str(obj.description),
+                                 "price": str(obj.price), "contact": str(obj.contact),
+                                 "usage": str(obj.usage), "date_added": str(obj.date_added),
+                                 "image": request.scheme + "://" + request.get_host() +
+                                          "/" + str(obj.image)
+                                 }
+                    json_response[keysdata.GET_PROPERTY].append(temp_json)
+                json_response[constants.SUCCESS] = constants.TRUE
+                json_response[constants.MSG] = constants.SUCCESSMSG
+            except Exception as e:
+                print e
+                json_response[constants.SUCCESS] = constants.FALSE
+                json_response[constants.MSG] = constants.FAILMSG
+        if property_type != '' and location == '' and len(bhk) == 0 and usage == '':
             try:
                 property_table = PropertyType.objects.get(property_type=property_type)
                 print 654567
@@ -52,15 +73,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -82,15 +94,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -113,16 +116,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                         request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -144,16 +137,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" +\
-                                                         request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -178,16 +161,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                         request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -212,15 +185,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -245,15 +209,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -276,15 +231,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -307,15 +253,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -338,15 +275,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -372,15 +300,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -406,15 +325,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -439,15 +349,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -470,15 +371,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
@@ -504,15 +396,6 @@ def search(request):
                                  "image": request.scheme + "://" + request.get_host() +
                                           "/" + str(obj.image)
                                  }
-                    """images = []
-                    temp_json1 = {}
-                    property_data = PropertyImage.objects.filter(property=obj)
-                    print 123456
-                    for img in property_data:
-                        temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() + \
-                                                         "/" + str(img.image)
-                        images.append(temp_json1[keysdata.IMAGE_URL])
-                    temp_json['images'] = images"""
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG

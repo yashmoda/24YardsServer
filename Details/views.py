@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,12 +24,13 @@ def show_property(request):
                             "usage": str(property.usage), "date_added": str(property.date_added)}
                 property_image = PropertyImage.objects.filter(property = property)
                 print "Image"
+                print property_image
                 temp_json1 = {}
                 images=[]
                 for img in property_image:
                     temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() +\
                                                      "/" + str(img.image)
-                images.append(temp_json1[keysdata.IMAGE_URL])
+                    images.append(temp_json1[keysdata.IMAGE_URL])
                 print "Append"
                 temp_json[keysdata.IMAGES] = images
             except Exception as e:
@@ -53,4 +51,8 @@ def show_property(request):
         print str(json_response)
         return JsonResponse(json_response)
     print 12345678
+
+
+def view_detail(request):
+    return render(request, 'property_detail.html')
 

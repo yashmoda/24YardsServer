@@ -20,6 +20,23 @@
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
 
     <style>
+    input[type=range]::-webkit-slider-thumb {
+    background-color: red;
+  }
+  input[type=range]::-moz-range-thumb {
+    background-color: red;
+  }
+  input[type=range]::-ms-thumb {
+    background-color: red;
+  }
+
+  /***** These are to edit the thumb and the text inside the thumb *****/
+  input[type=range] + .thumb {
+    background-color: #dedede;
+  }
+  input[type=range] + .thumb.active .value {
+    color: red;
+  }
     .imgsize{
     width:30px;
     height:30px;
@@ -181,20 +198,8 @@
         }
     function view_detail(value)
     {
-        $.ajax({
-            type: 'GET',
-            url: "/show_property",
-            dataType: 'json',
-            data: {"title": value},
-            success : function(data)
-            {
-                alert(value);
-            },
-            error : function()
-            {
-                alert("Sorry! Please try again later!");
-            },
-        });
+        localStorage.setItem("title",value);
+        $(location).attr('href','/view_detail');
     }
     function enquiry()
         {
@@ -298,8 +303,7 @@
             localStorage.setItem("property_type1",$('input[name="property_type"]:checked').val());
             localStorage.setItem("usage",$('input[name="usage"]:checked').val());
             localStorage.setItem("location1",$("#location").val());
-            localStorage.setItem("min_price","0");
-            localStorage.setItem("max_price", $("#price-range").val());
+            localStorage.setItem("price1", test5.noUiSlider.get());
             $(location).attr('href','/view_search');
         }
         function view_search()
@@ -430,17 +434,6 @@
             <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
         </a>
     </div>
-</div>
-<div id="dialog" style="display: none" align = "center">
-    <label for="title"><h6>Title</h6></label>
-    <input type="text" id="title" name="title" readonly>
-    <label for="name"><h6>Name</h6></label>
-    <input type="text" name="name" id="name">
-    <label for="phone"><h6>Phone</h6></label>
-    <input id="phone" name="contact" type="tel">
-    <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="cont()">
-        Submit
-    </button>
 </div>
 </body>
 </html>
