@@ -36,15 +36,6 @@ def choose_property(request):
                                  "usage": str(obj.usage), "date_added": str(obj.date_added),
                                  "image" : request.scheme + "://" + request.get_host() +
                                  "/" + str(obj.image)}
-                    #property_data = PropertyImage.objects.filter(property=obj)
-                    #print property_data
-                    #temp_json1 = {}
-                    #for img in property_data:
-                     #   temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + request.get_host() +\
-                      #                        "/" + str(img.image)
-                       # images.append(temp_json1[keysdata.IMAGE_URL])
-                    #print 567876545678
-                    #temp_json['images'] = images
                     print 2345678
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
                 json_response[constants.SUCCESS] = constants.TRUE

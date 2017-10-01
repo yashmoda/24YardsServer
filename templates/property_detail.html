@@ -18,7 +18,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <style>
     .imgsize{
@@ -27,10 +27,12 @@
     }
 </style>
 <body>
-<script type="text/javascript">
+<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
+    <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+    <script type="text/javascript">
     $(document).ready(function(){
         var title = localStorage.getItem("title");
-        $('.slider').slider({full_width: true});
+        $('.slider').slider();
         var temp = "";
         $.ajax({
             type : "GET",
@@ -49,41 +51,66 @@
                 for(i in data.get_property[0]['images'])
                 {
                     temp += '<li>';
-                    temp += '<img src="'+ data.get_property[0]['images'][i] +'" style = "height:100px; width:150px;">';
+                    temp += '<img src="'+ data.get_property[0]['images'][i] +'">';
+                    //temp += '<img src="http://lorempixel.com/580/250/nature/1">';
                     //alert(data.get_property[0]['images'][i]);
                     temp += '</li>';
                 }
                 temp += '</ul>';
                 temp += '</div>';
-                temp += '<div style="background-colour:#e0f2f1;">';
+                temp += '<div>';
                 temp += '<div class = "col s2 m2 l2">';
-                temp += '<h5>';
-                temp += 'Description';
-                temp += '</h5>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">description</i>';
+                temp += 'Highlights';
+                temp += '<br><b>';
                 temp += data.get_property[0]['description'];
-                temp += '<h5>';
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">location_on</i>';
                 temp += 'Location';
-                temp += '</h5>';
+                temp += '<br><b>';
                 temp += data.get_property[0]['location'];
-                temp += '<h5>';
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">verified_user</i>';
                 temp += 'Usage';
-                temp += '</h5>';
+                temp += '<br><b>';
                 temp += data.get_property[0]['usage'];
+                temp += '</b>';
+                temp += '</div>';
                 temp += '</div>';
                 temp += '<div class = "col s2 m2 l2 push-s1 m1 l1">';
-                temp += '<h5>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">label</i>';
                 temp += 'Price';
-                temp += '</h5>';
+                temp += '<br><b>';
                 temp += data.get_property[0]['price'];
-                temp += '<h5>';
-                temp += 'BHK';
-                temp += '</h5>';
-                temp += data.get_property[0]['bhk'];
-                temp += '<h5>';
-                temp += 'Date Added';
-                temp += '</h5>';
-                temp += data.get_property[0]['date_added'];
+                temp += '</b>';
                 temp += '</div>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">business</i>';
+                temp += 'BHK';
+                temp += '<br><b>';
+                temp += data.get_property[0]['bhk'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">date_range</i>';
+                temp += 'Date Added';
+                temp += '<br><b>';
+                temp += data.get_property[0]['date_added'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '</div>';
+                temp += '</div>';
+                temp += '<div class="col s6 m6 l6" style = "padding-top:25px;">';
+                temp += 'About the property';
+                temp += '<br><b>';
+                temp += data.get_property[0]['about'];
+                temp += '</b>';
                 temp += '</div>';
                 $('.slider').slider();
                 $("#div2").html(temp);
@@ -113,11 +140,9 @@
         }
 
 </script>
-<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
-        <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
 </div>
 <div id="div1">
-    <div id="div2" class="row" style="margin:0px;"></div>
+    <div id="div2" class="row" style="margin:0px; background-color:#f3e5f5";></div>
 </div>
 <div class="row blue lighten-5 black-text" id="extra" style="margin-bottom:0px;">
     <div class="row col s3 m3 l3 black-text">
@@ -156,5 +181,30 @@
         </a>
     </div>
 </div>
+<div class="slider">
+            <ul class="slides">
+                <li>
+                    <img src="http://lorempixel.com/580/250/nature/1">
+                    <div class="caption center-align">
+                        <h3>This is our big Tagline!</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="http://lorempixel.com/580/250/nature/2">
+                    <div class="caption left-align">
+                        <h3>Left Aligned Caption</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    </div>
+                </li>
+            </ul>
+        </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+ <script>
+            $(document).ready(function () {
+                $('.slider').slider({full_width: true});
+            });
+        </script>
 </body>
 </html>

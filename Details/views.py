@@ -21,7 +21,8 @@ def show_property(request):
                 temp_json = {"title": str(property.title), "location": str(property.location),
                             "bhk": int(property.bhk), "description": str(property.description),
                             "price": int(property.price), "contact": str(property.contact),
-                            "usage": str(property.usage), "date_added": str(property.date_added)}
+                            "usage": str(property.usage), "date_added": str(property.date_added),
+                             "about": str(property.about_property)}
                 property_image = PropertyImage.objects.filter(property = property)
                 print "Image"
                 print property_image

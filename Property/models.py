@@ -17,6 +17,7 @@ class PropertyTable(models.Model):
     usage = models.CharField(max_length=20, default=None)
     date_added = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to='static/')
+    about_property = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title

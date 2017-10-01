@@ -304,6 +304,7 @@
             localStorage.setItem("usage",$('input[name="usage"]:checked').val());
             localStorage.setItem("location1",$("#location").val());
             localStorage.setItem("price1", test5.noUiSlider.get());
+            $('input[name="usage"]:checked').val('');
             $(location).attr('href','/view_search');
         }
         function view_search()
@@ -434,6 +435,17 @@
             <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
         </a>
     </div>
+</div>
+<div id="dialog" style="display: none" align = "center">
+    <label for="title"><h6>Title</h6></label>
+    <input type="text" id="title" name="title" readonly>
+    <label for="name"><h6>Name</h6></label>
+    <input type="text" name="name" id="name">
+    <label for="phone"><h6>Phone</h6></label>
+    <input id="phone" name="contact" type="tel">
+    <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="cont()">
+        Submit
+    </button>
 </div>
 </body>
 </html>
