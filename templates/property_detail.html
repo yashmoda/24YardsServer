@@ -25,15 +25,31 @@
         width:30px;
         height:30px;
     }
+    :-moz-placeholder {
+       color:    #000000;
+       opacity:  1;
+    }
+    ::-moz-placeholder {
+       color:    #000000;
+       opacity:  1;
+    }
+    :-ms-input-placeholder {
+       color:    #000000;
+    }
+    ::-ms-input-placeholder {
+       color:    #000000;
+    }
 </style>
 <body>
 <div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
     <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
-    <script type="text/javascript">
+</div>
+<script type="text/javascript">
     $(document).ready(function(){
         var title = localStorage.getItem("title");
         $('.slider').slider();
         var temp = "";
+        var bc = "";
         $.ajax({
             type : "GET",
             dataType : "json",
@@ -41,19 +57,24 @@
             url : "/show_property",
             success : function(data)
             {
-                temp += '<div class="indigo darken-3 white-text" style="height:60px; padding:15px;">';
-                temp += '<h5>';
-                temp += data.get_property[0]['title'];
-                temp += '</h5>';
-                temp += '</div>';
+                bc += '<a href="/view_home" class="breadcrumb black-text" style="padding:10px;">Home</a>';
+                bc += '<a href="/view_property_view" class="breadcrumb black-text" style="padding:10px">';
+                bc += '<u>';
+                bc += data.get_property[0]['property_type'];
+                bc += '</u>';
+                bc += '</a>';
+                bc += '<a href="" class="breadcrumb black-text" style="padding:10px">';
+                bc += '<u>';
+                bc += data.get_property[0]['title'];
+                bc += '</u>';
+                bc += '</a>';
+                $("#bread").html(bc);
                 temp += '<div class="slider col s5 m5 l5">';
                 temp += '<ul class="slides">';
                 for(i in data.get_property[0]['images'])
                 {
                     temp += '<li>';
                     temp += '<img src="'+ data.get_property[0]['images'][i] +'">';
-                    //temp += '<img src="http://lorempixel.com/580/250/nature/1">';
-                    //alert(data.get_property[0]['images'][i]);
                     temp += '</li>';
                 }
                 temp += '</ul>';
@@ -112,8 +133,9 @@
                 temp += data.get_property[0]['about'];
                 temp += '</b>';
                 temp += '</div>';
-                $('.slider').slider();
                 $("#div2").html(temp);
+                $('.slider').slider({interval: 2000});
+
             },
             error : function()
             {
@@ -140,13 +162,18 @@
         }
 
 </script>
-</div>
+<nav>
+    <div class="nav-wrapper">
+      <div class="col s12 m12 l12" id="bread" style="background-color:#64b5f6;">
+      </div>
+    </div>
+</nav>
 <div id="div1">
-    <div id="div2" class="row" style="margin:0px; background-color:#f3e5f5";></div>
+    <div id="div2" class="row" style="margin:0px; background-color:#f3e5f5;"></div>
 </div>
 <div class="row blue lighten-5 black-text" id="extra" style="margin-bottom:0px;">
     <div class="row col s3 m3 l3 black-text">
-        <div><center><b>Enquiry Form</b></center></div>
+        <div><b>Enquiry Form</b></div>
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number"
                maxlength="10" minlength="10">
@@ -181,30 +208,7 @@
         </a>
     </div>
 </div>
-<div class="slider">
-            <ul class="slides">
-                <li>
-                    <img src="http://lorempixel.com/580/250/nature/1">
-                    <div class="caption center-align">
-                        <h3>This is our big Tagline!</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                    </div>
-                </li>
-                <li>
-                    <img src="http://lorempixel.com/580/250/nature/2">
-                    <div class="caption left-align">
-                        <h3>Left Aligned Caption</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                    </div>
-                </li>
-            </ul>
-        </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
- <script>
-            $(document).ready(function () {
-                $('.slider').slider({full_width: true});
-            });
-        </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </body>
 </html>

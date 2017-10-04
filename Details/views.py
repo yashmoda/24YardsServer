@@ -22,7 +22,8 @@ def show_property(request):
                             "bhk": int(property.bhk), "description": str(property.description),
                             "price": int(property.price), "contact": str(property.contact),
                             "usage": str(property.usage), "date_added": str(property.date_added),
-                             "about": str(property.about_property)}
+                             "about": str(property.about_property),
+                             "property_type": str(property.property_type)}
                 property_image = PropertyImage.objects.filter(property = property)
                 print "Image"
                 print property_image
