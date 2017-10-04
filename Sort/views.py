@@ -34,16 +34,6 @@ def sorting(request):
                                      "image": request.scheme + "://" + request.get_host() +
                                               "/" + str(obj.image)
                                      }
-                        """images = []
-                        temp_json1 = {}
-                        property_data = PropertyImage.objects.filter(property=property)
-                        print 12345674
-                        for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                             request.get_host() + \
-                                                             "/" + str(img.image)
-                            images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
@@ -65,16 +55,6 @@ def sorting(request):
                                      "image": request.scheme + "://" + request.get_host() +
                                               "/" + str(obj.image)
                                      }
-                        """images = []
-                        temp_json1 = {}
-                        property_data = PropertyImage.objects.filter(property=property)
-                        print 12345674
-                        for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                             request.get_host() + \
-                                                             "/" + str(img.image)
-                            images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
@@ -114,8 +94,6 @@ def sorting(request):
                     print e
                     json_response[constants.SUCCESS] = constants.FALSE
                     json_response[constants.MSG] = constants.FAILMSG
-
-
             if sort_order == '4':
                 try:
                     property = PropertyTable.objects.filter(property_type=property_table).\
@@ -130,16 +108,6 @@ def sorting(request):
                                      "image": request.scheme + "://" + request.get_host() +
                                               "/" + str(obj.image)
                                      }
-                        """images = []
-                        temp_json1 = {}
-                        property_data = PropertyImage.objects.filter(property=property)
-                        print 12345674
-                        for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                             request.get_host() + \
-                                                             "/" + str(img.image)
-                            images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG

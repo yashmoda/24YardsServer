@@ -33,11 +33,6 @@ def home(request):
             json_response[constants.SUCCESS] = constants.FALSE
             json_response[constants.MSG] = "Data Not Found"
         print str(json_response)
-        #send_json[keysdata.DATA].append(json_response[keysdata.DATA])
-        #send_json[constants.SUCCESS].append(json_response[constants.SUCCESS])
-        #send_json[constants.MSG].append(json_response[constants.MSG])
-
-        #return HttpResponse(str(json_response))
         return JsonResponse(json_response)
     print 12345
 
