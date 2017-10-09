@@ -31,6 +31,12 @@
 ::-ms-input-placeholder { /* Microsoft Edge */
    color:    #000000;
 }
+.card.horizontal {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
     </style>
 </head>
 <body>
@@ -39,7 +45,6 @@
             $("#send").show();
             $("#verify").hide();
             document.getElementById("extra").style.padding = "20px";
-            document.getElementById("panel").style.padding = "15px";
         });
         function sendotp()
         {
@@ -104,54 +109,50 @@
         }
 
 </script>
-<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
+<div style="height:120px; padding:15px; background-color:#f3f4f6">
         <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
 </div>
-<div style="background-image:url(https://st2.depositphotos.com/1006832/5969/i/950/depositphotos_59695353-stock-photo-futuristic-modern-office-building-interior.jpg)">
+<div>
     <div class="row">
-        <div class="col s3 m3 l3 push-s4 l4 m4" id="send">
-
-            <center>
-                    <h5>
-                        Mobile Number
-                    </h5>
-                <input type="tel" id="phone" name="contact" maxlength="10" minlength="10">
-            </center>
-            <br>
-            <center>
-                <button type="submit" value="Send OTP" onclick="sendotp()">
-                    <strong>Send OTP</strong>
-                </button>
-            </center>
-        </div>
-        <div class="col s3 m3 l3 push-s4 l4 m4" id="verify">
-            <center>
-                <h5>
-                    Mobile Number
-                </h5>
-                <input type="tel" id="phone1" name="contact" minlength="10" maxlength="10" readonly>
-            </center>
-            <br>
-            <center>
-                <h5>
-                    OTP
-                </h5>
-                <input type="number" id="otp" name="otp" maxlength="6" minlength="6">
-            </center>
-            <br>
-            <center>
-                <button type="submit" value="Verify OTP" onclick="verifyotp()">
-                    <strong>
-                        Verify OTP
-                    </strong>
-                </button>
-            </center>
+        <div class="card horizontal" style="background-color:#daddd8">
+            <div class="card-image">
+                <img src="http://pypaonline.org/wp-content/uploads/2016/02/maxresdefault.jpg"
+                     style="width:800px; height:600px;">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content" style="margin-top:150px;">
+                    <div id="send">
+                        <p>
+                            <h4 style="color:#0a355f;">Registration</h4>
+                        </p>
+                        <p>
+                            <h6 style="color:#0a355f;">Mobile Number</h6>
+                        </p>
+                        <input style="background-color:#f9fbe7" type="tel" id="phone" placeholder="Enter your contact number" name="contact" minlength="10" maxlength="10">
+                        <a class="waves-effect waves-teal btn-flat" onclick="sendotp()" style="background-color:#f3f4f6; color:#0a355f;">Submit</a>
+                    </div>
+                    <div id="verify">
+                        <p>
+                            <h4 style="color:#0a355f;">Login</h4>
+                        </p>
+                        <p>
+                            <h6 style="color:#0a355f;">Mobile Number</h6>
+                        </p>
+                        <input style="background-color:#f9fbe7" type="tel" id="phone1" name="contact" minlength="10" maxlength="10" readonly>
+                        <p>
+                            <h6 style="color:#0a355f;">OTP</h6>
+                        </p>
+                        <input style="background-color:#f9fbe7" type="text" id="otp" name="otp" maxlength="6" minlength="6">
+                        <a class="waves-effect waves-teal btn-flat" onclick="verifyotp()" style="background-color:#f3f4f6; color:#0a355f;">Verify</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="row blue lighten-5 black-text" id="extra" style="margin-bottom:0px;">
+<div class="row" id="extra" style="margin-bottom:0px; background-color:#f3f4f6;">
     <div class="row col s3 m3 l3 black-text">
-        <div><b>Enquiry Form</b></div>
+        <div style="color:#0a355f;"><b>Enquiry Form</b></div>
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number" maxlength="10" minlength="10">
         <center>
@@ -161,13 +162,13 @@
         </center>
     </div>
     <div class="row col s3 m3 l3">
-        <div><b>GET THE MOBILE APP</b></div>
+        <div style="color:#0a355f;"><b>GET THE MOBILE APP</b></div>
         <a class="android appLnk" title="24 Yards Android App" href="">
             <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639" style="height:50px; width:200px">
         </a>
     </div>
     <div class="row col s3 m3 l3">
-        <div><b>CONTACT US</b></div>
+        <div style="color:#0a355f;"><b>CONTACT US</b></div>
         Mobile Number:
         <b>
             7224987232
@@ -180,7 +181,7 @@
         <br>
     </div>
     <div class="row col s3 m3 l3">
-        <div><b>CONNECT WITH US</b></div>
+        <div style="color:#0a355f;"><b>CONNECT WITH US</b></div>
         <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
             <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
         </a>

@@ -77,14 +77,6 @@ line-height:200px;
   left: 0;
   top: 0;
 }
-#text {
-  z-index: 100;
-  position: relative;
-  color: white;
-  font-size: 16px;
-  left: 450px;
-  top: 150px;
-}
 #dd {
   z-index: 100;
   position: relative;
@@ -149,7 +141,7 @@ line-height:200px;
         function search()
         {
             localStorage.setItem("property_type1",$('input[name="property_type"]:checked').val());
-            localStorage.setItem("location1",$("#text").val());
+            localStorage.setItem("location1",$("#location").val());
             $(location).attr('href','/view_search');
         }
         function view_ptype(value)
@@ -158,39 +150,67 @@ line-height:200px;
             $(location).attr('href','/view_property');
         }
 </script>
-<div class="blue lighten-5 black-text" style="height:120px; padding:15px;">
-        <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
-</div>
-<div id="container">
-    <img id="image" src="http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png" style="width:1300px; height:400px"/>
-    <input id="text" type="text" placeholder="Enter the locality" style="background-color:transparent;">
-    <button class="btn-flat waves-effect waves-light" type="submit" value="Submit"
-            style="top:95px; left:840px; background-color:#b2dfdb" onclick="search()">
-        Search
-    </button>
-    <ul class="collapsible" data-collapsible="expandable" id="dd">
-            <li>
-                <div class="collapsible-header" style="background-color:#b2dfdb">Property Type</div><!--
-                --><div class="collapsible-body" style="padding:10px; background-color:white">
-                    <input type="radio" id="buy" name="property_type" value="Buy">
-                    <label for="buy">Buy</label><br>
-                    <input type="radio" id="rent" name="property_type" value="Rent">
-                    <label for="rent">Rent</label><br>
-                    <input type="radio" name="property_type" id="project" value="Projects">
-                    <label for="project">Projects</label><br>
-                </div>
-            </li>
-    </ul>
-</div>
-<div class="row" style="padding:25px;">
-    <div id="div1" class="push-l1">
-        <div class="row" id="choose_property_type">
+<div class="row">
+    <div style="height:120px; padding:15px; background-color:#f3f4f6">
+            <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+    </div>
+    <div>
+        <img id="image" src="http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png" style="margin-top:120px; width:1300px; height:400px"/>
+        <input id="text" type="text" placeholder="Enter the locality" style="background-color:transparent;">
+        <button class="btn-flat waves-effect waves-light" type="submit" value="Submit"
+                style="top:95px; left:840px; background-color:transparent" onclick="search()">
+            Search
+        </button>
+        <ul class="collapsible" data-collapsible="expandable" id="dd">
+                <li>
+                    <div class="collapsible-header" style="background-color:transparent">Property Type</div>
+                    <div class="collapsible-body" style="padding:10px; background-color:white">
+                        <input type="radio" id="buy" name="property_type" value="Buy">
+                        <label for="buy">Buy</label><br>
+                        <input type="radio" id="rent" name="property_type" value="Rent">
+                        <label for="rent">Rent</label><br>
+                        <input type="radio" name="property_type" id="project" value="Projects">
+                        <label for="project">Projects</label><br>
+                    </div>
+                </li>
+        </ul>
+        <!--<div class="row">
+            <div class="col s12 m6 l5 push-s2 m2 l2">
+                    <div class="card-panel">
+                        <div>
+                            <center>
+                                <input type="radio" id="buy" name="property_type" value="Buy">
+                                <label for="buy" style="color:#0a355f;">Buy</label>
+                                <input type="radio" id="rent"  name="property_type" value="Rent">
+                                <label for="rent" style="color:#0a355f;">Rent</label>
+                                <input type="radio" name="property_type" id="project" value="Projects">
+                                <label for="project" style="color:#0a355f;">Projects</label>
+                            </center>
+                            <label for="location" style="display:inline-block; color:#0a355f;"><font size="3">Locality</font></label>
+                            <input type="text" id="location" placeholder="Enter the locality">
+                        </div>
+                        <div style="color:#0a355f;">
+                                Usage
+                                <input type="radio" id="residential" name="usage" value="Residential">
+                                <label for="residential" style="color:#0a355f;">Residential</label>
+                                <input type="radio" id="commercial" name="usage" value="Commercial">
+                                <label for="commercial" style="color:#0a355f;">Commercial</label>
+                        </div>
 
+                    </div>
+            </div>
+        </div>-->
+    </div>
+    <div class="row">
+        <div id="div1" class="push-l1">
+            <div class="row" id="choose_property_type" style="margin-top:240px;">
+
+            </div>
         </div>
     </div>
 </div>
-<div class="row blue lighten-5 black-text" id="extra" style="height:240px; margin-bottom:0px">
-    <div class="row col s3 m3 l3 black-text">
+<div class="row" id="extra" style="background-color:#f3f4f6; height:240px; margin-bottom:0px; color:#0c3761;">
+    <div class="row col s3 m3 l3">
         <div><b>Enquiry Form</b></div>
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number" maxlength="10" minlength="10">
