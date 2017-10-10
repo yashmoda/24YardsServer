@@ -113,7 +113,7 @@
                         temp += '<div class="card-image">';
                         temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
                         temp += '</div>';
-                        temp += '<div class="card-content" id="d1">';
+                        temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
                         temp += '<table>';
                         temp += '<thead>';
                         temp += '</thead>';
@@ -159,7 +159,7 @@
                         temp += '</b></td>';
                         temp += '</tr>';
                         temp += '</table>';
-                        temp += '<a class="btn-floating waves-effect waves-light green" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
+                        temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
                         temp += '</div>';
                         temp += '</div>';
                         temp += '</div>';
@@ -235,7 +235,7 @@
                     temp += '<div class="card-image">';
                     temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
                     temp += '</div>';
-                    temp += '<div class="card-content" id="d1">';
+                    temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
                     temp += '<table>';
                     temp += '<thead>';
                     temp += '</thead>';
@@ -281,7 +281,7 @@
                     temp += '</b></td>';
                     temp += '</tr>';
                     temp += '</table>';
-                    temp += '<a class="btn-floating waves-effect waves-light green" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
+                    temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
                     temp += '</div>';
                     temp += '</div>';
                     temp += '</div>';
@@ -393,7 +393,7 @@
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number" maxlength="10" minlength="10">
         <center>
-            <button class="btn-flat waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
+            <button class="btn-flat waves-effect waves-light white-text" style="background-color:#0c3761;" type="submit" value="Submit" onclick="enquiry()">
                 Submit
             </button>
         </center>

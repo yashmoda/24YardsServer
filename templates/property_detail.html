@@ -57,11 +57,11 @@
             url : "/show_property",
             success : function(data)
             {
-                bc += '<a href="/view_home" class="breadcrumb black-text" style="padding:10px;">Home</a>';
-                bc += '<a href="/view_property_view" class="breadcrumb black-text" style="padding:10px">';
+                bc += '<a href="/view_home" class="breadcrumb" style="padding:10px; color:#0c3761;">Home</a>';
+                bc += '<a href="/view_property_view" class="breadcrumb" style="padding:10px; color:#0c3761;">';
                 bc += data.get_property[0]['property_type'];
                 bc += '</a>';
-                bc += '<a href="" class="breadcrumb black-text" style="padding:10px">';
+                bc += '<a href="" class="breadcrumb" style="padding:10px; color:#0c3761;">';
                 bc += '<u>';
                 bc += data.get_property[0]['title'];
                 bc += '</u>';
@@ -162,7 +162,7 @@
 </script>
 <nav>
     <div class="nav-wrapper">
-      <div class="col s12 m12 l12" id="bread" style="background-color:#64b5f6;">
+      <div class="col s12 m12 l12" id="bread" style="background-color:#f3e9d2;">
       </div>
     </div>
 </nav>

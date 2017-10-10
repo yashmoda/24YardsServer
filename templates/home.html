@@ -91,7 +91,6 @@ line-height:200px;
 <script type="text/javascript">
         $(document).ready(function(){
             var temp = "";
-            $("#filter").hide();
             document.getElementById("extra").style.padding = "20px";
             $.ajax({
                 type: "GET",
@@ -140,14 +139,23 @@ line-height:200px;
         }
         function search()
         {
-            localStorage.setItem("property_type1",$('input[name="property_type"]:checked').val());
             localStorage.setItem("location1",$("#location").val());
+            var bhk = [];
+            $('.bhk:checked').each(function(i, e) {
+                bhk.push($(this).val());
+                });
+            localStorage.setItem("bhk",bhk);
+            localStorage.setItem("usage",$('input[name="usage"]:checked').val());
             $(location).attr('href','/view_search');
         }
         function view_ptype(value)
         {
             localStorage.setItem("property_type",value);
             $(location).attr('href','/view_property');
+        }
+        function set_ptype(value)
+        {
+            localStorage.setItem("property_type1", value);
         }
 </script>
 <div class="row">
@@ -156,54 +164,76 @@ line-height:200px;
     </div>
     <div>
         <img id="image" src="http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png" style="margin-top:120px; width:1300px; height:400px"/>
-        <input id="text" type="text" placeholder="Enter the locality" style="background-color:transparent;">
-        <button class="btn-flat waves-effect waves-light" type="submit" value="Submit"
-                style="top:95px; left:840px; background-color:transparent" onclick="search()">
-            Search
-        </button>
-        <ul class="collapsible" data-collapsible="expandable" id="dd">
-                <li>
-                    <div class="collapsible-header" style="background-color:transparent">Property Type</div>
-                    <div class="collapsible-body" style="padding:10px; background-color:white">
-                        <input type="radio" id="buy" name="property_type" value="Buy">
-                        <label for="buy">Buy</label><br>
-                        <input type="radio" id="rent" name="property_type" value="Rent">
-                        <label for="rent">Rent</label><br>
-                        <input type="radio" name="property_type" id="project" value="Projects">
-                        <label for="project">Projects</label><br>
-                    </div>
-                </li>
-        </ul>
-        <!--<div class="row">
+        <div class="row">
             <div class="col s12 m6 l5 push-s2 m2 l2">
-                    <div class="card-panel">
+                    <div class="card-panel" style="margin-top:10px;">
+                        <center>
+                            <h4 style="color:#0c3761">
+                                Search The Right Property
+                            </h4>
+                        </center>
+                        <!--<div style="padding:5px;">
+                            <input type="radio" id="buy" name="property_type" value="Buy">
+                            <label for="buy" style="color:#0a355f;">Buy</label>
+                            <input type="radio" id="rent"  name="property_type" value="Rent">
+                            <label for="rent" style="color:#0a355f; margin-left:50px;">Rent</label>
+                            <input type="radio" name="property_type" id="project" value="Projects">
+                            <label for="project" style="color:#0a355f; margin-left:50px;">Projects</label>
+                        </div>-->
+                        <nav>
+                            <div class="nav-wrapper" style="background-color:#daddd8; color:#0a355f;">
+                                <ul class="left hide-on-med-and-down">
+                                    <li style="padding-left:40px; padding-right:40px;"
+                                        onclick="set_ptype('Buy')">Buy</li>
+                                    <li style="padding-left:40px; padding-right:40px;"
+                                        onclick="set_ptype('Rent')">Rent</li>
+                                    <li style="padding-left:40px; padding-right:40px;"
+                                        onclick="set_ptype('Projects')">Projects</li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div style="padding:5px">
+                            <label for="location" style="display:inline-block; color:#0a355f;"><font size="3">Locality</font></label>
+                            <input type="text" id="location" placeholder="Enter the locality" style="width:200px; margin-left:20px;">
+                        </div>
+                        <div style="color:#0a355f; padding:5px;">
+                            <font size="3">
+                                Usage
+                            </font>
+                            <input type="radio" id="residential" name="usage" value="Residential">
+                            <label for="residential" style="color:#0a355f;margin-left:25px;">Residential</label>
+                            <input type="radio" id="commercial" name="usage" value="Commercial">
+                            <label for="commercial" style="color:#0a355f; margin-left:15px;">Commercial</label>
+                        </div>
+                        <div style="padding:5px; margin-top:10px; color:#0a355f;">
+                            <font size="3">
+                                BHK
+                            </font>
+                             <input type="checkbox" id="c1" class="bhk" value="1">
+                            <label for="c1" style="margin-left:40px; color:#0a355f;">1</label>
+                            <input type="checkbox" id="c2" class="bhk" value="2">
+                            <label for="c2" style="margin-left:25px; color:#0a355f;">2</label>
+                            <input type="checkbox" id="c3" class="bhk" value="3">
+                            <label for="c3" style="margin-left:25px; color:#0a355f;">3</label>
+                            <input type="checkbox" id="c4" class="bhk" value="4">
+                            <label for="c4" style="margin-left:25px; color:#0a355f;">4</label>
+                            <input type="checkbox" id="c5" class="bhk" value="5">
+                            <label for="c5" style="margin-left:25px; color:#0a355f;">5</label>
+                        </div>
                         <div>
                             <center>
-                                <input type="radio" id="buy" name="property_type" value="Buy">
-                                <label for="buy" style="color:#0a355f;">Buy</label>
-                                <input type="radio" id="rent"  name="property_type" value="Rent">
-                                <label for="rent" style="color:#0a355f;">Rent</label>
-                                <input type="radio" name="property_type" id="project" value="Projects">
-                                <label for="project" style="color:#0a355f;">Projects</label>
+                                <button class="btn-flat waves-effect waves-light white-text" style="background-color:#0c3761;" type="submit" value="Search" onclick="search()">
+                                    Search
+                                </button>
                             </center>
-                            <label for="location" style="display:inline-block; color:#0a355f;"><font size="3">Locality</font></label>
-                            <input type="text" id="location" placeholder="Enter the locality">
                         </div>
-                        <div style="color:#0a355f;">
-                                Usage
-                                <input type="radio" id="residential" name="usage" value="Residential">
-                                <label for="residential" style="color:#0a355f;">Residential</label>
-                                <input type="radio" id="commercial" name="usage" value="Commercial">
-                                <label for="commercial" style="color:#0a355f;">Commercial</label>
-                        </div>
-
                     </div>
             </div>
-        </div>-->
+        </div>
     </div>
     <div class="row">
         <div id="div1" class="push-l1">
-            <div class="row" id="choose_property_type" style="margin-top:240px;">
+            <div class="row" id="choose_property_type" style="">
 
             </div>
         </div>
@@ -215,7 +245,7 @@ line-height:200px;
         <input type="text" name="name" id="text2" placeholder="Enter Your name">
         <input type="tel" name="phone" id="text3" placeholder="Contact Number" maxlength="10" minlength="10">
         <center>
-            <button class="btn-flat waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
+            <button class="btn-flat waves-effect waves-light white-text" style="background-color:#0c3761;" type="submit" value="Submit" onclick="enquiry()">
                 Submit
             </button>
         </center>

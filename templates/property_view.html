@@ -95,8 +95,8 @@
             dataType: 'json',
             data: {"property_type": property},
             success: function (data){
-            bc +='<a href="/view_home" class="breadcrumb black-text" style="padding:10px;">Home</a>';
-            bc +='<a href="/view_property_view" class="breadcrumb black-text" style="padding:10px">';
+            bc +='<a href="/view_home" class="breadcrumb" style="padding:10px; color:#0c3761;">Home</a>';
+            bc +='<a href="/view_property_view" class="breadcrumb" style="padding:10px; color:#0c3761;">';
             bc +='<u>';
             bc += property;
             bc +='</u>';
@@ -109,7 +109,7 @@
                     temp += '<div class="card-image">';
                     temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
                     temp += '</div>';
-                    temp += '<div class="card-content" id="d1">';
+                    temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
                     temp += '<table>';
                     temp += '<thead>';
                     temp += '</thead>';
@@ -156,7 +156,7 @@
                     temp += '</td>';
                     temp += '</tr>';
                     temp += '</table>';
-                    temp += '<a class="btn-floating waves-effect waves-light green" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
+                    temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
                     temp += '</div>';
                     temp += '</div>';
                     temp += '</div>';
@@ -325,7 +325,7 @@
 </div>
 <nav>
     <div class="nav-wrapper">
-      <div class="col s12" id="bread" style="background-color:#64b5f6;">
+      <div class="col s12 m12 l12" id="bread" style="background-color:#f3e9d2;">
       </div>
     </div>
   </nav>
