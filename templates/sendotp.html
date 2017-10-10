@@ -11,25 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <style>
     .imgsize{
-    width:30px;
-    height:30px;
-}
-        ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    #000000;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    #000000;
-   opacity:  1;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    #000000;
-   opacity:  1;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    #000000;
-}
-::-ms-input-placeholder { /* Microsoft Edge */
-   color:    #000000;
+    width:20px;
+    height:20px;
 }
 .card.horizontal {
         display: -webkit-flex;
@@ -120,8 +103,8 @@
                      style="width:800px; height:400px;">
             </div>
             <div class="card-stacked">
-                <div class="card-content" style="margin-top:50px;">
-                    <div id="send">
+                <div class="card-content">
+                    <div id="send" style="margin-top:50px;">
                         <p>
                             <h4 style="color:#0a355f;">Registration</h4>
                         </p>
@@ -131,7 +114,7 @@
                         <input style="background-color:#f9fbe7" type="tel" id="phone" placeholder="Enter your contact number" name="contact" minlength="10" maxlength="10">
                         <a class="waves-effect waves-teal btn-flat" onclick="sendotp()" style="background-color:#f3f4f6; color:#0a355f;">Submit</a>
                     </div>
-                    <div id="verify">
+                    <div id="verify" style="margin-top:30px;">
                         <p>
                             <h4 style="color:#0a355f;">Login</h4>
                         </p>
@@ -150,48 +133,65 @@
         </div>
     </div>
 </div>
-<div class="row" id="extra" style="margin-bottom:0px; background-color:#f3f4f6;">
-    <div class="row col s3 m3 l3 black-text">
-        <div style="color:#0a355f;"><b>Enquiry Form</b></div>
-        <input type="text" name="name" id="text2" placeholder="Enter Your name">
-        <input type="tel" name="phone" id="text3" placeholder="Contact Number" maxlength="10" minlength="10">
-        <center>
-             <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="enquiry()">
-                Submit
-            </button>
-        </center>
+<div class="row" id="extra" style="background-color:#f3f4f6; height:240px; margin-bottom:0px; color:#0c3761;">
+    <div class="row col s3 m3 l3">
+        <div><b>ENQUIRY FORM</b></div>
+        <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
+        <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
+               placeholder="Contact Number" maxlength="10" minlength="10">
+        <button class="btn-flat waves-effect waves-light white-text"
+                style="background-color:#0c3761; margin-left:30px;" type="submit" value="Submit" onclick="enquiry()">
+            Submit
+        </button>
     </div>
     <div class="row col s3 m3 l3">
-        <div style="color:#0a355f;"><b>GET THE MOBILE APP</b></div>
-        <a class="android appLnk" title="24 Yards Android App" href="">
-            <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639" style="height:50px; width:200px">
-        </a>
+        <div><b>GET THE MOBILE APP</b></div>
+        <div style="margin-top:15px;">
+            <a class="android appLnk" title="24 Yards Android App" href="">
+                <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"
+                     style="height:40px; width:150px">
+            </a>
+        </div>
     </div>
     <div class="row col s3 m3 l3">
-        <div style="color:#0a355f;"><b>CONTACT US</b></div>
-        Mobile Number:
-        <b>
-            7224987232
-        </b>
-        <br>
-        Email id:
-        <b>
-            yashmoda@gmail.com
-        </b>
-        <br>
+        <div><b>CONTACT US</b></div>
+        <div style="margin-top:15px;">
+            <i class="material-icons">call</i>
+            <b style="padding:10px;">
+                7224987232
+            </b>
+            <br>
+            <i class="material-icons" style="padding-top:10px;">email</i>
+            <b style="padding:10px;">
+                yashmoda@gmail.com
+            </b>
+            <br>
+        </div>
     </div>
     <div class="row col s3 m3 l3">
-        <div style="color:#0a355f;"><b>CONNECT WITH US</b></div>
-        <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
-            <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
-        </a>
-        <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
-            <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
-        </a>
-        <a class="foot_socialLink tw" href="">
-            <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
-        </a>
+        <div><b>CONNECT WITH US</b></div>
+        <div style="margin-top:15px;">
+            <div>
+                <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+                    <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+                    Facebook
+                </a>
+            </div>
+            <div style="padding-top:10px;">
+                <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+                    <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+                    Google+
+                </a>
+            </div>
+            <div style="padding-top:10px;">
+                <a class="foot_socialLink tw" href="">
+                    <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+                    Twitter
+                </a>
+            </div>
+        </div>
     </div>
+
 </div>
 </body>
 </html>
