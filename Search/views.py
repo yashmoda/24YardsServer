@@ -7,7 +7,7 @@ import constants, keysdata
 
 
 def view_search(request):
-    return render(request, 'view_search.html')
+    return render(request, 'search_view.html')
 
 
 @csrf_exempt

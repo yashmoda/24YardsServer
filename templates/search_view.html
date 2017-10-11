@@ -2,48 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your choosen property type</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="/static/css/nouislider.min.css">
-    <link href="/static/css/nouislider.css">
-    <script src="/static/script/nouislider.js"></script>
-    <script src="/static/script/nouislider.min.js"></script>
+    <title>Title</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-.imgsize{
+        .imgsize{
     width:20px;
     height:20px;
 }
 td{
     padding : 0px;
 }
-</style>
+    </style>
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-
-    function contact(value)
-    {
-        ("#dialog").dialog({
-            modal: true,
-            autoOpen: false,
-            title: "Contact Form",
-            width: 400,
-            height: 400
-        });
-        $("#dialog").dialog('open');
-        $("#title").val(value);
-    }
     $(document).ready(function(){
-    //$('#modal2').modal();
-      //  $('.slider').slider();
+        $('#modal2').modal();
+        $('.slider').slider();
         var slider = document.getElementById('test5');
             noUiSlider.create(slider, {
                 start: [20, 80],
@@ -161,7 +142,7 @@ td{
                         temp += '</td>';
                         temp += '</tr>';
                         temp += '</table>';
-                        temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
+                    temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-45px;"><i class="material-icons">call</i></a>';
                         temp += '</div>';
                         temp += '</div>';
                         temp += '</div>';
@@ -173,6 +154,11 @@ td{
             },
         });
     });
+    function contact(value)
+    {
+        $("#contmod").modal();
+        $("#title").val(value);
+    }
     function search()
         {
             var bhk = [];
@@ -185,9 +171,8 @@ td{
             localStorage.setItem("location1",$("#location").val())
             $(location).attr('href','/view_search');
         }
-
-    function cont(value)
-    {
+        function cont(value)
+        {
         $.ajax({
             type : 'POST',
             url : "/contact_form",
@@ -203,7 +188,7 @@ td{
                 },
             });
         }
-    function enquiry()
+        function enquiry()
         {
             $.ajax({
                 type:"POST",
@@ -220,7 +205,7 @@ td{
                 },
             });
         }
-    function sort(value)
+        function sort(value)
     {
             var temp="";
             var property = localStorage.getItem("property_type");
@@ -303,7 +288,7 @@ td{
                         temp += '</td>';
                         temp += '</tr>';
                         temp += '</table>';
-                        temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
+                        temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-45px;"><i class="material-icons">call</i></a>';
                         temp += '</div>';
                         temp += '</div>';
                         temp += '</div>';
@@ -325,6 +310,9 @@ td{
             url:"/show_property",
             success: function(data)
             {
+                temp += '<h4>';
+                temp += data.get_property[0]['title'];
+                temp += '</h4>';
                 temp += '<div class="slider col s5 m5 l5">';
                 temp += '<ul class="slides">';
                 for(i in data.get_property[0]['images'])
@@ -393,14 +381,13 @@ td{
                 $('.slider').slider({interval: 2000});
             }
         });
-
     }
     function view_search()
     {
         $("#filter").show();
     }
 </script>
- <div style="height:120px; padding:15px; background-color:#f3f4f6">
+<div style="height:120px; padding:15px; background-color:#f3f4f6">
             <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
         <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
 </div>
@@ -544,7 +531,22 @@ td{
     </div>
 
 </div>
-<div id="dialog" style="display: none" align = "center"></div>
+<div id="contmod" class="modal">
+    <div id="dialog" class="modal-content" style="color:#0c3761;">
+        <h4>
+            Contact Form
+        </h4>
+        <label for="title"><h6>Title</h6></label>
+        <input type="text" id="title" name="title" readonly>
+        <label for="name"><h6>Name</h6></label>
+        <input type="text" name="name" id="name">
+        <label for="phone"><h6>Phone</h6></label>
+        <input id="phone" name="contact" type="tel" minlength="10" maxlength="10">
+        <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="cont()">
+            Submit
+        </button>
+    </div>
+</div>
 <div id="modal2" class="modal">
 <div class="modal-content" id="modal3">
 <div id="div3" class="row" style="margin:0px; color: #0c3761; width:800px;"></div>
