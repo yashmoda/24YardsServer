@@ -31,8 +31,6 @@ from Search.views import view_search
 from Enquiry.views import enquiry
 from Details.views import show_property
 from Contact.views import contact_form
-from Details.views import view_detail
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home', home),
@@ -48,5 +46,4 @@ urlpatterns = [
     url(r'^enquire', enquiry),
     url(r'^show_property', show_property),
     url(r'^contact_form', contact_form),
-    url(r'^view_detail', view_detail),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

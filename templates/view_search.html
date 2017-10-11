@@ -2,22 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search</title>
+    <title>Your choosen property type</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="/static/css/nouislider.min.css">
     <link href="/static/css/nouislider.css">
     <script src="/static/script/nouislider.js"></script>
     <script src="/static/script/nouislider.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <style>
 .imgsize{
     width:20px;
@@ -45,6 +42,8 @@ td{
         $("#title").val(value);
     }
     $(document).ready(function(){
+    //$('#modal2').modal();
+      //  $('.slider').slider();
         var slider = document.getElementById('test5');
             noUiSlider.create(slider, {
                 start: [20, 80],
@@ -94,7 +93,9 @@ td{
                         temp += '<div class="col s4 m4 l4">';
                         temp += '<div class="card medium">';
                         temp += '<div class="card-image">';
+                        temp += '<a class="modal-trigger" href="#modal2">';
                         temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
+                        temp += '</a>';
                         temp += '</div>';
                         temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
                         temp += '<table>';
@@ -156,9 +157,7 @@ td{
                         temp += '</font>';
                         temp += '</td>';
                         temp += '<td>';
-                        temp += '<font size=3>';
                         temp += data.get_property[i]['description'];
-                        temp += '</font>';
                         temp += '</td>';
                         temp += '</tr>';
                         temp += '</table>';
@@ -232,63 +231,83 @@ td{
                 url: "/sort",
                 success: function(data){
                     for(i in data.get_property)
-                {
-                    temp += '<div class="col s4 m4 l4">'
-                    temp += '<div class="card medium">';
-                    temp += '<div class="card-image">';
-                    temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
-                    temp += '</div>';
-                    temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
-                    temp += '<table>';
-                    temp += '<thead>';
-                    temp += '</thead>';
-                    temp += '<tbody>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += 'Title';
-                    temp += '</td>';
-                    temp += '<td><b>';
-                    temp += data.get_property[i]['title'];
-                    temp += '</b></td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += 'Location';
-                    temp += '</td>';
-                    temp += '<td><b>';
-                    temp += data.get_property[i]['location'];
-                    temp += '</b></td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += 'BHK';
-                    temp += '</td>';
-                    temp += '<td><b>';
-                    temp += data.get_property[i]['bhk'];
-                    temp += '</b></td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += 'Price';
-                    temp += '</td>';
-                    temp += '<td><b>';
-                    temp += data.get_property[i]['price'];
-                    temp += '</b></td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += 'Highlights';
-                    temp += '</td>';
-                    temp += '<td><b>';
-                    temp += data.get_property[i]['description'];
-                    temp += '</b></td>';
-                    temp += '</tr>';
-                    temp += '</table>';
-                    temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
-                    temp += '</div>';
-                    temp += '</div>';
-                    temp += '</div>';
-                }
+                    {
+                        temp += '<div class="col s4 m4 l4">';
+                        temp += '<div class="card medium">';
+                        temp += '<div class="card-image">';
+                        temp += '<a class="modal-trigger" href="#modal2">';
+                        temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
+                        temp += '</a>';
+                        temp += '</div>';
+                        temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
+                        temp += '<table>';
+                        temp += '<thead>';
+                        temp += '</thead>';
+                        temp += '<tbody>';
+                        temp += '<tr>';
+                        temp += '<td>';
+                        temp += '<font size="-1" color="#afc1da">';
+                        temp += 'Title';
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '<td>';
+                        temp += '<font size=4>';
+                        temp += data.get_property[i]['title'];
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '</tr>';
+                        temp += '<tr>';
+                        temp += '<td>';
+                        temp += '<font size="-1" color="#afc1da">';
+                        temp += 'Location';
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '<td>';
+                        temp += '<font size=3>';
+                        temp += data.get_property[i]['location'];
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '</tr>';
+                        temp += '<tr>';
+                        temp += '<td>';
+                        temp += '<font size="-1" color="#afc1da">';
+                        temp += 'BHK';
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '<td>';
+                        temp += '<font size=3>';
+                        temp += data.get_property[i]['bhk'];
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '</tr>';
+                        temp += '<tr>';
+                        temp += '<td>';
+                        temp += '<font size="-1" color="#afc1da">';
+                        temp += 'Price';
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '<td>';
+                        temp += '<font size=3>';
+                        temp += data.get_property[i]['price'];
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '</tr>';
+                        temp += '<tr>';
+                        temp += '<td>';
+                        temp += '<font size="-1" color="#afc1da">';
+                        temp += 'Highlights';
+                        temp += '</font>';
+                        temp += '</td>';
+                        temp += '<td>';
+                        temp += data.get_property[i]['description'];
+                        temp += '</td>';
+                        temp += '</tr>';
+                        temp += '</table>';
+                        temp += '<a class="btn-floating waves-effect waves-light" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-20px;"><i class="material-icons">call</i></a>';
+                        temp += '</div>';
+                        temp += '</div>';
+                        temp += '</div>';
+                    }
                     $("#div2").html(temp);
                 },
                error: function() {
@@ -296,10 +315,85 @@ td{
                },
             });
         }
-    function view_detail(value)
+        function view_detail(value)
     {
-        localStorage.setItem("title",value);
-        $(location).attr('href','/view_detail');
+        var temp="";
+        $.ajax({
+            type:"GET",
+            dataType:'json',
+            data:{"title":value},
+            url:"/show_property",
+            success: function(data)
+            {
+                temp += '<div class="slider col s5 m5 l5">';
+                temp += '<ul class="slides">';
+                for(i in data.get_property[0]['images'])
+                {
+                    temp += '<li>';
+                    temp += '<img src="'+ data.get_property[0]['images'][i] +'">';
+                    temp += '</li>';
+                }
+                temp += '</ul>';
+                temp += '</div>';
+                temp += '<div>';
+                temp += '<div class = "col s2 m2 l2">';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">description</i>';
+                temp += 'Highlights';
+                temp += '<br><b>';
+                temp += data.get_property[0]['description'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">location_on</i>';
+                temp += 'Location';
+                temp += '<br><b>';
+                temp += data.get_property[0]['location'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px;">';
+                temp += '<i class="material-icons">verified_user</i>';
+                temp += 'Usage';
+                temp += '<br><b>';
+                temp += data.get_property[0]['usage'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '</div>';
+                temp += '<div class = "col s2 m2 l2 push-s1 m1 l1">';
+                temp += '<div style = "padding-top:20px; padding-left:40px;">';
+                temp += '<i class="material-icons">label</i>';
+                temp += 'Price';
+                temp += '<br><b>';
+                temp += data.get_property[0]['price'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px; padding-left:40px;">';
+                temp += '<i class="material-icons">business</i>';
+                temp += 'BHK';
+                temp += '<br><b>';
+                temp += data.get_property[0]['bhk'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '<div style = "padding-top:20px; padding-left:40px;">';
+                temp += '<i class="material-icons">date_range</i>';
+                temp += 'Date Added';
+                temp += '<br><b>';
+                temp += data.get_property[0]['date_added'];
+                temp += '</b>';
+                temp += '</div>';
+                temp += '</div>';
+                temp += '</div>';
+                temp += '<div class="col s6 m6 l6" style = "padding-top:25px;">';
+                temp += 'About the property';
+                temp += '<br><b>';
+                temp += data.get_property[0]['about'];
+                temp += '</b>';
+                temp += '</div>';
+                $("#div3").html(temp);
+                $('.slider').slider({interval: 2000});
+            }
+        });
+
     }
     function view_search()
     {
@@ -390,7 +484,7 @@ td{
         </div>
     </div>
 </div>
-<div class="row" id="extra" style="background-color:#f3f4f6; height:240px; margin-bottom:0px; color:#0c3761;">
+<div class="row" id="extra" style="background-color:#f3f4f6; width:1250px; height:240px; margin-bottom:0px; color:#0c3761;">
     <div class="row col s3 m3 l3">
         <div><b>ENQUIRY FORM</b></div>
         <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
@@ -450,16 +544,11 @@ td{
     </div>
 
 </div>
-<div id="dialog" style="display: none" align = "center">
-    <label for="title"><h6>Title</h6></label>
-    <input type="text" id="title" name="title" readonly>
-    <label for="name"><h6>Name</h6></label>
-    <input type="text" name="name" id="name">
-    <label for="phone"><h6>Phone</h6></label>
-    <input id="phone" name="contact" type="tel">
-    <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="cont()">
-        Submit
-    </button>
+<div id="dialog" style="display: none" align = "center"></div>
+<div id="modal2" class="modal">
+<div class="modal-content" id="modal3">
+<div id="div3" class="row" style="margin:0px; color: #0c3761; width:800px;"></div>
+</div>
 </div>
 </body>
 </html>

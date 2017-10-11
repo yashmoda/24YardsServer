@@ -54,7 +54,3 @@ def show_property(request):
         return JsonResponse(json_response)
     print 12345678
 
-
-def view_detail(request):
-    return render(request, 'property_detail.html')
-
