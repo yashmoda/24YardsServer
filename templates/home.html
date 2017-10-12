@@ -24,13 +24,22 @@
   left: 0;
   top: 0;
 }
+.xyz{
+    width:300px;
+    height:300px;
+}
+.abc{
+    color:#f3f4f6;
+}
+.txt{
+    color: #b0c2da;
+}
 </style>
 </head>
 <body>
 <script type="text/javascript">
         $(document).ready(function(){
             var temp = "";
-            document.getElementById("extra").style.padding = "20px";
             $.ajax({
                 type: "GET",
                 url: "/home",
@@ -42,9 +51,9 @@
                             temp += '<div class = "col s4 m4 l4">';
                             temp += '<div class="card">';
                             temp += '<div class="card-image">';
-                            temp += '<img src="'+ data.data[i]['image_url'] +'" onclick="view_ptype(\''+data.data[i][
+                            temp += '<img class="xyz" src="'+ data.data[i]['image_url'] +'" onclick="view_ptype(\''+data.data[i][
                             'property_type']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
-                            temp += '<span class="card-title">';
+                            temp += '<span class="card-title" style = "width: -moz-available; background-color:#335172; opacity:0.5;">';
                             temp += ''+data.data[i]['property_type']+'<br>';
                             temp += '</span>';
                             temp += '</div>';
@@ -97,17 +106,16 @@
             localStorage.setItem("property_type1", value);
         }
 </script>
-<div class="row">
-    <div style="height:120px; padding:15px; background-color:#f3f4f6">
+<div style="height:120px; padding:15px; background-color:#f3f4f6">
             <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
     </div>
+<div class="row" style="padding:1em;">
     <div>
-        <img id="image" src="http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png" style="margin-top:120px; width:1300px; height:400px"/>
-        <div class="row">
+        <div class="row" style="background-image:url('http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png'); background-size:cover;">
             <div class="col s12 m6 l5 push-s2 m2 l2">
-                    <div class="card-panel" style="margin-top:10px; opacity:0.8;">
+                    <div class="card-panel" style="margin-top:10px; opacity:0.7; border-radius:10px; background-color: #0c3761">
                         <center>
-                            <h4 style="color:#0c3761">
+                            <h4 class="white-text">
                                 Search The Right Property
                             </h4>
                         </center>
@@ -122,119 +130,145 @@
                                         onclick="set_ptype('Rent')" onmouseover="this.style.cursor='pointer';">
                                         Rent
                                     </li>
-                                    <li style="padding-left:60px; padding-right:60px;"
+                                    <li style="padding-left:50px; padding-right:50px;"
                                         onclick="set_ptype('Projects')" onmouseover="this.style.cursor='pointer';">
                                         Projects
                                     </li>
                                 </ul>
                             </div>
                         </nav>
-                        <div style="padding:5px">
-                            <label for="location" style="display:inline-block; color:#0a355f;"><font size="3">Locality</font></label>
-                            <input type="text" id="location" placeholder="Enter the locality" style="width:200px; margin-left:20px;">
-                        </div>
-                        <div style="color:#0a355f; padding:5px;">
-                            <font size="3">
-                                Usage
-                            </font>
-                            <input type="radio" id="residential" name="usage" value="Residential">
-                            <label for="residential" style="color:#0a355f;margin-left:25px;">Residential</label>
-                            <input type="radio" id="commercial" name="usage" value="Commercial">
-                            <label for="commercial" style="color:#0a355f; margin-left:15px;">Commercial</label>
-                        </div>
-                        <div style="padding:5px; margin-top:10px; color:#0a355f;">
-                            <font size="3">
-                                BHK
-                            </font>
-                             <input type="checkbox" id="c1" class="bhk" value="1">
-                            <label for="c1" style="margin-left:40px; color:#0a355f;">1</label>
-                            <input type="checkbox" id="c2" class="bhk" value="2">
-                            <label for="c2" style="margin-left:25px; color:#0a355f;">2</label>
-                            <input type="checkbox" id="c3" class="bhk" value="3">
-                            <label for="c3" style="margin-left:25px; color:#0a355f;">3</label>
-                            <input type="checkbox" id="c4" class="bhk" value="4">
-                            <label for="c4" style="margin-left:25px; color:#0a355f;">4</label>
-                            <input type="checkbox" id="c5" class="bhk" value="5">
-                            <label for="c5" style="margin-left:25px; color:#0a355f;">5</label>
-                        </div>
-                        <div>
-                            <center>
-                                <button class="btn-flat waves-effect waves-light white-text" style="background-color:#0c3761;" type="submit" value="Search" onclick="search()">
-                                    Search
-                                </button>
-                            </center>
-                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="abc">Locality</td>
+                                    <td>
+                                        <input type="text" id="location" placeholder="Enter the locality" style="width:200px; margin-left:20px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="abc">Usage</td>
+                                    <td class="txt">
+                                        <div class="row">
+                                            <div class="col s4 m4 l4">
+                                                <input type="radio" id="residential" name="usage" value="Residential">
+                                                <label for="residential">Residential</label>
+                                            </div>
+                                            <div class="col s4 m4 l4 push-l2">
+                                                <input type="radio" id="commercial" name="usage" value="Commercial">
+                                                <label for="commercial">Commercial</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="abc">BHK</td>
+                                    <td class="txt">
+                                        <div class="col s2 m2 l2">
+                                            <input type="checkbox" id="c1" class="bhk" value="1">
+                                            <label for="c1">1</label>
+                                        </div>
+                                        <div class="col s2 m2 l2">
+                                            <input type="checkbox" id="c2" class="bhk" value="2">
+                                            <label for="c2">2</label>
+                                        </div>
+                                        <div class="col s2 m2 l2">
+                                            <input type="checkbox" id="c3" class="bhk" value="3">
+                                            <label for="c3">3</label>
+                                        </div>
+                                        <div class="col s2 m2 l2">
+                                            <input type="checkbox" id="c4" class="bhk" value="4">
+                                            <label for="c4">4</label>
+                                        </div>
+                                        <div class="col s2 m2 l2">
+                                            <input type="checkbox" id="c5" class="bhk" value="5">
+                                            <label for="c5">5</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <center>
+                                            <button class="btn-flat waves-effect waves-light"
+                                                    style="background-color:#daddd8; opacity:0.8; color:black; margin-left:0px;" type="submit" value="Submit" onclick="search()">
+                                                Search
+                                            </button>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div id="div1" class="push-l1">
-            <div class="row" id="choose_property_type" style="">
+            <div class="row" id="choose_property_type">
 
             </div>
         </div>
     </div>
 </div>
-<div class="row" id="extra" style="background-color:#f3f4f6; width:1250px; height:240px; margin-bottom:0px; color:#0c3761;">
-    <div class="row col s3 m3 l3">
-        <div><b>ENQUIRY FORM</b></div>
-        <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
-        <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
-               placeholder="Contact Number" maxlength="10" minlength="10">
-        <button class="btn-flat waves-effect waves-light white-text"
-                style="background-color:#0c3761; margin-left:30px;" type="submit" value="Submit" onclick="enquiry()">
-            Submit
-        </button>
-    </div>
-    <div class="row col s3 m3 l3">
-        <div><b>GET THE MOBILE APP</b></div>
-        <div style="margin-top:15px;">
-            <a class="android appLnk" title="24 Yards Android App" href="">
+<footer class="page-footer" style="background-color:#f3f4f6; color:#0c3761">
+    <div class="container">
+        <div class="row">
+            <div class="col l3 s12">
+                <h5>Enquiry Form</h5>
+                <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
+                <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
+                       placeholder="Contact Number" maxlength="10" minlength="10">
+                <button class="btn-flat waves-effect waves-light white-text"
+                        style="background-color:#0c3761; margin-left:0px;" type="submit" value="Submit" onclick="enquiry()">
+                    Submit
+                </button>
+            </div>
+            <div class="col l3">
+                <h5>Download App</h5>
+                <a class="android appLnk" title="24 Yards Android App" href="">
                 <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"
                      style="height:40px; width:150px">
-            </a>
-        </div>
-    </div>
-    <div class="row col s3 m3 l3">
-        <div><b>CONTACT US</b></div>
-        <div style="margin-top:15px;">
-            <i class="material-icons">call</i>
-            <b style="padding:10px;">
-                7224987232
-            </b>
-            <br>
-            <i class="material-icons" style="padding-top:10px;">email</i>
-            <b style="padding:10px;">
-                yashmoda@gmail.com
-            </b>
-            <br>
-        </div>
-    </div>
-    <div class="row col s3 m3 l3">
-        <div><b>CONNECT WITH US</b></div>
-        <div style="margin-top:15px;">
-            <div>
-                <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
-                    <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
-                    Facebook
                 </a>
             </div>
-            <div style="padding-top:10px;">
-                <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
-                    <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
-                    Google+
-                </a>
+            <div class="col l3">
+                <h5>Contact Us</h5>
+                <i class="material-icons">call</i>
+                <b style="padding:10px;">
+                    7224987232
+                </b>
+                <br>
+                <i class="material-icons" style="padding-top:10px;">email</i>
+                <b style="padding:10px;">
+                    yashmoda@gmail.com
+                </b>
+                <br>
             </div>
-            <div style="padding-top:10px;">
-                <a class="foot_socialLink tw" href="">
-                    <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
-                    Twitter
-                </a>
+            <div class="col l3">
+                <h5>Connect With Us</h5>
+                 <div>
+                     <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+                        <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+                        Facebook
+                     </a>
+                </div>
+                <div style="padding-top:10px;">
+                    <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+                        <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+                        Google+
+                    </a>
+                </div>
+                <div style="padding-top:10px;">
+                    <a class="foot_socialLink tw" href="">
+                        <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+                        Twitter
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
-</body>
-</html>
+    <div class="footer-copyright">
+        <div class="container" style="color:#0c3761;">
+            © 2017 24Yards
+        </div>
+    </div>
+</footer>

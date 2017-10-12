@@ -41,6 +41,10 @@ td{
 div{
     padding: 0px;
     }
+.modal {
+    width: 75% !important ;
+    max-height: 80% !important ;
+    }
 </style>
 </head>
 <body>
@@ -68,7 +72,6 @@ div{
                     $("#slider-range-value").html(values.join(' - '));
                   });
         $("#filter").hide();
-        document.getElementById("extra").style.padding = "20px";
         var temp="";
         $.ajax({
             type: 'GET',
@@ -76,7 +79,7 @@ div{
             dataType: 'json',
             data: {"property_type": property},
             success: function (data){
-            bc +='<a href="/view_home" class="breadcrumb" style="padding:10px; color:#0c3761;">';
+            /*bc +='<a href="/view_home" class="breadcrumb" style="padding:10px; color:#0c3761;">';
             bc += '<font size="-1">';
             bc += 'Home';
             bc += '</font>';
@@ -86,7 +89,7 @@ div{
             bc += property;
             bc += '</font>';
             bc += '</a>';
-            $("#bread").html(bc);
+            $("#bread").html(bc);*/
             for(i in data.get_property)
             {
                     temp += '<div class="col s4 m4 l4">';
@@ -195,6 +198,7 @@ div{
             });
             $("#name").val("");
             $("#phone").val("");
+            $("#contmod").modal('close');
         }
     function view_detail(value)
     {
@@ -209,7 +213,7 @@ div{
                 temp += '<h4>';
                 temp += data.get_property[0]['title'];
                 temp += '</h4>';
-                temp += '<div class="slider col s5 m5 l5">';
+                temp += '<div class="slider col s4 m4 l4">';
                 temp += '<ul class="slides">';
                 for(i in data.get_property[0]['images'])
                 {
@@ -220,8 +224,8 @@ div{
                 temp += '</ul>';
                 temp += '</div>';
                 temp += '<div>';
-                temp += '<div class = "col s2 m2 l2">';
-                temp += '<div style = "padding-top:20px;">';
+                temp += '<div class = "col s2 m2 l4">';
+                temp += '<div style = "padding-top:30px;">';
                 temp += '<i class="material-icons">description</i>';
                 temp += 'Highlights';
                 temp += '<br><b>';
@@ -243,22 +247,22 @@ div{
                 temp += '</b>';
                 temp += '</div>';
                 temp += '</div>';
-                temp += '<div class = "col s2 m2 l2 push-s1 m1 l1">';
-                temp += '<div style = "padding-top:20px; padding-left:40px;">';
+                temp += '<div class = "col s2 m2 l3 push-s1 m1 l1">';
+                temp += '<div style = "padding-top:30px;">';
                 temp += '<i class="material-icons">label</i>';
                 temp += 'Price';
                 temp += '<br><b>';
                 temp += data.get_property[0]['price'];
                 temp += '</b>';
                 temp += '</div>';
-                temp += '<div style = "padding-top:20px; padding-left:40px;">';
+                temp += '<div style = "padding-top:20px;">';
                 temp += '<i class="material-icons">business</i>';
                 temp += 'BHK';
                 temp += '<br><b>';
                 temp += data.get_property[0]['bhk'];
                 temp += '</b>';
                 temp += '</div>';
-                temp += '<div style = "padding-top:20px; padding-left:40px;">';
+                temp += '<div style = "padding-top:20px;">';
                 temp += '<i class="material-icons">date_range</i>';
                 temp += 'Date Added';
                 temp += '<br><b>';
@@ -415,12 +419,12 @@ div{
             <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
         <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
 </div>
-<nav style="width:1150px; height:40px; margin-left:70px;">
+<!--<nav style="width:1150px; height:40px; margin-left:70px;">
     <div class="nav-wrapper">
         <div class="col s12 m12 l12" id="bread" style="background-color:#f3e9d2; height:40px;">
         </div>
     </div>
-</nav>
+</nav>-->
 <div class="row">
 
     <div class="col s2 m2 l2" id="filter">
@@ -499,71 +503,72 @@ div{
             </button>
         </center>
     </div>
-    <div id="div1">
+    <div id="div1" style="padding:1em;">
         <div id="div2" class="row"></div>
     </div>
 </div>
-<div class="row" id="extra" style="background-color:#f3f4f6; width:1250px; height:240px; margin-bottom:0px; color:#0c3761;">
-    <div class="row col s3 m3 l3">
-        <div><b>ENQUIRY FORM</b></div>
-        <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
-        <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
-               placeholder="Contact Number" maxlength="10" minlength="10">
-        <button class="btn-flat waves-effect waves-light white-text"
-                style="background-color:#0c3761; margin-left:30px;" type="submit" value="Submit" onclick="enquiry()">
-            Submit
-        </button>
-    </div>
-    <div class="row col s3 m3 l3">
-        <div><b>GET THE MOBILE APP</b></div>
-        <div style="margin-top:15px;">
-            <a class="android appLnk" title="24 Yards Android App" href="">
+<footer class="page-footer" style="background-color:#f3f4f6; color:#0c3761">
+    <div class="container">
+        <div class="row">
+            <div class="col l3 s12">
+                <h5>Enquiry Form</h5>
+                <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
+                <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
+                       placeholder="Contact Number" maxlength="10" minlength="10">
+                <button class="btn-flat waves-effect waves-light white-text"
+                        style="background-color:#0c3761; margin-left:0px;" type="submit" value="Submit" onclick="enquiry()">
+                    Submit
+                </button>
+            </div>
+            <div class="col l3">
+                <h5>Download App</h5>
+                <a class="android appLnk" title="24 Yards Android App" href="">
                 <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"
                      style="height:40px; width:150px">
-            </a>
-        </div>
-    </div>
-    <div class="row col s3 m3 l3">
-        <div><b>CONTACT US</b></div>
-        <div style="margin-top:15px;">
-            <i class="material-icons">call</i>
-            <b style="padding:10px;">
-                7224987232
-            </b>
-            <br>
-            <i class="material-icons" style="padding-top:10px;">email</i>
-            <b style="padding:10px;">
-                yashmoda@gmail.com
-            </b>
-            <br>
-        </div>
-    </div>
-    <div class="row col s3 m3 l3">
-        <div><b>CONNECT WITH US</b></div>
-        <div style="margin-top:15px;">
-            <div>
-                <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
-                    <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
-                    Facebook
                 </a>
             </div>
-            <div style="padding-top:10px;">
-                <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
-                    <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
-                    Google+
-                </a>
+            <div class="col l3">
+                <h5>Contact Us</h5>
+                <i class="material-icons">call</i>
+                <b style="padding:10px;">
+                    7224987232
+                </b>
+                <br>
+                <i class="material-icons" style="padding-top:10px;">email</i>
+                <b style="padding:10px;">
+                    yashmoda@gmail.com
+                </b>
+                <br>
             </div>
-            <div style="padding-top:10px;">
-                <a class="foot_socialLink tw" href="">
-                    <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
-                    Twitter
-                </a>
+            <div class="col l3">
+                <h5>Connect With Us</h5>
+                 <div>
+                     <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+                        <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
+                        Facebook
+                     </a>
+                </div>
+                <div style="padding-top:10px;">
+                    <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+                        <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
+                        Google+
+                    </a>
+                </div>
+                <div style="padding-top:10px;">
+                    <a class="foot_socialLink tw" href="">
+                        <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
+                        Twitter
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
-<div id="contmod" class="modal">
+    <div class="footer-copyright">
+        <div class="container" style="color:#0c3761;">
+            © 2017 24Yards
+        </div>
+    </div>
+</footer><div id="contmod" class="modal">
     <div id="dialog" class="modal-content" style="color:#0c3761;">
         <h4>
             Contact Form
@@ -579,10 +584,13 @@ div{
         </button>
     </div>
 </div>
-<div id="modal2" class="modal">
+<div id="modal2" class="modal modal-fixed-footer">
     <div class="modal-content" id="modal3">
-        <div id="div3" class="row" style="margin:0px; color: #0c3761; width:800px;"></div>
+        <div id="div3" class="row" style="margin:0px; color: #0c3761;"></div>
     </div>
-  </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
+    </div>
+</div>
 </body>
 </html>
