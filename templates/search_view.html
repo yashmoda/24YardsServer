@@ -28,7 +28,7 @@ td{
 <script>
     $(document).ready(function(){
         $('#modal2').modal();
-        $('.slider').slider();
+        $('.carousel').carousel();
         var slider = document.getElementById('test5');
             noUiSlider.create(slider, {
                 start: [20, 80],
@@ -316,15 +316,13 @@ td{
                 temp += '<h4>';
                 temp += data.get_property[0]['title'];
                 temp += '</h4>';
-                temp += '<div class="slider col s4 m4 l4">';
-                temp += '<ul class="slides">';
+                temp += '<div class="carousel col s4 m4 l5">';
                 for(i in data.get_property[0]['images'])
                 {
-                    temp += '<li>';
+                    temp += '<a class="carousel-item">';
                     temp += '<img src="'+ data.get_property[0]['images'][i] +'">';
-                    temp += '</li>';
+                    temp += '</a>';
                 }
-                temp += '</ul>';
                 temp += '</div>';
                 temp += '<div>';
                 temp += '<div class = "col s2 m2 l4">';
@@ -381,7 +379,7 @@ td{
                 temp += '</b>';
                 temp += '</div>';
                 $("#div3").html(temp);
-                $('.slider').slider({interval: 2000});
+                $('.carousel').carousel();
             }
         });
     }
