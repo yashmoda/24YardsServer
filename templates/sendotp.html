@@ -31,6 +31,7 @@
         });
         function sendotp()
         {
+            localStorage.setItem("contact",$("#phone").val());
             $.ajax({
                 type: "POST",
                 data: {'contact':$("#phone").val()},
@@ -52,6 +53,7 @@
                 }
             });
         }
+        localStorage.setItem("contact",$("#phone").val());
         function enquiry()
         {
             $.ajax({

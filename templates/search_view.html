@@ -303,8 +303,10 @@ td{
                },
             });
         }*/
+        var tit="";
         function view_detail(value)
     {
+        tit=value;
         var temp="";
         $.ajax({
             type:"GET",
@@ -386,6 +388,19 @@ td{
     function view_search()
     {
         $("#filter").show();
+    }
+    function add_fav()
+    {
+        $.ajax({
+            type:"POST",
+            dataType: 'json',
+            data:{"title":tit, "contact":localStorage.getItem("contact")},
+            url:'/add_favorite',
+            success:function(data)
+            {
+                alert("Added to favorites");
+            },
+        });
     }
 </script>
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
@@ -554,9 +569,13 @@ td{
 <div class="modal-content" id="modal3">
 <div id="div3" class="row" style="margin:0px; color: #0c3761; width:800px;"></div>
 </div>
-        <div class="modal-footer">
-        <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
-    </div>
+<div class="modal-footer">
+    <button class="btn-flat waves-effect waves-light" style="background-color:#0c3761; color:#f3f4f6 "
+                    type="submit" value="Submit" onclick="add_fav()">
+                    Add To Favorites
+            </button>
+    <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
+</div>
 </div>
 </body>
 </html>

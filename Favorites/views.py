@@ -21,8 +21,13 @@ def add_favorite(request):
             phone = request.POST.get(keysdata.CONTACT)
             print property
             print phone
-            Favorite.objects.create(property=property, phone=phone)
-            print "Object Created"
+            try:
+                Favorite.objects.get(property=property, phone=phone)
+                print "Object Already Exists"
+            except Exception as e:
+                print e
+                Favorite.objects.create(property=property, phone=phone)
+                print "Object Created"
             json_response[constants.SUCCESS] = constants.TRUE
             json_response[constants.MSG] = constants.SUCCESSMSG
         except Exception as e:
