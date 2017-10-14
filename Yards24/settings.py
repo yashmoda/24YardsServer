@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Enquiry',
     'Details',
     'Contact',
+    'Favorites',
 ]
 
 MIDDLEWARE_CLASSES = [
