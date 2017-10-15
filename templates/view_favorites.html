@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your choosen property type</title>
+    <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="/static/css/nouislider.min.css">
@@ -16,82 +16,34 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
     <style>
-    input[type=range]::-webkit-slider-thumb {
-    background-color: red;
-  }
-  input[type=range]::-moz-range-thumb {
-    background-color: red;
-  }
-  input[type=range]::-ms-thumb {
-    background-color: red;
-  }
-  input[type=range] + .thumb {
-    background-color: #dedede;
-  }
-  input[type=range] + .thumb.active .value {
-    color: red;
-  }
-.imgsize{
-    width:20px;
-    height:20px;
-}
-td{
-    padding: 0px;-
-}
-div{
-    padding: 0px;
-    }
-.modal {
-    width: 75% !important ;
-    max-height: 80% !important ;
-    }
-</style>
+        .imgsize{
+            width:20px;
+            height:20px;
+        }
+        td{
+            padding:0px;
+        }
+        .modal {
+            width: 75% !important ;
+            max-height: 80% !important ;
+        }
+    </style>
 </head>
 <body>
-<script type="text/javascript">
-
+<script>
     $(document).ready(function(){
         $('#modal2').modal();
         $('.carousel').carousel();
-        var property = localStorage.getItem("property_type");
-        var bc="";
-        var slider = document.getElementById('test5');
-            noUiSlider.create(slider, {
-                start: [0, 1000000],
-                connect: true,
-                   step: 5000,
-                   range: {
-                     'min': 0,
-                     'max': 1000000
-                   },
-                   format: wNumb({
-                     decimals: 0
-                   })
-                  }).on('update', function(values, handle, unencoded, tap, positions) {
-                    var whichHandle = handle === 0 ? 'LEFT' : 'RIGHT';
-                    $("#slider-range-value").html(values.join(' - '));
-                  });
         $("#filter").hide();
-        var temp="";
+        var temp='';
         $.ajax({
-            type: 'GET',
-            url: "/choose_property",
+            type: "GET",
+            data:{"contact":localStorage.getItem("contact")},
+            url: "/show_favorite",
             dataType: 'json',
-            data: {"property_type": property},
-            success: function (data){
-            /*bc +='<a href="/view_home" class="breadcrumb" style="padding:10px; color:#0c3761;">';
-            bc += '<font size="-1">';
-            bc += 'Home';
-            bc += '</font>';
-            bc += '</a>';
-            bc +='<a href="/view_property_view" class="breadcrumb" style="color:#0c3761; padding:10px;">';
-            bc += '<font size="-1">';
-            bc += property;
-            bc += '</font>';
-            bc += '</a>';
-            $("#bread").html(bc);*/
-            for(i in data.get_property)
-            {
+            success: function(data){
+                for(i in data.get_property)
+                {
                     temp += '<div class="col s4 m4 l4">';
                     temp += '<div class="card medium">';
                     temp += '<div class="card-image">';
@@ -170,9 +122,6 @@ div{
                 }
                 $("#div2").html(temp);
             },
-            error: function(){
-                alert("Please try again later");
-            },
         });
     });
     function contact(value)
@@ -196,10 +145,10 @@ div{
                     alert("Sorry! Please try again");
                 },
             });
-            $("#name").val("");
-            $("#phone").val("");
-            $("#contmod").modal('close');
-        }
+        $("#name").val("");
+        $("#phone").val("");
+        $("#contmod").modal('close');
+    }
     var tit="";
     function view_detail(value)
     {
@@ -282,160 +231,45 @@ div{
             }
         });
     }
-    function add_fav()
+    function enquiry()
     {
         $.ajax({
             type:"POST",
-            dataType: 'json',
-            data:{"title":tit, "contact":localStorage.getItem("contact")},
-            url:'/add_favorite',
-            success:function(data)
+            data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+            dataType:'json',
+            url:'/enquire',
+            success: function(data)
             {
-                alert("Added to favorites");
+                alert("We will soon contact you");
+            },
+            error: function()
+            {
+                alert("Sorry! Please try again");
+            },
+        });
+        $("#text2").val("");
+        $("#text3").val("");
+    }
+    function del_fav()
+    {
+        $.ajax({
+            type:"POST",
+            data:{"title":tit, "contact":localStorage.getItem("contact")},
+            dataType:'json',
+            url:'/delete_favorite',
+            success: function(data)
+            {
+                $(location).attr('href','/view_favorite');
+            },
+            error: function()
+            {
+                alert("Please try again later");
             },
         });
     }
-    function enquiry()
-        {
-            $.ajax({
-                type:"POST",
-                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
-                dataType:'json',
-                url:'/enquire',
-                success: function(data)
-                {
-                    alert("We will soon contact you");
-                },
-                error: function()
-                {
-                    alert("Sorry! Please try again");
-                },
-            });
-            $("#text2").val("");
-            $("#text3").val("");
-        }
-    function sort(value)
-    {
-            var temp="";
-            var property = localStorage.getItem("property_type");
-            $.ajax({
-                type: "POST",
-                data: {"sort_order": value, "property_type":property},
-                dataType: 'json',
-                url: "/sort",
-                success: function(data){
-                    for(i in data.get_property)
-                {
-                    temp += '<div class="col s4 m4 l4">';
-                    temp += '<div class="card medium">';
-                    temp += '<div class="card-image">';
-                    temp += '<a class="modal-trigger" href="#modal2">';
-                    temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
-                    temp += '</a>';
-                    temp += '</div>';
-                    temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
-                    temp += '<table>';
-                    temp += '<thead>';
-                    temp += '</thead>';
-                    temp += '<tbody>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += '<font size="-1" color="#afc1da">';
-                    temp += 'Title';
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '<td>';
-                    temp += '<font size=4>';
-                    temp += data.get_property[i]['title'];
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += '<font size="-1" color="#afc1da">';
-                    temp += 'Location';
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '<td>';
-                    temp += '<font size=3>';
-                    temp += data.get_property[i]['location'];
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += '<font size="-1" color="#afc1da">';
-                    temp += 'BHK';
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '<td>';
-                    temp += '<font size=3>';
-                    temp += data.get_property[i]['bhk'];
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += '<font size="-1" color="#afc1da">';
-                    temp += 'Price';
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '<td>';
-                    temp += '<font size=3>';
-                    temp += data.get_property[i]['price'];
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '</tr>';
-                    temp += '<tr>';
-                    temp += '<td>';
-                    temp += '<font size="-1" color="#afc1da">';
-                    temp += 'Highlights';
-                    temp += '</font>';
-                    temp += '</td>';
-                    temp += '<td>';
-                    temp += data.get_property[i]['description'];
-                    temp += '</td>';
-                    temp += '</tr>';
-                    temp += '</table>';
-                    temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-45px;"><i class="material-icons">call</i></a>';
-                    temp += '</div>';
-                    temp += '</div>';
-                    temp += '</div>';
-                }
-                    $("#div2").html(temp);
-                },
-               error: function() {
-                    alert("Please try again later.");
-               },
-            });
-        }
-        function search()
-        {
-            var bhk = [];
-            $('.bhk:checked').each(function(i, e) {
-                bhk.push($(this).val());
-                });
-            localStorage.setItem("bhk",bhk);
-            localStorage.setItem("property_type1",$('input[name="property_type"]:checked').val());
-            localStorage.setItem("usage",$('input[name="usage"]:checked').val());
-            localStorage.setItem("location1",$("#location").val());
-            localStorage.setItem("price1", test5.noUiSlider.get());
-            $('input[name="usage"]:checked').val('');
-            $(location).attr('href','/view_search');
-        }
-        function view_search()
-        {
-            $("#filter").show();
-        }
 </script>
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
-            <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
-        <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
-        <p style="float:right; padding:1em;">
-        <a href="/view_favorite" style="color:#0c3761;">
-            Show Favorites
-        </a>
-        </p>
+    <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
 </div>
 <div class="row">
 
@@ -603,10 +437,10 @@ div{
     </div>
     <div class="modal-footer">
             <button class="btn-flat waves-effect waves-light" style="background-color:#0c3761; color:#f3f4f6 "
-                    type="submit" value="Submit" onclick="add_fav()">
-                    Add To Favorites
+                    type="submit" value="Submit" onclick="del_fav()">
+                    Remove from Favorites
             </button>
-            <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
+        <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
     </div>
 </div>
 </body>

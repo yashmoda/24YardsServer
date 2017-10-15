@@ -84,6 +84,8 @@
                     alert("Sorry! Please try again");
                 },
             });
+            $("#text2").val("");
+            $("#text3").val("");
         }
         function search()
         {
@@ -107,8 +109,13 @@
         }
 </script>
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
-            <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
-    </div>
+    <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+    <p style="float:right; color:#0c3761;">
+        <a href="/view_favorite" style="color:#0c3761;">
+            Show Favorites
+        </a>
+    </p>
+</div>
 <div class="row" style="padding:1em;">
     <div>
         <div class="row" style="background-image:url('http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png'); background-size:cover;">

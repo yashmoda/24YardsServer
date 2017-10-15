@@ -12,6 +12,11 @@ from Property.models import PropertyTable
 # Create your views here.
 
 
+
+def view_favorite(request):
+    return render(request, 'view_favorites.html')
+
+
 @csrf_exempt
 def add_favorite(request):
     if(request.method=='POST'):
@@ -67,6 +72,32 @@ def show_favorite(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
+        except Exception as e:
+            print e
+            json_response[constants.SUCCESS] = constants.FALSE
+            json_response[constants.MSG] = constants.FAILMSG
+        print str(json_response)
+        return JsonResponse(json_response)
+
+
+@csrf_exempt
+def delete_favorite(request):
+    if request.method=='POST':
+        json_response = {}
+        try:
+            property = request.POST.get(keysdata.TITLE)
+            phone = request.POST.get(keysdata.CONTACT)
+            print property
+            print phone
+            try:
+                obj = Favorite.objects.get(property=property, phone=phone)
+                obj.delete()
+                print "Object Deleted"
+            except Exception as e:
+                print e
+                print "Object Does Not Exist"
+            json_response[constants.SUCCESS] = constants.TRUE
+            json_response[constants.MSG] = constants.SUCCESSMSG
         except Exception as e:
             print e
             json_response[constants.SUCCESS] = constants.FALSE

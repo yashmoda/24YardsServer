@@ -190,6 +190,9 @@ td{
                     alert("Sorry! Please try again");
                 },
             });
+            $("#name").val("");
+            $("#phone").val("");
+            $("#contmod").modal('close');
         }
         function enquiry()
         {
@@ -207,6 +210,8 @@ td{
                     alert("Sorry! Please try again");
                 },
             });
+            $("#text2").val("");
+            $("#text3").val("");
         }
         /*function sort(value)
     {
@@ -406,6 +411,11 @@ td{
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
             <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
         <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
+    <p style="float:right; padding:1em;">
+        <a href="/view_favorite" style="color:#0c3761;">
+            Show Favorites
+        </a>
+    </p>
 </div>
 <div class="row">
     <div class="col s2 m2 l2" id="filter">

@@ -33,6 +33,8 @@ from Details.views import show_property
 from Contact.views import contact_form
 from Favorites.views import add_favorite
 from Favorites.views import show_favorite
+from Favorites.views import view_favorite
+from Favorites.views import delete_favorite
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home', home),
@@ -50,4 +52,6 @@ urlpatterns = [
     url(r'^contact_form', contact_form),
     url(r'^add_favorite', add_favorite),
     url(r'^show_favorite', show_favorite),
+    url(r'^view_favorite', view_favorite),
+    url(r'^delete_favorite', delete_favorite),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
