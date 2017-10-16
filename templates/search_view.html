@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
@@ -65,6 +65,7 @@ td{
             max_price = "99999999999999999";
         }
         var temp="";
+        var loc = [];
         $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -72,6 +73,12 @@ td{
 
             url: '/search',
             success: function(data){
+                     var len1 = data.location.length;
+                    for(j=0;j<len1;j++)
+                    {
+                        loc[j] = data.location[j];
+                    }
+                    $("#location").autocomplete({source:loc});
                    for(i in data.get_property)
                     {
                         temp += '<div class="col s4 m4 l4">';
@@ -213,101 +220,6 @@ td{
             $("#text2").val("");
             $("#text3").val("");
         }
-        /*function sort(value)
-    {
-            var temp="";
-            var property = localStorage.getItem("property_type");
-            $.ajax({
-                type: "POST",
-                data: {"sort_order": value, "property_type":property},
-                dataType: 'json',
-                url: "/sort",
-                success: function(data){
-                    for(i in data.get_property)
-                    {
-                        temp += '<div class="col s4 m4 l4">';
-                        temp += '<div class="card medium">';
-                        temp += '<div class="card-image">';
-                        temp += '<a class="modal-trigger" href="#modal2">';
-                        temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
-                        temp += '</a>';
-                        temp += '</div>';
-                        temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
-                        temp += '<table>';
-                        temp += '<thead>';
-                        temp += '</thead>';
-                        temp += '<tbody>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Title';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=4>';
-                        temp += data.get_property[i]['title'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Location';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=3>';
-                        temp += data.get_property[i]['location'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'BHK';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=3>';
-                        temp += data.get_property[i]['bhk'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Price';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=3>';
-                        temp += data.get_property[i]['price'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Highlights';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += data.get_property[i]['description'];
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '</table>';
-                        temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-45px;"><i class="material-icons">call</i></a>';
-                        temp += '</div>';
-                        temp += '</div>';
-                        temp += '</div>';
-                    }
-                    $("#div2").html(temp);
-                },
-               error: function() {
-                    alert("Please try again later.");
-               },
-            });
-        }*/
         var tit="";
         function view_detail(value)
     {
@@ -420,23 +332,6 @@ td{
 <div class="row">
     <div class="col s2 m2 l2" id="filter">
         <ul class="collapsible" data-collapsible="expandable">
-            <li>
-                <!--<div class="collapsible-header">
-                    <i class="material-icons" onmouseover="this.style.cursor='pointer';">sort</i>
-                    Sort By
-                </div>
-                <div class="collapsible-body" style="padding:10px">
-                    <input type="radio" name="sort" id="b1" onclick="sort(1)">
-                    <label for ="b1">Price High to low</label>
-                    <input type="radio" id="b2" name="sort" onclick="sort(2)">
-                    <label for="b2">Price low to high</label>
-                    <input type="radio" name="sort" onclick="sort(3)" id="b3">
-                    <label for="b3">Newest First</label>
-                    <input type="radio" id="b4" name="sort" onclick="sort(4)">
-                    <label for="b4">Oldest First</label>
-                </div>
-            </li>-->
-            <li>
                 <div class="collapsible-header">Property Type</div>
                 <div class="collapsible-body" style="padding:10px">
                     <input type="radio" id="b5" name="property_type" value="Buy">
@@ -474,7 +369,8 @@ td{
             <li>
                 <div class="collapsible-header">Locality</div>
                 <div class="collapsible-body" style="padding:10px">
-                    <input type="text" name="location" id="location" placeholder="Enter the locality">
+                    <input type="text" name="location" id="location" placeholder="Enter the locality"
+                           class="autocomplete">
                 </div>
             </li>
             <li>

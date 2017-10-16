@@ -13,7 +13,7 @@ import keysdata
 @csrf_exempt
 def choose_property(request):
     if request.method == 'GET':
-        json_response = {keysdata.GET_PROPERTY: []}
+        json_response = {keysdata.GET_PROPERTY: [], keysdata.LOCATION:[]}
         try:
             property_type = request.GET.get(keysdata.PROPERTY_TYPE)
             print property_type
@@ -36,6 +36,12 @@ def choose_property(request):
                                  "/" + str(obj.image)}
                     print 2345678
                     json_response[keysdata.GET_PROPERTY].append(temp_json)
+                prop = PropertyTable.objects.values('location').distinct()
+                print prop
+                for objloc in prop:
+                    temp_json1 = str(objloc['location'])
+                    print str(objloc['location'])
+                    json_response[keysdata.LOCATION].append(temp_json1)
                 json_response[constants.SUCCESS] = constants.TRUE
                 json_response[constants.MSG] = constants.SUCCESSMSG
             except Exception as e:

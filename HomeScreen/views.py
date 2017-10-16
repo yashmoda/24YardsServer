@@ -4,6 +4,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import render
 import requests
 from HomeScreen.models import PropertyType
+from Property.models import PropertyTable
 import constants
 # Create your views here.
 import keysdata
@@ -11,7 +12,7 @@ import keysdata
 @csrf_exempt
 def home(request):
     if request.method == 'GET':
-        json_response={keysdata.DATA:[]}
+        json_response={keysdata.DATA:[], keysdata.LOCATION:[]}
         try:
             json_response[constants.SUCCESS] = constants.TRUE
             json_response[constants.MSG] = "Data Found"
@@ -28,6 +29,12 @@ def home(request):
                 print 7654345678765
                 json_response[keysdata.DATA].append(temp_json)
                 print 1234
+            prop = PropertyTable.objects.values('location').distinct()
+            print prop
+            for objloc in prop:
+                temp_json1 = str(objloc['location'])
+                print str(objloc['location'])
+                json_response[keysdata.LOCATION].append(temp_json1)
         except Exception as e:
             print e
             json_response[constants.SUCCESS] = constants.FALSE

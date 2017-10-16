@@ -12,7 +12,7 @@ import constants, keysdata
 @csrf_exempt
 def sorting(request):
     if request.method == 'POST':
-        json_response = {keysdata.GET_PROPERTY: []}
+        json_response = {keysdata.GET_PROPERTY: [], keysdata.LOCATION:[]}
         property_type = request.POST.get(keysdata.PROPERTY_TYPE)
         sort_order = request.POST.get(keysdata.SORT_ORDER)
         print property_type
@@ -76,16 +76,6 @@ def sorting(request):
                                      "image": request.scheme + "://" + request.get_host() +
                                               "/" + str(obj.image)
                                      }
-                        """images = []
-                        temp_json1 = {}
-                        property_data = PropertyImage.objects.filter(property=property)
-                        print 12345674
-                        for img in property_data:
-                            temp_json1[keysdata.IMAGE_URL] = request.scheme + "://" + \
-                                                             request.get_host() + \
-                                                             "/" + str(img.image)
-                            images.append(temp_json1[keysdata.IMAGE_URL])
-                        temp_json['images'] = images"""
                         json_response[keysdata.GET_PROPERTY].append(temp_json)
                     json_response[constants.SUCCESS] = constants.TRUE
                     json_response[constants.MSG] = constants.SUCCESSMSG
@@ -122,6 +112,12 @@ def sorting(request):
             print "Invalid Property Type"
             json_response[constants.SUCCESS] = constants.FALSE
             json_response[constants.MSG] = constants.INVALID
+        prop = PropertyTable.objects.values('location').distinct()
+        print prop
+        for objloc in prop:
+            temp_json1 = str(objloc['location'])
+            print str(objloc['location'])
+            json_response[keysdata.LOCATION].append(temp_json1)
         print str(json_response)
         return JsonResponse(json_response)
     print 2345678987654

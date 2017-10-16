@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -24,15 +21,15 @@
   left: 0;
   top: 0;
 }
-.xyz:hover{
-    width:300px;
-    height:300px;
-}
 .abc{
     color:#f3f4f6;
 }
 .txt{
     color: #b0c2da;
+}
+.xyz{
+    width:300px;
+    height:300px;
 }
 </style>
 </head>
@@ -40,11 +37,18 @@
 <script type="text/javascript">
         $(document).ready(function(){
             var temp = "";
+            var loc = [];
             $.ajax({
                 type: "GET",
                 url: "/home",
                 dataType: 'json',
                 success: function(data){
+                    var len1 = data.location.length;
+                    for(j=0;j<len1;j++)
+                    {
+                        loc[j] = data.location[j];
+                    }
+                    $("#location").autocomplete({source:loc});
                     var len2=data.data.length;
                     for(i=0;i<len2;i++)
                         {
@@ -149,8 +153,8 @@
                                 <tr>
                                     <td class="abc">Locality</td>
                                     <td>
-                                        <input type="text" id="location" placeholder="Enter the locality"
-                                               style="width:200px; margin-left:20px; color:#daddd8">
+                                        <input type="text" id="location" class="autocomplete"
+                                               placeholder="Enter the locality" style="width:200px; margin-left:20px; color:#daddd8">
                                     </td>
                                 </tr>
                                 <tr>

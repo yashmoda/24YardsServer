@@ -13,7 +13,7 @@ def view_search(request):
 @csrf_exempt
 def search(request):
     if request.method == 'POST':
-        json_response = {keysdata.GET_PROPERTY: []}
+        json_response = {keysdata.GET_PROPERTY: [], keysdata.LOCATION:[]}
         property_type = request.POST.get(keysdata.PROPERTY_TYPE,'')
         location = request.POST.get(keysdata.LOCATION,'')
         min_price = request.POST.get(keysdata.MIN_PRICE,'')
@@ -400,6 +400,12 @@ def search(request):
                 print e
                 json_response[constants.SUCCESS] = constants.FALSE
                 json_response[constants.MSG] = constants.FAILMSG
+        prop = PropertyTable.objects.values('location').distinct()
+        print prop
+        for objloc in prop:
+            temp_json1 = str(objloc['location'])
+            print str(objloc['location'])
+            json_response[keysdata.LOCATION].append(temp_json1)
         print str(json_response)
         return JsonResponse(json_response)
     print 23456
