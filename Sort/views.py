@@ -12,6 +12,7 @@ import constants, keysdata
 @csrf_exempt
 def sorting(request):
     if request.method == 'POST':
+        print "POST"
         json_response = {keysdata.GET_PROPERTY: [], keysdata.LOCATION:[]}
         property_type = request.POST.get(keysdata.PROPERTY_TYPE)
         sort_order = request.POST.get(keysdata.SORT_ORDER)
@@ -43,8 +44,8 @@ def sorting(request):
                     json_response[constants.MSG] = constants.FAILMSG
             if sort_order == '2':
                 try:
-                    property = PropertyTable.objects.filter(property_type=property_table).\
-                        order_by('price')
+                    print 1234
+                    property = PropertyTable.objects.filter(property_type=property_table).order_by('price')
                     print "Price low to high"
                     for obj in property:
                         print obj.title
