@@ -12,14 +12,15 @@ def view_search(request):
 
 @csrf_exempt
 def search(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        print "GET"
         json_response = {keysdata.GET_PROPERTY: [], keysdata.LOCATION:[]}
-        property_type = request.POST.get(keysdata.PROPERTY_TYPE,'')
-        location = request.POST.get(keysdata.LOCATION,'')
-        min_price = request.POST.get(keysdata.MIN_PRICE,'')
-        max_price = request.POST.get(keysdata.MAX_PRICE,'')
-        bhk = list(request.POST.get(keysdata.BHK,''))
-        usage = request.POST.get(keysdata.USAGE,'')
+        property_type = request.GET.get(keysdata.PROPERTY_TYPE,'')
+        location = request.GET.get(keysdata.LOCATION,'')
+        min_price = request.GET.get(keysdata.MIN_PRICE,'')
+        max_price = request.GET.get(keysdata.MAX_PRICE,'')
+        bhk = list(request.GET.get(keysdata.BHK,''))
+        usage = request.GET.get(keysdata.USAGE,'')
         if location == 'undefined':
             location=''
         if property_type == 'undefined':

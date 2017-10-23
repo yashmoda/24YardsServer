@@ -7,15 +7,15 @@ from django.shortcuts import render
 from Property.models import *
 from HomeScreen.models import *
 import constants, keysdata
-# Create your views here.
+
 
 @csrf_exempt
 def sorting(request):
-    if request.method == 'POST':
-        print "POST"
+    if request.method == 'GET':
+        print "GET"
         json_response = {keysdata.GET_PROPERTY: [], keysdata.LOCATION:[]}
-        property_type = request.POST.get(keysdata.PROPERTY_TYPE)
-        sort_order = request.POST.get(keysdata.SORT_ORDER)
+        property_type = request.GET.get(keysdata.PROPERTY_TYPE)
+        sort_order = request.GET.get(keysdata.SORT_ORDER)
         print property_type
         print sort_order
         try:
