@@ -111,9 +111,27 @@
             localStorage.setItem("property_type",value);
             $(location).attr('href','/view_property');
         }
-        function set_ptype(value)
+        function set_ptype(value, ids)
         {
             localStorage.setItem("property_type1", value);
+            if(ids=='1')
+            {
+                document.getElementById("1").style.backgroundColor = "red";
+                document.getElementById("2").style.backgroundColor = "";
+                document.getElementById("3").style.backgroundColor = "";
+            }
+            if(ids=='2')
+            {
+                document.getElementById("2").style.backgroundColor = "red";
+                document.getElementById("1").style.backgroundColor = "";
+                document.getElementById("3").style.backgroundColor = "";
+            }
+            if(ids=='3')
+            {
+                document.getElementById("3").style.backgroundColor = "red";
+                document.getElementById("2").style.backgroundColor = "";
+                document.getElementById("1").style.backgroundColor = "";
+            }
         }
 </script>
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
@@ -126,7 +144,7 @@
 </div>
 <div class="row" style="padding:1em;">
     <div>
-        <div class="row" style="background-image:url('http://im.hunt.in/cg/Ranchi/City-Guide/Property-dealers-ranchi.png'); background-size:cover;">
+        <div class="row" style="background-image:url('https://im.proptiger.com/1/501448/6/godrej-properties-garden-city-elevation-698376.jpeg'); background-size:cover;">
             <div class="col s12 m6 l5 push-s2 m2 l2">
                     <div class="card-panel" style="margin-top:10px; opacity:0.7; border-radius:10px; background-color: #0c3761">
                         <center>
@@ -137,16 +155,16 @@
                         <nav>
                             <div class="nav-wrapper" style="background-color:#daddd8; color:#0a355f;">
                                 <ul class="left hide-on-med-and-down">
-                                    <li style="padding-left:60px; padding-right:60px;"
-                                        onclick="set_ptype('Buy')" onmouseover="this.style.cursor='pointer';">
+                                    <li style="padding-left:60px; padding-right:60px;" id="1"
+                                        onclick="set_ptype('Buy',1)" onmouseover="this.style.cursor='pointer';">
                                         Buy
                                     </li>
-                                    <li style="padding-left:60px; padding-right:60px;"
-                                        onclick="set_ptype('Rent')" onmouseover="this.style.cursor='pointer';">
+                                    <li style="padding-left:60px; padding-right:60px;" id="2"
+                                        onclick="set_ptype('Rent',2)" onmouseover="this.style.cursor='pointer';">
                                         Rent
                                     </li>
-                                    <li style="padding-left:50px; padding-right:50px;"
-                                        onclick="set_ptype('Projects')" onmouseover="this.style.cursor='pointer';">
+                                    <li style="padding-left:50px; padding-right:50px;" id="3"
+                                        onclick="set_ptype('Projects',3)" onmouseover="this.style.cursor='pointer';">
                                         Projects
                                     </li>
                                 </ul>

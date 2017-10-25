@@ -327,7 +327,6 @@ def show_prop(request):
                     json_response[constants.MSG] = constants.FAILMSG
                 print str(json_response)
                 return JsonResponse(json_response)
-            #Prop type budget
             #Prop type budget9
             if property_type != '' and sort_order == '' and location == '' and len(bhk) == 0 and usage == '' and min_price != '' and max_price != '':
                 try:
@@ -521,7 +520,6 @@ def show_prop(request):
                     json_response[constants.MSG] = constants.FAILMSG
                 print str(json_response)
                 return JsonResponse(json_response)
-            #
             #Prop type location usage17
             if property_type != '' and sort_order == '' and location != '' and len(bhk) == 0 and usage != '' and min_price == '' and max_price == '':
                 try:
@@ -548,7 +546,6 @@ def show_prop(request):
                     json_response[constants.MSG] = constants.FAILMSG
                 print str(json_response)
                 return JsonResponse(json_response)
-            #
             #Prop type location budget18
             if property_type != '' and sort_order == '' and location != '' and len(bhk) == 0 and usage == '' and min_price != '' and max_price != '':
                 try:
@@ -803,7 +800,6 @@ def show_prop(request):
                     json_response[constants.MSG] = constants.FAILMSG
                 print str(json_response)
                 return JsonResponse(json_response)
-            #Prop type bhk usage budget
             #Property type budget bhk usage28
             if property_type != '' and sort_order == '' and location == '' and len(bhk) != 0 and usage != '' and min_price != '' and max_price != '':
                 try:
@@ -908,7 +904,6 @@ def show_prop(request):
                     json_response[constants.MSG] = constants.FAILMSG
                 print str(json_response)
                 return JsonResponse(json_response)
-
         except Exception as e:
             print e
             print "Invalid Entry"
@@ -965,6 +960,7 @@ def choose_property(request):
         print str(json_response)
         return JsonResponse(json_response)
     print 234567
+
 
 def view_property_view(request):
     return render(request, 'property_view.html')

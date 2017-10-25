@@ -82,7 +82,7 @@ td{
                    for(i in data.get_property)
                     {
                         temp += '<div class="col s4 m4 l4">';
-                        temp += '<div class="card medium">';
+                        temp += '<div class="card">';
                         temp += '<div class="card-image">';
                         temp += '<a class="modal-trigger" href="#modal2">';
                         temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
@@ -152,8 +152,8 @@ td{
                         temp += '</td>';
                         temp += '</tr>';
                         temp += '</table>';
-                    temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:-10px; top:-45px;"><i class="material-icons">call</i></a>';
                         temp += '</div>';
+                        temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:25px; top:-60px; background-color:#0EB1D2;"><i class="material-icons">call</i></a>';
                         temp += '</div>';
                         temp += '</div>';
                     }
@@ -319,9 +319,14 @@ td{
             },
         });
     }
+    function home()
+    {
+        $(location).attr('href','/view_home');
+    }
 </script>
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
-            <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+        <img src="/static/app_logo.jpg" onclick="home()" style="height:100px; width:200px; margin-top:-5px;"
+             onmouseover="this.style.cursor='pointer';">
         <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
     <p style="float:right; padding:1em;">
         <a href="/view_favorite" style="color:#0c3761;">
@@ -460,15 +465,41 @@ td{
         <h4>
             Contact Form
         </h4>
-        <label for="title"><h6>Title</h6></label>
-        <input type="text" id="title" name="title" readonly>
-        <label for="name"><h6>Name</h6></label>
-        <input type="text" name="name" id="name">
-        <label for="phone"><h6>Phone</h6></label>
-        <input id="phone" name="contact" type="tel" minlength="10" maxlength="10">
-        <button class="btn waves-effect waves-light white-text" style="background-color:black;" type="submit" value="Submit" onclick="cont()">
-            Submit
-        </button>
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    Title
+                </td>
+                <td>
+                    <input type="text" id="title" name="title" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    <input type="text" name="name" id="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                        Phone
+                </td>
+                <td>
+                    <input id="phone" name="contact" type="tel" minlength="10" maxlength="10">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="modal-footer">
+            <center>
+                <button class="btn waves-effect waves-light white-text modal-action modal-close" style="background-color:black;" type="submit" value="Submit" onclick="cont()">
+                    Submit
+                </button>
+            </center>
+        </div>
     </div>
 </div>
 <div id="modal2" class="modal modal-fixed-footer">
