@@ -81,7 +81,7 @@ div{
             {
                 loc[j] = data.location[j];
             }
-            alert(loc);
+
             for(i in data.get_property)
             {
                     temp += '<div class="col s4 m4 l4">';
@@ -425,11 +425,11 @@ div{
         function view_search()
         {
             $("#filter").show();
-            $("#location1").autocomplete({source:loc});
+            $("#location1").autocomplete({data:loc});
         }
 </script>
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
-            <img src="/static/app_logo.jpg" style="height:100px; width:200px; margin-top:-5px;">
+        <img src="/static/app_logo.jpg" onclick="/view_home" style="height:100px; width:200px; margin-top:-5px;">
         <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
         <p style="float:right; padding:1em;">
         <a href="/view_favorite" style="color:#0c3761;">
@@ -494,10 +494,10 @@ div{
             </li>
             <li>
                 <div class="collapsible-header">Locality</div>
-                <div class="collapsible-body" style="padding:10px">
+                <!--<div class="collapsible-body" style="padding:10px">-->
                     <input type="text" class="autocomplete" name="location" id="location1"
                            placeholder="Enter the locality">
-                </div>
+                <!--</div>-->
             </li>
             <li>
                 <div class="collapsible-header">Budget</div>

@@ -27,7 +27,6 @@
         $(document).ready(function(){
             $("#send").show();
             $("#verify").hide();
-            document.getElementById("extra").style.padding = "20px";
         });
         function sendotp()
         {
@@ -99,7 +98,7 @@
 </div>
 <div>
     <div class="row" style="padding:1em;">
-        <div class="card horizontal" style="background-color:#daddd8; height:400px;">
+        <div class="card horizontal" style="height:400px;">
             <div class="card-image">
                 <img src="http://pypaonline.org/wp-content/uploads/2016/02/maxresdefault.jpg"
                      style="width:800px; height:400px;">
@@ -113,8 +112,13 @@
                         <p>
                             <h6 style="color:#0a355f;">Mobile Number</h6>
                         </p>
-                        <input style="background-color:#f9fbe7" type="tel" id="phone" placeholder="Enter your contact number" name="contact" minlength="10" maxlength="10">
-                        <a class="waves-effect waves-teal btn-flat" onclick="sendotp()" style="background-color:#f3f4f6; color:#0a355f;">Submit</a>
+                            <input required=required style="background-color:#f9fbe7; padding-left:1em; border-radius:10px;"
+                                   type="number" id="phone" placeholder="Enter your contact number" name="contact"
+                                   minlength="10" maxlength="10">
+                            <center>
+                                <a class="waves-effect waves-teal btn-flat"
+                                   onclick="sendotp()" style="background-color:#f3f4f6; color:#0a355f;">Submit</a>
+                            </center>
                     </div>
                     <div id="verify" style="margin-top:30px;">
                         <p>
@@ -123,12 +127,15 @@
                         <p>
                             <h6 style="color:#0a355f;">Mobile Number</h6>
                         </p>
-                        <input style="background-color:#f9fbe7" type="tel" id="phone1" name="contact" minlength="10" maxlength="10" readonly>
+                        <input style="padding-left:1em; background-color:#f9fbe7; border-radius:10px;" type="number" id="phone1"
+                               name="contact" minlength="10" maxlength="10" readonly>
                         <p>
                             <h6 style="color:#0a355f;">OTP</h6>
                         </p>
-                        <input style="background-color:#f9fbe7" type="text" id="otp" name="otp" maxlength="6" minlength="6">
-                        <a class="waves-effect waves-teal btn-flat" onclick="verifyotp()" style="background-color:#f3f4f6; color:#0a355f;">Verify</a>
+                        <input style="background-color:#f9fbe7; padding-left:1em; border-radius:10px;" type="number" id="otp" name="otp" maxlength="6" minlength="6">
+                        <center>
+                            <a class="waves-effect waves-teal btn-flat" onclick="verifyotp()" style="background-color:#f3f4f6; color:#0a355f;">Verify</a>
+                        </center>
                     </div>
                 </div>
             </div>
@@ -196,6 +203,7 @@
             © 2017 24Yards
         </div>
     </div>
-</footer></body>
+</footer>
+</body>
 </html>
 

@@ -35,6 +35,7 @@ from Favorites.views import add_favorite
 from Favorites.views import show_favorite
 from Favorites.views import view_favorite
 from Favorites.views import delete_favorite
+from Property.views import show_prop
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home', home),
@@ -54,4 +55,5 @@ urlpatterns = [
     url(r'^show_favorite', show_favorite),
     url(r'^view_favorite', view_favorite),
     url(r'^delete_favorite', delete_favorite),
+    url(r'^show_prop', show_prop),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

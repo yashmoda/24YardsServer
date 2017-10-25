@@ -12,6 +12,13 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
     <style>
+    .col{
+        color:white;
+        margin-left:px;
+    }
+    .foot{
+        color:#0c3761;
+    }
 .imgsize{
     width:20px;
     height:20px;
@@ -23,9 +30,6 @@
 }
 .abc{
     color:#f3f4f6;
-}
-.txt{
-    color: #b0c2da;
 }
 .xyz{
     width:300px;
@@ -54,10 +58,10 @@
                         {
                             temp += '<div class = "col s4 m4 l4">';
                             temp += '<div class="card">';
-                            temp += '<div class="card-image">';
+                            temp += '<div class="card-image type" id="type">';
                             temp += '<img class="xyz" src="'+ data.data[i]['image_url'] +'" onclick="view_ptype(\''+data.data[i][
                             'property_type']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
-                            temp += '<span class="card-title" style = "width: -moz-available; background-color:#335172; opacity:0.5;">';
+                            temp += '<span class="card-title" style = "width:100%; background-color:#335172;">';
                             temp += ''+data.data[i]['property_type']+'<br>';
                             temp += '</span>';
                             temp += '</div>';
@@ -163,11 +167,11 @@
                                         <div class="row">
                                             <div class="col s4 m4 l4">
                                                 <input type="radio" id="residential" name="usage" value="Residential">
-                                                <label for="residential">Residential</label>
+                                                <label for="residential" class="col">Residential</label>
                                             </div>
                                             <div class="col s4 m4 l4 push-l2">
                                                 <input type="radio" id="commercial" name="usage" value="Commercial">
-                                                <label for="commercial">Commercial</label>
+                                                <label class="col" for="commercial">Commercial</label>
                                             </div>
                                         </div>
                                     </td>
@@ -177,23 +181,23 @@
                                     <td class="txt">
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c1" class="bhk" value="1">
-                                            <label for="c1">1</label>
+                                            <label for="c1" class="col">1</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c2" class="bhk" value="2">
-                                            <label for="c2">2</label>
+                                            <label for="c2" class="col">2</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c3" class="bhk" value="3">
-                                            <label for="c3">3</label>
+                                            <label class="col" for="c3">3</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c4" class="bhk" value="4">
-                                            <label for="c4">4</label>
+                                            <label class="col" for="c4">4</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c5" class="bhk" value="5">
-                                            <label for="c5">5</label>
+                                            <label class="col" for="c5">5</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -225,7 +229,7 @@
 <footer class="page-footer" style="background-color:#f3f4f6; color:#0c3761">
     <div class="container">
         <div class="row">
-            <div class="col l3 s12">
+            <div class="col l3 s12 foot">
                 <h5>Enquiry Form</h5>
                 <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
                 <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
@@ -235,14 +239,14 @@
                     Submit
                 </button>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Download App</h5>
                 <a class="android appLnk" title="24 Yards Android App" href="">
                 <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"
                      style="height:40px; width:150px">
                 </a>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Contact Us</h5>
                 <i class="material-icons">call</i>
                 <b style="padding:10px;">
@@ -255,7 +259,7 @@
                 </b>
                 <br>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Connect With Us</h5>
                  <div>
                      <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">

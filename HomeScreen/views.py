@@ -9,6 +9,7 @@ import constants
 # Create your views here.
 import keysdata
 
+
 @csrf_exempt
 def home(request):
     if request.method == 'GET':
@@ -21,7 +22,6 @@ def home(request):
                 print 876543
                 temp_json={}
                 temp_json[keysdata.PROPERTY_TYPE] = str(obj.property_type)
-                #temp_json[keysdata.MESSAGE] = str(obj.message)
                 print 98765432
                 temp_json[keysdata.IMAGE_URL] = request.scheme + '://' + request.get_host() + \
                                                 '/' + str(obj.image)
