@@ -14,14 +14,24 @@
     <style>
     .col{
         color:white;
-        margin-left:px;
     }
     .foot{
         color:#0c3761;
     }
+    .bhk
+    {
+        color:white;
+    }
 .imgsize{
     width:20px;
     height:20px;
+    margin-right:10px;
+    vertical-align:middle;
+}
+h5{
+    font-size:1.3em;
+    margin-top:1em;
+    margin-bottom:2em;
 }
 #image {
   position: absolute;
@@ -78,20 +88,29 @@
         });
         function enquiry()
         {
-            $.ajax({
-                type:"POST",
-                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
-                dataType:'json',
-                url:'/enquire',
-                success: function(data)
-                {
-                    alert("We will soon contact you");
-                },
-                error: function()
-                {
-                    alert("Sorry! Please try again");
-                },
-            });
+            var ph = $("#text2").val();
+            var name = $("#text3").val();
+            if(ph>=7000000000 && ph<=9999999999 && name!="")
+            {
+                $.ajax({
+                    type:"POST",
+                    data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+                    dataType:'json',
+                    url:'/enquire',
+                    success: function(data)
+                    {
+                        alert("We will soon contact you");
+                    },
+                    error: function()
+                    {
+                        alert("Sorry! Please try again");
+                    },
+                });
+            }
+            else
+            {
+                alert("Please enter valid details");
+            }
             $("#text2").val("");
             $("#text3").val("");
         }
@@ -116,19 +135,19 @@
             localStorage.setItem("property_type1", value);
             if(ids=='1')
             {
-                document.getElementById("1").style.backgroundColor = "red";
+                document.getElementById("1").style.backgroundColor = "green";
                 document.getElementById("2").style.backgroundColor = "";
                 document.getElementById("3").style.backgroundColor = "";
             }
             if(ids=='2')
             {
-                document.getElementById("2").style.backgroundColor = "red";
+                document.getElementById("2").style.backgroundColor = "green";
                 document.getElementById("1").style.backgroundColor = "";
                 document.getElementById("3").style.backgroundColor = "";
             }
             if(ids=='3')
             {
-                document.getElementById("3").style.backgroundColor = "red";
+                document.getElementById("3").style.backgroundColor = "green";
                 document.getElementById("2").style.backgroundColor = "";
                 document.getElementById("1").style.backgroundColor = "";
             }
@@ -142,16 +161,18 @@
         </a>
     </p>
 </div>
-<div class="row" style="padding:1em;">
-    <div>
+<div class="row" style="padding-left:1em; padding-right:1em;">
+    <div style="padding:1em;">
         <div class="row" style="background-image:url('https://im.proptiger.com/1/501448/6/godrej-properties-garden-city-elevation-698376.jpeg'); background-size:cover;">
             <div class="col s12 m6 l5 push-s2 m2 l2">
                     <div class="card-panel" style="margin-top:10px; opacity:0.7; border-radius:10px; background-color: #0c3761">
-                        <center>
-                            <h4 class="white-text">
-                                Search The Right Property
-                            </h4>
-                        </center>
+                        <div style="opacity:1.0">
+                            <center>
+                                <h4 class="white-text">
+                                    Search The Right Property
+                                </h4>
+                            </center>
+                        </div>
                         <nav>
                             <div class="nav-wrapper" style="background-color:#daddd8; color:#0a355f;">
                                 <ul class="left hide-on-med-and-down">
@@ -185,11 +206,11 @@
                                         <div class="row">
                                             <div class="col s4 m4 l4">
                                                 <input type="radio" id="residential" name="usage" value="Residential">
-                                                <label for="residential" class="col">Residential</label>
+                                                <label for="residential" style="color:white;">Residential</label>
                                             </div>
                                             <div class="col s4 m4 l4 push-l2">
                                                 <input type="radio" id="commercial" name="usage" value="Commercial">
-                                                <label class="col" for="commercial">Commercial</label>
+                                                <label style="color:white; margin-left:-3em;" for="commercial">Commercial</label>
                                             </div>
                                         </div>
                                     </td>
@@ -199,39 +220,34 @@
                                     <td class="txt">
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c1" class="bhk" value="1">
-                                            <label for="c1" class="col">1</label>
+                                            <label for="c1" style="color:white;">1</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c2" class="bhk" value="2">
-                                            <label for="c2" class="col">2</label>
+                                            <label for="c2" style="color:white;">2</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c3" class="bhk" value="3">
-                                            <label class="col" for="c3">3</label>
+                                            <label for="c3" style="color:white;">3</label>
                                         </div>
                                         <div class="col s2 m2 l2">
-                                            <input type="checkbox" id="c4" class="bhk" value="4">
-                                            <label class="col" for="c4">4</label>
+                                            <input type="checkbox" id="c4" class="bhk" value="4" style="color:white">
+                                            <label for="c4" style="color:white;">4</label>
                                         </div>
                                         <div class="col s2 m2 l2">
                                             <input type="checkbox" id="c5" class="bhk" value="5">
-                                            <label class="col" for="c5">5</label>
+                                            <label for="c5" style="color:white;">5</label>
                                         </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <center>
-                                            <button class="btn-flat waves-effect waves-light"
-                                                    style="background-color:#daddd8; opacity:0.8; color:black; margin-left:0px;" type="submit" value="Submit" onclick="search()">
-                                                Search
-                                            </button>
-                                        </center>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <center>
+                            <button class="btn-flat waves-effect waves-light"
+                                    style="background-color:#daddd8; opacity:0.8; color:black; margin-left:0px;" type="submit" value="Submit" onclick="search()">
+                                Search
+                            </button>
+                        </center>
                     </div>
             </div>
         </div>
@@ -266,33 +282,30 @@
             </div>
             <div class="col l3 foot">
                 <h5>Contact Us</h5>
-                <i class="material-icons">call</i>
-                <b style="padding:10px;">
+                <i class="material-icons" style="vertical-align:middle; margin-right:0.5em;">call</i>
                     7224987232
-                </b>
                 <br>
-                <i class="material-icons" style="padding-top:10px;">email</i>
-                <b style="padding:10px;">
-                    yashmoda@gmail.com
-                </b>
-                <br>
+                <div style="margin-top:1em;">
+                    <i class="material-icons" style="vertical-align:middle; margin-right:0.5em;">email</i>
+                        yashmoda@gmail.com
+                </div>
             </div>
             <div class="col l3 foot">
                 <h5>Connect With Us</h5>
                  <div>
-                     <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+                     <a class="foot_socialLink fb foot" href="https://www.facebook.com/24YARDSproperties/">
                         <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
                         Facebook
                      </a>
                 </div>
-                <div style="padding-top:10px;">
-                    <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+                <div style="margin-top:1em;">
+                    <a class="foot_socialLink gPlus foot" href="https://plus.google.com/114633545520768933650">
                         <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
                         Google+
                     </a>
                 </div>
-                <div style="padding-top:10px;">
-                    <a class="foot_socialLink tw" href="">
+                <div style="margin-top:1em;">
+                    <a class="foot_socialLink tw foot"` href="">
                         <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
                         Twitter
                     </a>
@@ -302,7 +315,9 @@
     </div>
     <div class="footer-copyright">
         <div class="container" style="color:#0c3761;">
-            © 2017 24Yards
+            <center>
+                © Copyright 2017 24Yards
+            </center>
         </div>
     </div>
 </footer>

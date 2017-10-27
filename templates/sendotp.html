@@ -13,11 +13,21 @@
     .imgsize{
     width:20px;
     height:20px;
+    margin-right:10px;
+    vertical-align:middle;
 }
 .card.horizontal {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
+    }
+    h5{
+    font-size:1.3em;
+    margin-top:1em;
+    margin-bottom:2em;
+}
+.foot{
+        color:#0c3761;
     }
 
     </style>
@@ -31,44 +41,63 @@
         function sendotp()
         {
             localStorage.setItem("contact",$("#phone").val());
-            $.ajax({
-                type: "POST",
-                data: {'contact':$("#phone").val()},
-                dataType: 'json',
-                url: "/send_otp",
-                success: function(data){
-                    if(data.success == true){
-                            var td1 = $("#phone").val();
-                            $("#phone1").val(td1);
-                            $("#send").hide();
-                            $("#verify").show();
-                        }
-                    else{
-                        alert("OTP not sent");
-                       }
-                },
-                error: function(){
-                    alert("Please try again later");
-                }
-            });
+            var ph=$("#phone").val();
+            if(ph>=7000000000 && ph<=9999999999)
+            {
+                $.ajax({
+                    type: "POST",
+                    data: {'contact':$("#phone").val()},
+                    dataType: 'json',
+                    url: "/send_otp",
+                    success: function(data){
+                        if(data.success == true){
+                                var td1 = $("#phone").val();
+                                $("#phone1").val(td1);
+                                $("#send").hide();
+                                $("#verify").show();
+                            }
+                        else{
+                            alert("OTP not sent");
+                           }
+                    },
+                    error: function(){
+                        alert("Please try again later");
+                    }
+                });
+            }
+            else
+            {
+                alert("Please enter a valid number");
+            }
         }
         localStorage.setItem("contact",$("#phone").val());
         function enquiry()
         {
-            $.ajax({
-                type:"POST",
-                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
-                dataType:'json',
-                url:'/enquire',
-                success: function(data)
-                {
-                    alert("We will soon contact you");
-                },
-                error: function()
-                {
-                    alert("Sorry! Please try again");
-                },
-            });
+            var ph = $("#text2").val();
+            var name = $("#text3").val();
+            if(ph>=7000000000 && ph<=9999999999 && name!="")
+            {
+                $.ajax({
+                    type:"POST",
+                    data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+                    dataType:'json',
+                    url:'/enquire',
+                    success: function(data)
+                    {
+                        alert("We will soon contact you");
+                    },
+                    error: function()
+                    {
+                        alert("Sorry! Please try again");
+                    },
+                });
+            }
+            else
+            {
+                alert("Please enter valid details");
+            }
+            $("#text2").val("");
+            $("#text3").val("");
         }
         function verifyotp()
         {
@@ -104,17 +133,14 @@
                      style="width:800px; height:400px;">
             </div>
             <div class="card-stacked">
-                <div class="card-content">
+                <div class="card-content" style="float:center">
                     <div id="send" style="margin-top:50px;">
-                        <p>
+                        <center>
                             <h4 style="color:#0a355f;">Registration</h4>
-                        </p>
-                        <p>
-                            <h6 style="color:#0a355f;">Mobile Number</h6>
-                        </p>
-                            <input required=required style="background-color:#f9fbe7; padding-left:1em; border-radius:10px;"
-                                   type="number" id="phone" placeholder="Enter your contact number" name="contact"
-                                   minlength="10" maxlength="10">
+                            <h6 style="color:#7e57c2;">Mobile Number</h6>
+                        </center>
+                            <input required=required style="background-color:#D3D3D3; padding-left:1em; border-radius:10px;"
+                                   type="number" id="phone" name="contact" minlength="10" maxlength="10">
                             <center>
                                 <a class="waves-effect waves-teal btn-flat"
                                    onclick="sendotp()" style="background-color:#f3f4f6; color:#0a355f;">Submit</a>
@@ -125,14 +151,14 @@
                             <h4 style="color:#0a355f;">Login</h4>
                         </p>
                         <p>
-                            <h6 style="color:#0a355f;">Mobile Number</h6>
+                            <h6 style="color:#7e57c2;">Mobile Number</h6>
                         </p>
-                        <input style="padding-left:1em; background-color:#f9fbe7; border-radius:10px;" type="number" id="phone1"
+                        <input style="padding-left:1em; background-color:#D3D3D3; border-radius:10px;" type="number" id="phone1"
                                name="contact" minlength="10" maxlength="10" readonly>
                         <p>
-                            <h6 style="color:#0a355f;">OTP</h6>
+                            <h6 style="color:#7e57c2;">OTP</h6>
                         </p>
-                        <input style="background-color:#f9fbe7; padding-left:1em; border-radius:10px;" type="number" id="otp" name="otp" maxlength="6" minlength="6">
+                        <input style="background-color:#D3D3D3; padding-left:1em; border-radius:10px;" type="number" id="otp" name="otp" maxlength="6" minlength="6">
                         <center>
                             <a class="waves-effect waves-teal btn-flat" onclick="verifyotp()" style="background-color:#f3f4f6; color:#0a355f;">Verify</a>
                         </center>
@@ -145,7 +171,7 @@
 <footer class="page-footer" style="background-color:#f3f4f6; color:#0c3761">
     <div class="container">
         <div class="row">
-            <div class="col l3 s12">
+            <div class="col l3 s12 foot">
                 <h5>Enquiry Form</h5>
                 <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
                 <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
@@ -155,42 +181,39 @@
                     Submit
                 </button>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Download App</h5>
                 <a class="android appLnk" title="24 Yards Android App" href="">
                 <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"
                      style="height:40px; width:150px">
                 </a>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Contact Us</h5>
-                <i class="material-icons">call</i>
-                <b style="padding:10px;">
+                <i class="material-icons" style="vertical-align:middle; margin-right:0.5em;">call</i>
                     7224987232
-                </b>
                 <br>
-                <i class="material-icons" style="padding-top:10px;">email</i>
-                <b style="padding:10px;">
-                    yashmoda@gmail.com
-                </b>
-                <br>
+                <div style="margin-top:1em;">
+                    <i class="material-icons" style="vertical-align:middle; margin-right:0.5em;">email</i>
+                        yashmoda@gmail.com
+                </div>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Connect With Us</h5>
                  <div>
-                     <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+                     <a class="foot_socialLink fb foot" href="https://www.facebook.com/24YARDSproperties/">
                         <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
                         Facebook
                      </a>
                 </div>
-                <div style="padding-top:10px;">
-                    <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+                <div style="margin-top:1em;">
+                    <a class="foot_socialLink gPlus foot" href="https://plus.google.com/114633545520768933650">
                         <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
                         Google+
                     </a>
                 </div>
-                <div style="padding-top:10px;">
-                    <a class="foot_socialLink tw" href="">
+                <div style="margin-top:1em;">
+                    <a class="foot_socialLink tw foot"` href="">
                         <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
                         Twitter
                     </a>
@@ -200,7 +223,9 @@
     </div>
     <div class="footer-copyright">
         <div class="container" style="color:#0c3761;">
-            © 2017 24Yards
+            <center>
+                © Copyright 2017 24Yards
+            </center>
         </div>
     </div>
 </footer>

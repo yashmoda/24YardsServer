@@ -5,22 +5,41 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.min.css' rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+    .mid{
+        vertical-align:middle;
+        margin-right:0.3em;
+    }
         .imgsize{
     width:20px;
     height:20px;
+    margin-right:10px;
+    vertical-align:middle;
 }
-td{
-    padding : 0px;
+#modal2 {
+    width: 80% !important ;
+    max-height: 80% !important ;
+    }
+
+    h5{
+    font-size:1.3em;
+    margin-top:1em;
+    margin-bottom:2em;
 }
-.modal {
-    width: 75% !important ;
-    height: 75% !important ;
+.dat{
+    padding: 0px;
+}
+.foot{
+        color:#0c3761;
+    }
+    .vert{
+        border-left: 1px solid black;
     }
     </style>
 </head>
@@ -80,83 +99,126 @@ td{
                     }
                     $("#location").autocomplete({source:loc});
                    for(i in data.get_property)
+            {
+                    temp += '<div class="col s4 m4 l4">';
+                    temp += '<div class="card medium">';
+                    temp += '<div class="card-image">';
+                    temp += '<a class="modal-trigger" href="#modal2">';
+                    temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
+                    temp += '</a>';
+                    temp += '</div>';
+                    temp += '<div class="card-content" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" id="d1" style="color:#0c3761;">';
+                    temp += '<table>';
+                    temp += '<thead>';
+                    temp += '</thead>';
+                    temp += '<tbody>';
+                    temp += '<tr>';
+                    temp += '<td class="dat" style="width:20%">';
+                    temp += '<font size="-1" color="#afc1da">';
+                    temp += 'Title';
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '<td class="dat" style="width:5%">';
+                    temp += ':';
+                    temp += '</td>';
+                    temp += '<td class="dat">';
+                    temp += '<font size=4>';
+                    var len1 = data.get_property[i]['title'].length;
+                    if(len1>20)
                     {
-                        temp += '<div class="col s4 m4 l4">';
-                        temp += '<div class="card">';
-                        temp += '<div class="card-image">';
-                        temp += '<a class="modal-trigger" href="#modal2">';
-                        temp += '<img src="'+ data.get_property[i]['image'] +'" onclick = "view_detail(\''+data.get_property[i]['title']+'\')" onmouseover=\"this.style.cursor=\'pointer\'\;\">';
-                        temp += '</a>';
-                        temp += '</div>';
-                        temp += '<div class="card-content" id="d1" style="color:#0c3761;">';
-                        temp += '<table>';
-                        temp += '<thead>';
-                        temp += '</thead>';
-                        temp += '<tbody>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Title';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=4>';
-                        temp += data.get_property[i]['title'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Location';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=3>';
-                        temp += data.get_property[i]['location'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'BHK';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=3>';
-                        temp += data.get_property[i]['bhk'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Price';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += '<font size=3>';
-                        temp += data.get_property[i]['price'];
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '<tr>';
-                        temp += '<td>';
-                        temp += '<font size="-1" color="#afc1da">';
-                        temp += 'Highlights';
-                        temp += '</font>';
-                        temp += '</td>';
-                        temp += '<td>';
-                        temp += data.get_property[i]['description'];
-                        temp += '</td>';
-                        temp += '</tr>';
-                        temp += '</table>';
-                        temp += '</div>';
-                        temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:25px; top:-60px; background-color:#0EB1D2;"><i class="material-icons">call</i></a>';
-                        temp += '</div>';
-                        temp += '</div>';
+                        temp += data.get_property[i]['title'].substring(0,20);
+                        temp += '....';
                     }
+                    else
+                    {
+                        temp += data.get_property[i]['title'];
+                    }
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '</tr>';
+                    temp += '<tr>';
+                    temp += '<td class="dat" style="width:20%">';
+                    temp += '<font size="-1" color="#afc1da">';
+                    temp += 'Location';
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '<td class="dat" style="width:5%">';
+                    temp += ':';
+                    temp += '</td>';
+                    temp += '<td class="dat">';
+                    temp += '<font size=3>';
+                    var len1 = data.get_property[i]['title'].length;
+                    if(len1>25)
+                    {
+                        temp += data.get_property[i]['location'].substring(0,25);
+                        temp += '....';
+                    }
+                    else
+                    {
+                        temp += data.get_property[i]['location'];
+                    }
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '</tr>';
+                    temp += '<tr>';
+                    temp += '<td class="dat" style="width:20%">';
+                    temp += '<font size="-1" color="#afc1da">';
+                    temp += 'BHK';
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '<td class="dat" style="width:5%">';
+                    temp += ':';
+                    temp += '</td>';
+                    temp += '<td class="dat">';
+                    temp += '<font size=3>';
+                    temp += data.get_property[i]['bhk'];
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '</tr>';
+                    temp += '<tr>';
+                    temp += '<td class="dat" style="width:20%">';
+                    temp += '<font size="-1" color="#afc1da">';
+                    temp += 'Price';
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '<td class="dat" style="width:5%">';
+                    temp += ':';
+                    temp += '</td>';
+                    temp += '<td class="dat">';
+                    temp += '<font size=3>';
+                    temp += '<i class="fa fa-inr"></i>';
+                    temp += ' ' + data.get_property[i]['price'];
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '</tr>';
+                    temp += '<tr>';
+                    temp += '<td class="dat" style="width:20%">';
+                    temp += '<font size="-1" color="#afc1da">';
+                    temp += 'Highlights';
+                    temp += '</font>';
+                    temp += '</td>';
+                    temp += '<td class="dat" style="width:5%">';
+                    temp += ':';
+                    temp += '</td>';
+                    temp += '<td class="dat">';
+                    var len = data.get_property[i]['description'].length;
+                    if(len>30)
+                    {
+                        temp += data.get_property[i]['description'].substring(0,30);
+                        temp += '....';
+                    }
+                    else
+                    {
+                        temp += data.get_property[i]['description'];
+                    }
+                    temp += '</td>';
+                    temp += '</tr>';
+                    temp += '</table>';
+                    temp += '</div>';
+                    temp += '<a class="btn-floating waves-effect waves-light modal-trigger" href="#contmod" onclick = "contact(\''+data.get_property[i]['title']+'\')" style="float:right;right:25px; top:-60px; background-color:#0EB1D2;"><i class="material-icons">call</i></a>';
+                    temp += '</div>';
+                    temp += '</div>';
+                }
                 $("#div2").html(temp);
             },
             error: function(){
@@ -182,32 +244,16 @@ td{
             $(location).attr('href','/view_search');
         }
         function cont(value)
-        {
-        $.ajax({
-            type : 'POST',
-            url : "/contact_form",
-            dataType : 'json',
-            data : {"title" : $("#title").val(), "name" : $("#name").val(), "contact" : $("#phone").val()},
-            success: function(data)
-                {
-                    alert("We will soon contact you");
-                },
-                error: function()
-                {
-                    alert("Sorry! Please try again");
-                },
-            });
-            $("#name").val("");
-            $("#phone").val("");
-            $("#contmod").modal('close');
-        }
-        function enquiry()
+    {
+        var name=$("#name").val();
+        var phone=$("#phone").val();
+        if(phone>=7000000000 && phone<=9999999999 && name!="")
         {
             $.ajax({
-                type:"POST",
-                data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
-                dataType:'json',
-                url:'/enquire',
+                type : 'POST',
+                url : "/contact_form",
+                dataType : 'json',
+                data : {"title" : $("#title").val(), "name" : $("#name").val(), "contact" : $("#phone").val()},
                 success: function(data)
                 {
                     alert("We will soon contact you");
@@ -217,11 +263,45 @@ td{
                     alert("Sorry! Please try again");
                 },
             });
+            $("#contmod").modal('close');
+        }
+        else
+        {
+            alert("Please enter valid details");
+        }
+        $("#name").val("");
+        $("#phone").val("");
+    }
+        function enquiry()
+        {
+            var ph = $("#text2").val();
+            var name = $("#text3").val();
+            if(ph>=7000000000 && ph<=9999999999 && name!="")
+            {
+                $.ajax({
+                    type:"POST",
+                    data:{'name':$("#text2").val(), 'contact':$("#text3").val()},
+                    dataType:'json',
+                    url:'/enquire',
+                    success: function(data)
+                    {
+                        alert("We will soon contact you");
+                    },
+                    error: function()
+                    {
+                        alert("Sorry! Please try again");
+                    },
+                });
+            }
+            else
+            {
+                alert("Please enter valid details");
+            }
             $("#text2").val("");
             $("#text3").val("");
         }
         var tit="";
-        function view_detail(value)
+    function view_detail(value)
     {
         tit=value;
         var temp="";
@@ -232,70 +312,122 @@ td{
             url:"/show_property",
             success: function(data)
             {
+                temp += '<div class="modal-header" style="padding:1em;">';
+                temp += '<center>';
                 temp += '<h4>';
                 temp += data.get_property[0]['title'];
                 temp += '</h4>';
-                temp += '<div class="carousel col s4 m4 l5">';
-                for(i in data.get_property[0]['images'])
+                temp += '</center>';
+                temp += '</div>';
+                temp += '<div class="carousel col s4 m4 l5" style="margin-top:-5em;">';
+                var imglength=data.get_property[0]['images'].length;
+                if(imglength==0)
                 {
                     temp += '<a class="carousel-item">';
-                    temp += '<img src="'+ data.get_property[0]['images'][i] +'">';
+                    temp += '<img src="https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png" style="height:300px;">';
                     temp += '</a>';
+                }
+                else
+                {
+                    for(i in data.get_property[0]['images'])
+                    {
+                        temp += '<a class="carousel-item">';
+                        temp += '<img src="'+ data.get_property[0]['images'][i] +'" style="height:200px;">';
+                        temp += '</a>';
+                    }
                 }
                 temp += '</div>';
                 temp += '<div>';
                 temp += '<div class = "col s2 m2 l4">';
-                temp += '<div style = "padding-top:30px;">';
-                temp += '<i class="material-icons">description</i>';
+                temp += '<table>';
+                temp += '<tbody>';
+                temp += '<tr>';
+                temp += '<td style="width:40%;">';
+                temp += '<i class="material-icons mid">description</i>';
                 temp += 'Highlights';
-                temp += '<br><b>';
+                temp += '</td>';
+                temp += '<td style="width:5%;">';
+                temp += ':';
+                temp += '</td>';
+                temp += '<td>';
                 temp += data.get_property[0]['description'];
-                temp += '</b>';
-                temp += '</div>';
-                temp += '<div style = "padding-top:20px;">';
-                temp += '<i class="material-icons">location_on</i>';
+                temp += '</td>';
+                temp += '</tr>';
+                temp += '<tr>';
+                temp += '<td style="width:40%;">';
+                temp += '<i class="material-icons mid">location_on</i>';
                 temp += 'Location';
-                temp += '<br><b>';
+                temp += '</td>';
+                temp += '<td style="width:5%;">';
+                temp += ':';
+                temp += '</td>';
+                temp += '<td>';
                 temp += data.get_property[0]['location'];
-                temp += '</b>';
-                temp += '</div>';
-                temp += '<div style = "padding-top:20px;">';
-                temp += '<i class="material-icons">verified_user</i>';
+                temp += '</td>';
+                temp += '</tr>';
+                temp += '<tr>';
+                temp += '<td style="width:40%;">';
+                temp += '<i class="material-icons mid">verified_user</i>';
                 temp += 'Usage';
-                temp += '<br><b>';
+                temp += '</td>';
+                temp += '<td style="width:5%;">';
+                temp += ':';
+                temp += '</td>';
+                temp += '<td>';
                 temp += data.get_property[0]['usage'];
-                temp += '</b>';
+                temp += '</td>';
+                temp += '</tr>';
+                temp += '</tbody>';
+                temp += '</table>';
                 temp += '</div>';
-                temp += '</div>';
-                temp += '<div class = "col s2 m2 l3 push-s1 m1 l1">';
-                temp += '<div style = "padding-top:30px;">';
-                temp += '<i class="material-icons">label</i>';
+                temp += '<div class = "col s2 m2 l3 push-s1 m1 l1 vert">';
+                temp += '<table>';
+                temp += '<tbody>';
+                temp += '<tr>';
+                temp += '<td style="width:40%;">';
+                temp += '<i class="material-icons mid">label</i>';
                 temp += 'Price';
-                temp += '<br><b>';
-                temp += data.get_property[0]['price'];
-                temp += '</b>';
-                temp += '</div>';
-                temp += '<div style = "padding-top:20px;">';
-                temp += '<i class="material-icons">business</i>';
+                temp += '</td>';
+                temp += '<td style="width:5%;">';
+                temp += ':';
+                temp += '</td>';
+                temp += '<td>';
+                temp += '<i class="fa fa-inr"></i>';
+                temp += ' ' + data.get_property[0]['price'];
+                temp += '</td>';
+                temp += '</tr>';
+                temp += '<tr>';
+                temp += '<td style="width:40%;">';
+                temp += '<i class="material-icons mid">business</i>';
                 temp += 'BHK';
-                temp += '<br><b>';
+                temp += '</td>';
+                temp += '<td style="width:5%;">';
+                temp += ':';
+                temp += '</td>';
+                temp += '<td>';
                 temp += data.get_property[0]['bhk'];
-                temp += '</b>';
-                temp += '</div>';
-                temp += '<div style = "padding-top:20px;">';
-                temp += '<i class="material-icons">date_range</i>';
+                temp += '</td>';
+                temp += '</tr>';
+                temp += '<tr>';
+                temp += '<td style="width:60%;">';
+                temp += '<i class="mid material-icons">date_range</i>';
                 temp += 'Date Added';
-                temp += '<br><b>';
+                temp += '</td>';
+                temp += '<td style="width:5%;">';
+                temp += ':';
+                temp += '</td>';
+                temp += '<td>';
                 temp += data.get_property[0]['date_added'];
-                temp += '</b>';
-                temp += '</div>';
+                temp += '</td>';
+                temp += '</tr>';
+                temp += '</tbody>';
+                temp += '</table>';
                 temp += '</div>';
                 temp += '</div>';
                 temp += '<div class="col s6 m6 l6" style = "padding-top:25px;">';
                 temp += 'About the property';
-                temp += '<br><b>';
+                temp += '<br>';
                 temp += data.get_property[0]['about'];
-                temp += '</b>';
                 temp += '</div>';
                 $("#div3").html(temp);
                 $('.carousel').carousel();
@@ -337,6 +469,7 @@ td{
 <div class="row">
     <div class="col s2 m2 l2" id="filter">
         <ul class="collapsible" data-collapsible="expandable">
+            <li>
                 <div class="collapsible-header">Property Type</div>
                 <div class="collapsible-body" style="padding:10px">
                     <input type="radio" id="b5" name="property_type" value="Buy">
@@ -382,26 +515,21 @@ td{
                 <div class="collapsible-header">Budget</div>
                 <div class="collapsible-body">
                     <div id="test5" class="noUiSlider" style="height: 20px; width: 100%; margin: 25px;"></div>
-
                 </div>
             </li>
         </ul>
         <center>
-            <button type="submit" value="Search" onclick="search()">
-                <strong>Search</strong><br>
-            </button>
+            <button type="submit" value="Search" onclick="search()"/>
         </center>
     </div>
     <div id="div1" style="padding:1em;">
-        <div id="div2" class="row">
-
-        </div>
+        <div id="div2" class="row"></div>
     </div>
 </div>
 <footer class="page-footer" style="background-color:#f3f4f6; color:#0c3761">
     <div class="container">
         <div class="row">
-            <div class="col l3 s12">
+            <div class="col l3 s12 foot">
                 <h5>Enquiry Form</h5>
                 <input type="text" style="width:60%;" name="name" id="text2" placeholder="Enter Your name">
                 <input type="tel" style="width:60%; padding-top:10px;" name="phone" id="text3"
@@ -411,42 +539,39 @@ td{
                     Submit
                 </button>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Download App</h5>
                 <a class="android appLnk" title="24 Yards Android App" href="">
                 <img src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"
                      style="height:40px; width:150px">
                 </a>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Contact Us</h5>
-                <i class="material-icons">call</i>
-                <b style="padding:10px;">
+                <i class="material-icons" style="vertical-align:middle; margin-right:0.5em;">call</i>
                     7224987232
-                </b>
                 <br>
-                <i class="material-icons" style="padding-top:10px;">email</i>
-                <b style="padding:10px;">
-                    yashmoda@gmail.com
-                </b>
-                <br>
+                <div style="margin-top:1em;">
+                    <i class="material-icons" style="vertical-align:middle; margin-right:0.5em;">email</i>
+                        yashmoda@gmail.com
+                </div>
             </div>
-            <div class="col l3">
+            <div class="col l3 foot">
                 <h5>Connect With Us</h5>
                  <div>
-                     <a class="foot_socialLink fb" href="https://www.facebook.com/24YARDSproperties/">
+                     <a class="foot_socialLink fb foot" href="https://www.facebook.com/24YARDSproperties/">
                         <img class="imgsize" src="https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png">
                         Facebook
                      </a>
                 </div>
-                <div style="padding-top:10px;">
-                    <a class="foot_socialLink gPlus" href="https://plus.google.com/114633545520768933650">
+                <div style="margin-top:1em;">
+                    <a class="foot_socialLink gPlus foot" href="https://plus.google.com/114633545520768933650">
                         <img class="imgsize" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Google_plus_icon.svg/2000px-Google_plus_icon.svg.png">
                         Google+
                     </a>
                 </div>
-                <div style="padding-top:10px;">
-                    <a class="foot_socialLink tw" href="">
+                <div style="margin-top:1em;">
+                    <a class="foot_socialLink tw foot"` href="">
                         <img src="http://jiahaog.com/nativefier-icons/files/twitter.png" class="imgsize">
                         Twitter
                     </a>
@@ -456,20 +581,28 @@ td{
     </div>
     <div class="footer-copyright">
         <div class="container" style="color:#0c3761;">
-            © 2017 24Yards
+            <center>
+                © Copyright 2017 24Yards
+            </center>
         </div>
     </div>
 </footer>
 <div id="contmod" class="modal">
+    <div class="modal-header" style="padding:2em;">
+        <center>
+            <h4>
+                Contact Form
+            </h4>
+        </center>
+    </div>
     <div id="dialog" class="modal-content" style="color:#0c3761;">
-        <h4>
-            Contact Form
-        </h4>
         <table>
             <tbody>
             <tr>
                 <td>
-                    Title
+                    <h5>
+                        Title
+                    </h5>
                 </td>
                 <td>
                     <input type="text" id="title" name="title" readonly>
@@ -477,7 +610,9 @@ td{
             </tr>
             <tr>
                 <td>
-                    Name
+                    <h5>
+                        Name
+                    </h5>
                 </td>
                 <td>
                     <input type="text" name="name" id="name">
@@ -485,7 +620,9 @@ td{
             </tr>
             <tr>
                 <td>
+                    <h5>
                         Phone
+                    </h5>
                 </td>
                 <td>
                     <input id="phone" name="contact" type="tel" minlength="10" maxlength="10">
@@ -502,17 +639,17 @@ td{
         </div>
     </div>
 </div>
-<div id="modal2" class="modal modal-fixed-footer">
-<div class="modal-content" id="modal3">
-<div id="div3" class="row" style="margin:0px; color: #0c3761; width:800px;"></div>
-</div>
-<div class="modal-footer">
-    <button class="btn-flat waves-effect waves-light" style="background-color:#0c3761; color:#f3f4f6 "
+<div id="modal2" class="modal modal-fixed-footer modal-fixed-header" style="background-color:white;">
+    <div class="modal-content" id="modal3">
+        <div id="div3" class="row" style="margin:0px; color: #0c3761;"></div>
+    </div>
+    <div class="modal-footer">
+            <button class="btn-flat waves-effect waves-light" style="background-color:#0c3761; color:#f3f4f6 "
                     type="submit" value="Submit" onclick="add_fav()">
                     Add To Favorites
             </button>
-    <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
-</div>
+            <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
+    </div>
 </div>
 </body>
 </html>
