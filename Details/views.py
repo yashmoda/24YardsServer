@@ -6,7 +6,8 @@ import keysdata
 import constants
 from Property.models import PropertyTable
 from Property.models import PropertyImage
-# Create your views here.
+
+
 @csrf_exempt
 def show_property(request):
     if request.method == 'GET':

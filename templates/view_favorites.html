@@ -17,6 +17,9 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/9.0.0/nouislider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
     <style>
+    .bot{
+        border-bottom : 1px solid #afc1da;
+    }
     .mid{
         vertical-align:middle;
         margin-right:0.3em;
@@ -27,7 +30,7 @@
     margin-right:10px;
     vertical-align:middle;
 }
-        td{
+        .dat{
             padding:0px;
         }
         #modal2 {
@@ -153,7 +156,7 @@
                     temp += '<td class="dat">';
                     temp += '<font size=3>';
                     temp += '<i class="fa fa-inr"></i>';
-                    temp += data.get_property[i]['price'];
+                    temp += ' ' + data.get_property[i]['price'];
                     temp += '</font>';
                     temp += '</td>';
                     temp += '</tr>';
@@ -265,7 +268,7 @@
                 temp += '<table>';
                 temp += '<tbody>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">description</i>';
                 temp += 'Highlights';
                 temp += '</td>';
@@ -277,7 +280,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">location_on</i>';
                 temp += 'Location';
                 temp += '</td>';
@@ -289,7 +292,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">verified_user</i>';
                 temp += 'Usage';
                 temp += '</td>';
@@ -307,7 +310,7 @@
                 temp += '<table>';
                 temp += '<tbody>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">label</i>';
                 temp += 'Price';
                 temp += '</td>';
@@ -316,11 +319,11 @@
                 temp += '</td>';
                 temp += '<td>';
                 temp += '<i class="fa fa-inr"></i>';
-                temp += data.get_property[0]['price'];
+                temp += ' ' + data.get_property[0]['price'];
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">business</i>';
                 temp += 'BHK';
                 temp += '</td>';
@@ -332,7 +335,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:60%;">';
+                temp += '<td style="width:60%; color:#afc1da;">';
                 temp += '<i class="mid material-icons">date_range</i>';
                 temp += 'Date Added';
                 temp += '</td>';
@@ -348,7 +351,9 @@
                 temp += '</div>';
                 temp += '</div>';
                 temp += '<div class="col s6 m6 l6" style = "padding-top:25px;">';
+                temp += '<div class="bot" style = "color:#afc1da;">';
                 temp += 'About the property';
+                temp += '</div>';
                 temp += '<br>';
                 temp += data.get_property[0]['about'];
                 temp += '</div>';
@@ -412,83 +417,6 @@
              onmouseover="this.style.cursor='pointer';">
 </div>
 <div class="row">
-
-    <div class="col s2 m2 l2" id="filter">
-        <ul class="collapsible" data-collapsible="expandable">
-            <li>
-                <div class="collapsible-header">
-                    <i class="material-icons" onmouseover="this.style.cursor='pointer';">sort</i>
-                    Sort By
-                </div>
-                <div class="collapsible-body" style="padding:10px">
-                    <input type="radio" name="sort" id="b1" onclick="sort(1)">
-                    <label for ="b1">Price High to low</label>
-                    <input type="radio" id="b2" name="sort" onclick="sort(2)">
-                    <label for="b2">Price low to high</label>
-                    <input type="radio" name="sort" onclick="sort(3)" id="b3">
-                    <label for="b3">Newest First</label>
-                    <input type="radio" id="b4" name="sort" onclick="sort(4)">
-                    <label for="b4">Oldest First</label>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">Property Type</div>
-                <div class="collapsible-body" style="padding:10px">
-                    <input type="radio" id="b5" name="property_type" value="Buy">
-                    <label for="b5">Buy</label><br>
-                    <input type="radio" id="b6" name="property_type" value="Rent">
-                    <label for="b6">Rent</label><br>
-                    <input type="radio" name="property_type" id="b7" value="Projects">
-                    <label for="b7">Projects</label><br>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">BHK</div>
-                <div class="collapsible-body" style="padding:10px">
-                    <input type="checkbox" id="c1" class="bhk" value="1">
-                    <label for="c1">1</label><br>
-                    <input type="checkbox" id="c2" class="bhk" value="2">
-                    <label for="c2">2</label><br>
-                    <input type="checkbox" id="c3" class="bhk" value="3">
-                    <label for="c3">3</label><br>
-                    <input type="checkbox" id="c4" class="bhk" value="4">
-                    <label for="c4">4</label><br>
-                    <input type="checkbox" id="c5" class="bhk" value="5">
-                    <label for="c5">5</label><br>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">Usage</div>
-                <div class="collapsible-body" style="padding:10px">
-                    <input type="radio" id="b11" name="usage" value="Residential">
-                    <label for="b11">Residential</label><br>
-                    <input type="radio" id="b12" name="usage" value="Commercial">
-                    <label for="b12">Commercial</label><br>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">Locality</div>
-                <div class="collapsible-body" style="padding:10px">
-                    <input type="text" name="location" id="location" placeholder="Enter the locality">
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">Budget</div>
-                <div class="collapsible-body">
-                    <div id="test5" class="noUiSlider" style="height: 20px; width: 80%; margin: 20px;"></div>
-                        <center>
-                            <div id="slider-range-value">
-                            </div>
-                        </center>
-                </div>
-            </li>
-        </ul>
-        <center>
-            <button type="submit" value="Search" onclick="search()">
-                <strong>Search</strong><br>
-            </button>
-        </center>
-    </div>
     <div id="div1" style="padding:1em;">
         <div id="div2" class="row"></div>
     </div>
@@ -602,8 +530,8 @@
     </div>
     <div class="modal-footer">
             <button class="btn-flat waves-effect waves-light" style="background-color:#0c3761; color:#f3f4f6 "
-                    type="submit" value="Submit" onclick="add_fav()">
-                    Add To Favorites
+                    type="submit" value="Submit" onclick="del_fav()">
+                    Remove From Favorites
             </button>
             <a class="modal-action modal-close btn-flat" style="background-color:#0c3761; color:#f3f4f6;">Exit</a>
     </div>

@@ -12,6 +12,9 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.0.4/wNumb.min.js'></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+    .bot{
+        border-bottom : 1px solid #afc1da;
+    }
     .mid{
         vertical-align:middle;
         margin-right:0.3em;
@@ -41,6 +44,25 @@
     .vert{
         border-left: 1px solid black;
     }
+    #fav{
+        border:1px solid #afc1da;
+    }
+    #ic{
+        border:1px solid #afc1da;
+    }
+    .noUi-horizontal .noUi-handle {
+    width: 0.4em;
+    height: 0.4em;
+    left: 0;
+    top: -1px;
+}
+.noUi-handle::after, .noUi-handle::before {
+    height: 14px;
+    width: 1px;
+    background: #E8E7E6;
+    left: 14px;
+    top: 6px;
+}
     </style>
 </head>
 <body>
@@ -50,7 +72,7 @@
         $('.carousel').carousel();
         var slider = document.getElementById('test5');
             noUiSlider.create(slider, {
-                start: [20, 80],
+                start: [0, 1000000],
                 connect: true,
                    step: 5000,
                    range: {
@@ -60,6 +82,9 @@
                    format: wNumb({
                      decimals: 0
                    })
+                  }).on('update', function(values, handle, unencoded, tap, positions) {
+                    var whichHandle = handle === 0 ? 'LEFT' : 'RIGHT';
+                    $("#slider-range-value").html(values.join(' - '));
                   });
         $("#filter").hide();
         var property = localStorage.getItem("property_type1");
@@ -342,7 +367,7 @@
                 temp += '<table>';
                 temp += '<tbody>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">description</i>';
                 temp += 'Highlights';
                 temp += '</td>';
@@ -354,7 +379,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">location_on</i>';
                 temp += 'Location';
                 temp += '</td>';
@@ -366,7 +391,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">verified_user</i>';
                 temp += 'Usage';
                 temp += '</td>';
@@ -384,7 +409,7 @@
                 temp += '<table>';
                 temp += '<tbody>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">label</i>';
                 temp += 'Price';
                 temp += '</td>';
@@ -397,7 +422,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:40%;">';
+                temp += '<td style="width:40%; color:#afc1da;">';
                 temp += '<i class="material-icons mid">business</i>';
                 temp += 'BHK';
                 temp += '</td>';
@@ -409,7 +434,7 @@
                 temp += '</td>';
                 temp += '</tr>';
                 temp += '<tr>';
-                temp += '<td style="width:60%;">';
+                temp += '<td style="width:60%; color:#afc1da;">';
                 temp += '<i class="mid material-icons">date_range</i>';
                 temp += 'Date Added';
                 temp += '</td>';
@@ -425,7 +450,9 @@
                 temp += '</div>';
                 temp += '</div>';
                 temp += '<div class="col s6 m6 l6" style = "padding-top:25px;">';
+                temp += '<div class="bot" style = "color:#afc1da;">';
                 temp += 'About the property';
+                temp += '</div>';
                 temp += '<br>';
                 temp += data.get_property[0]['about'];
                 temp += '</div>';
@@ -459,15 +486,15 @@
 <div style="height:120px; padding:15px; background-color:#f3f4f6">
         <img src="/static/app_logo.jpg" onclick="home()" style="height:100px; width:200px; margin-top:-5px;"
              onmouseover="this.style.cursor='pointer';">
-        <i class="small material-icons" onclick="view_search()" style="float:right; margin-top:30px;" onmouseover="this.style.cursor='pointer';">search</i>
-    <p style="float:right; padding:1em;">
+        <i id="ic" class="material-icons" onclick="view_search()" style="float:right; margin-top:30px; vertical-align:middle;" onmouseover="this.style.cursor='pointer';">search</i>
+        <p id="fav" style="float:right; margin-top:30px; margin-right:1.5em;">
         <a href="/view_favorite" style="color:#0c3761;">
             Show Favorites
         </a>
-    </p>
+        </p>
 </div>
 <div class="row">
-    <div class="col s2 m2 l2" id="filter">
+    <div class="col s4 m4 l3" id="filter" style="height:100vh; padding:1em;">
         <ul class="collapsible" data-collapsible="expandable">
             <li>
                 <div class="collapsible-header">Property Type</div>
@@ -507,19 +534,25 @@
             <li>
                 <div class="collapsible-header">Locality</div>
                 <div class="collapsible-body" style="padding:10px">
-                    <input type="text" name="location" id="location" placeholder="Enter the locality"
-                           class="autocomplete">
+                    <input type="text" class="autocomplete" name="location" id="location1"
+                           placeholder="Enter the locality">
                 </div>
             </li>
             <li>
                 <div class="collapsible-header">Budget</div>
                 <div class="collapsible-body">
-                    <div id="test5" class="noUiSlider" style="height: 20px; width: 100%; margin: 25px;"></div>
+                    <div id="test5" class="noUiSlider" style="height: .4em; width: 80%; margin: 20px;"></div>
+                        <center>
+                            <div id="slider-range-value">
+                            </div>
+                        </center>
                 </div>
             </li>
         </ul>
         <center>
-            <button type="submit" value="Search" onclick="search()"/>
+            <button type="submit" value="Search" onclick="search()">
+                <strong>Search</strong><br>
+            </button>
         </center>
     </div>
     <div id="div1" style="padding:1em;">
