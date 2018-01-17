@@ -4,6 +4,8 @@ Homepage shows different property types and the search box.<br>
 -> Projects for sale<br>
 -> Projects for rent<br>
 -> Featured projects<br>
+![24yards1](https://user-images.githubusercontent.com/30291288/35052395-7d54379e-fbcd-11e7-8e65-09a843e4df7d.png)
+
 <br>
 Each of the above categories of properties has individual lists of different properties with varying price,bhk,location,description and images of the property.<br>
 Also dealer's contact number is provided with property to directly contact the dealer.<br>
